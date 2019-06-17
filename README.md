@@ -27,6 +27,3 @@ It supports:
 What we solve:
 - Doing the same thing several times. We simply make an investment that pays back later
 - We have one npm package to help everywhere in any application with slight configuration
-
-
-
