@@ -1,0 +1,78 @@
+{
+  "name": "@kyma-project/documentation-component",
+  "description": "Generic React component for documentation",
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kyma-incubator/documentation-component"
+  },
+  "author": {
+    "name": "Kyma Core & Supporting Team",
+    "url": "http://kyma-project.io"
+  },
+  "keywords": [
+    "kyma",
+    "kyma-project",
+    "documentation",
+    "docs",
+    "react",
+    "component",
+    "web-component",
+    "open-api",
+    "openapi",
+    "async-api",
+    "asyncapi",
+    "odata",
+    "markdown",
+    "specification"
+  ],
+  "scripts": {
+    "lint-check": "tslint -c tslint.json --project tsconfig.json --format verbose && prettier --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-fix": "tslint -c tslint.json --project tsconfig.json --format verbose --fix; prettier --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "conflict-check": "tslint-config-prettier-check ./tslint.json",
+    "type-check": "tsc --noEmit",
+    "markdownlint": "markdownlint **/*.md"
+  },
+  "devDependencies": {
+    "husky": "^2.4.1",
+    "lerna": "^3.15.0",
+    "lint-staged": "^8.2.1",
+    "markdownlint-cli": "^0.17.0",
+    "prettier": "^1.18.2",
+    "tslib": "^1.10.0",
+    "tslint": "^5.17.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "tslint-react-hooks": "^2.1.1",
+    "typescript": "^3.5.2"
+  },
+  "engines": {
+    "node": ">= 8.9.0"
+  },
+  "lint-staged": {
+    "linters": {
+      "**/*.{js,jsx,json,css,html,yaml}": [
+        "prettier --config .prettierrc --write",
+        "git add"
+      ],
+      "src/**/*.{ts,tsx}": [
+        "tslint -c tslint.json --project tsconfig.json --format verbose --fix",
+        "prettier --config .prettierrc --write",
+        "git add"
+      ],
+      "**/.md": [
+        "markdownlint"
+      ]
+    },
+    "ignore": [
+      "package.json",
+      "package-lock.json"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
