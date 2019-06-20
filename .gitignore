@@ -69,3 +69,6 @@ yarn-error.log
 temp-*/
 
 .DS_Store
+
+# lib
+packages/documentation-component/lib
