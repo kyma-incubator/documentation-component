@@ -1,10 +1,17 @@
 import { Plugin, PluginType } from "../../interfaces";
+import { HeadersNavigation } from "./HeadersNavigation";
 import { extractHeaders } from "./extractorPlugin";
 
-const plugin: Plugin = {
+const MARKDOWN_HEADER_EXTRACTOR_PLUGIN = "markdown-headers-extractor";
+const markdownHeadersPlugin: Plugin = {
+  name: MARKDOWN_HEADER_EXTRACTOR_PLUGIN,
   type: PluginType.EXTRACTOR,
-  allowedSourceType: ["markdown", "md"],
+  sourceTypes: ["markdown", "md"],
   fun: extractHeaders,
 };
 
-export { plugin as markdownHeadersPlugin };
+export { 
+  markdownHeadersPlugin, 
+  MARKDOWN_HEADER_EXTRACTOR_PLUGIN, 
+  HeadersNavigation 
+};

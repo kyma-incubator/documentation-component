@@ -1,8 +1,8 @@
 import grayMatter from "gray-matter";
 
-import { Source, ExtractorPluginReturnType } from "../../interfaces";
+import { Source, ExtractorPluginArgs, ExtractorPluginReturnType } from "../../interfaces";
 
-export const extractMetadata = (source: Source): ExtractorPluginReturnType => {
+export const extractMetadata = ({ source }: ExtractorPluginArgs): ExtractorPluginReturnType => {
   return {
     dupa: "dupa",
   };

@@ -15,5 +15,6 @@ export const Heading: React.FunctionComponent<HeadingProps> = ({
       `level-${level}`,
       "heading",
     )}`,
+    id: "dupa"
   });
 };

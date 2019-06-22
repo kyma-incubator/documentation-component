@@ -2,10 +2,13 @@ import React from "react";
 import {
   HeadlessCMS,
   Content,
-  ContextNavigation,
-  Source,
-  markdownTabsPlugin,
+  HeadersNavigation,
+  Sources,
+  markdownTabsMutationPlugin,
+  markdownTabsParserPlugin,
+  markdownRenderEngine,
   markdownHeadersPlugin,
+  RenderedContent,
 } from "@kyma-project/documentation-component";
 
 const source = `
@@ -109,8 +112,9 @@ print s
 No language indicated, so no syntax highlighting. 
 But let's throw in a <b>tag</b>.
 \`\`\`
+`;
 
-<div tabs>
+{/* <div tabs>
   <details>
   <summary>
   From a release
@@ -159,24 +163,74 @@ But let's throw in a <b>tag</b>.
     \`\`\`
 
   </details>
-</div>
-`;
+</div> */}
+
+const Dupa: React.FunctionComponent<any> = ({
+  source,
+  isGroup,
+}) => {
+  return (
+    <>
+      {source.data.renderedContent}
+      <HeadersNavigation sources={[source]} />
+    </>
+  );
+}
+
+const Dupa2: React.FunctionComponent = () => {
+  return (
+    <>
+      <RenderedContent sourceTypes={["md"]}/>
+    </>
+  )
+}
 
 const Playground: React.FunctionComponent = () => {
-  const sources: Source[] = [
-    {
-      type: "md",
-      source: source,
-    },
+  const sources: Sources = [
+    [
+      {
+        source: {
+          type: "md",
+          rawContent: source,
+        }
+      },
+      {
+        source: {
+          type: "md",
+          rawContent: source,
+        }
+      }
+    ]
   ];
 
   return (
     <HeadlessCMS.Provider
       sources={sources}
-      plugins={[markdownHeadersPlugin, ...markdownTabsPlugin]}
+      plugins={[
+        markdownHeadersPlugin,
+        markdownTabsMutationPlugin
+      ]}
+      renderEngines={[{
+        renderEngine: markdownRenderEngine,
+        options: {
+          parsers: [
+            markdownTabsParserPlugin,
+          ]
+        }
+      }]}
     >
-      <Content />
-      <ContextNavigation />
+      <Content 
+        renderers={{
+          single: [
+            {
+              sourceType: ["md"],
+              component: Dupa,
+            }
+          ],
+          group: Dupa2,
+        }}
+      />
+      {/* <SideNavigation /> */}
     </HeadlessCMS.Provider>
   );
 };

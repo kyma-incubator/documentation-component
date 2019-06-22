@@ -1,11 +1,5 @@
-import { Source, ExtractorPluginReturnType } from "../../interfaces";
-
-export interface Header {
-  title: string;
-  id: string;
-  level: number;
-  children?: Header[];
-}
+import { Source, ExtractorPluginReturnType, ExtractorPluginArgs } from "../../interfaces";
+import { Header, PluginOptions } from "./types";
 
 const headingRegex = /\n(#+\s*)(.*)/g;
 
@@ -19,7 +13,7 @@ const toKebabCase = (str: string) => {
   return str;
 };
 
-const getHeaders = (source: string): Header[] => {
+const getHeaders = (source: string, headerPrefix: string): Header[] => {
   const headers: Header[] = [];
   if (!source) return headers;
 
@@ -30,11 +24,12 @@ const getHeaders = (source: string): Header[] => {
   for (const header of matchedHeaders) {
     const level: number = (header.match(/#/g) || []).length;
     const title = header.replace(/#/g, "").trim();
+    let id = headerPrefix ? `${headerPrefix}-${title}` : title;
 
     const h: Header = {
       title,
       level,
-      id: toKebabCase(title),
+      id: toKebabCase(id),
     };
     lastIndexes[level - 1] = h;
 
@@ -54,13 +49,17 @@ const getHeaders = (source: string): Header[] => {
   return headers;
 };
 
-export const extractHeaders = (source: Source): ExtractorPluginReturnType => {
-  let headers: Header[] = [];
-  if (source.content) {
-    headers = getHeaders(source.content);
-  } else {
-    headers = getHeaders(source.source);
+export const extractHeaders = ({ source, options }: ExtractorPluginArgs): ExtractorPluginReturnType => {
+  let hp = "";
+  if (options) {
+    const { headerPrefix = "" } = options;
+    if (typeof headerPrefix === "function") {
+      hp = headerPrefix(source);
+    } else {
+      hp = headerPrefix;
+    }
   }
+  const headers: Header[] = getHeaders(source.rawContent, hp);
 
   return {
     headers,

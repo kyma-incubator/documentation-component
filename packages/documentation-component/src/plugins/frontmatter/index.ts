@@ -1,10 +1,15 @@
 import { Plugin, PluginType } from "../../interfaces";
 import { extractMetadata } from "./extractorPlugin";
 
-const plugin: Plugin = {
+const FRONTMATTER_EXTRACTOR_PLUGIN = "frontmatter-extractor";
+const frontmatterPlugin: Plugin = {
+  name: "frontmatter-extractor",
   type: PluginType.EXTRACTOR,
-  allowedSourceType: ["markdown", "md"],
+  sourceTypes: ["markdown", "md"],
   fun: extractMetadata,
 };
 
-export { plugin as frontmatterPlugin };
+export { 
+  frontmatterPlugin,
+  FRONTMATTER_EXTRACTOR_PLUGIN
+};

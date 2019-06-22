@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../Container";
 import { Source } from "../../interfaces";
 
-export const Navigation: React.FunctionComponent = () => {
+export const ScrollSpy: React.FunctionComponent = () => {
   const { sources } = useContext(Context);
 
   if (!sources) {

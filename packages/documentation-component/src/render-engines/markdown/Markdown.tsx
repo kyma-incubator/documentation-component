@@ -1,27 +1,23 @@
-import React, { ReactType, useContext } from "react";
-import { Context } from "../../containers";
-import ReactMarkdown, {
-  ReactMarkdownProps,
-  NodeType,
-  MdastPlugin,
-} from "react-markdown";
+import React from "react";
+import { useContext } from "../../common";
+import ReactMarkdown from "react-markdown";
 //@ts-ignore
 import HtmlToReact from "html-to-react";
 //@ts-ignore
 import htmlParser from "react-markdown/plugins/html-parser";
 import * as Components from "./renderers";
-import { replaceAllLessThanChars } from "../../helpers";
-import { ParserPlugin } from "../../interfaces";
+import { Renderers, MarkdownParserPlugin, MarkdownRenderEngineOptions } from "./types";
 
-export type Renderers = { [key in NodeType | "parsedHtml"]: ReactType };
-
-function parser(parsers: ParserPlugin[] = []) {
+function parser({
+  customRenderers = {},
+  parsers = [],
+}: MarkdownRenderEngineOptions) {
   const isValidNode = (node: any) => node.type !== "script";
   const processNodeDefinitions = new HtmlToReact.ProcessNodeDefinitions(React);
   return htmlParser({
     isValidNode,
     processingInstructions: [
-      ...parsers.map(parser => parser()),
+      ...parsers.map(p => p({ parsers, customRenderers })),
       {
         // Anything else
         shouldProcessNode: (node: any) => true,
@@ -29,16 +25,9 @@ function parser(parsers: ParserPlugin[] = []) {
       },
     ],
   });
-}
+};
 
-export interface MarkdownProps {
-  customRenderers?: Partial<Renderers>;
-  parsers?: ParserPlugin[];
-}
-
-export const Markdown: React.FunctionComponent<
-  ReactMarkdownProps & MarkdownProps
-> = ({
+export const Markdown: React.FunctionComponent<MarkdownRenderEngineOptions> = ({
   source,
   escapeHtml = false,
   skipHtml = false,
@@ -77,13 +66,15 @@ export const Markdown: React.FunctionComponent<
     parsedHtml: Components.ParsedHTML,
   };
 
+  const astPlugins = [parser({ parsers, customRenderers })]
+
   return (
     <ReactMarkdown
       source={source}
       escapeHtml={escapeHtml}
       skipHtml={skipHtml}
       renderers={{ ...defaultRenderers, ...customRenderers }}
-      astPlugins={[parser(parsers)]}
+      astPlugins={astPlugins}
     />
   );
 };

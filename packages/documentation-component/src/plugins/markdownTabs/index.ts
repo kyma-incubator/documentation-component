@@ -1,18 +1,18 @@
 import { Plugin, PluginType } from "../../interfaces";
 import { removeBlankLinesFromTabsBlock } from "./mutationPlugin";
+import { MarkdownParserPlugin } from "../../render-engines/markdown/types";
 import { tabsParser } from "./parserPlugin";
 
-const plugins: Plugin[] = [
-  {
-    type: PluginType.MUTATION,
-    allowedSourceType: ["markdown", "md"],
-    fun: removeBlankLinesFromTabsBlock,
-  },
-  {
-    type: PluginType.PARSER,
-    allowedSourceType: ["markdown", "md"],
-    fun: tabsParser,
-  },
-];
+const MARKDOWN_TABS_MUTATION_PLUGIN = "markdown-tabs-mutation";
+const markdownTabsMutationPlugin: Plugin = {
+  name: MARKDOWN_TABS_MUTATION_PLUGIN,
+  type: PluginType.MUTATION,
+  sourceTypes: ["markdown", "md"],
+  fun: removeBlankLinesFromTabsBlock,
+};
+const markdownTabsParserPlugin: MarkdownParserPlugin = tabsParser;
 
-export { plugins as markdownTabsPlugin };
+export {
+  markdownTabsMutationPlugin,
+  markdownTabsParserPlugin
+};

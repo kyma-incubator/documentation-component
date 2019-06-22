@@ -1,11 +1,12 @@
 import React from "react";
 import { Tabs } from "./Tabs";
 import { Tab } from "./Tab";
-import { Markdown } from "../../components";
+import { Markdown } from "../../render-engines/markdown/Markdown";
+import { MarkdownRenderEngineOptions, MarkdownParserPluginReturnType } from "../../render-engines/markdown/types";
 
 let tabsCounter = 0;
 
-export const tabsParser = () => ({
+export const tabsParser = (args: MarkdownRenderEngineOptions): MarkdownParserPluginReturnType => ({
   replaceChildren: true,
   shouldProcessNode: (node: any) =>
     node.type === "tag" &&
@@ -29,7 +30,7 @@ export const tabsParser = () => ({
 
             return (
               <Tab key={label} label={label}>
-                <Markdown source={source} />
+                <Markdown source={source} {...args} />
               </Tab>
             );
           }

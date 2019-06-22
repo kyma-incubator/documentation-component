@@ -1,9 +1,9 @@
 import { Plugin } from "./Plugin";
-import { Source } from "./Source";
-import { Renderers } from "../components/Markdown";
+import { Sources } from "./Source";
+import { RenderEngineWithOptions } from "./RenderEngine";
 
 export interface Options {
-  sources: Source[];
+  sources: Sources;
+  renderEngines: RenderEngineWithOptions[];
   plugins?: Plugin[];
-  customRenderers?: Partial<Renderers>;
 }
