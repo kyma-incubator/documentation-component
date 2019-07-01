@@ -1,238 +1,278 @@
 import React from "react";
-import {
-  HeadlessCMS,
-  Content,
-  HeadersNavigation,
-  Sources,
-  markdownTabsMutationPlugin,
-  markdownTabsParserPlugin,
-  markdownRenderEngine,
-  markdownHeadersPlugin,
-  RenderedContent,
-} from "@kyma-project/documentation-component";
+import { Source } from "@kyma-project/documentation-component";
+import { DocsComponent } from "./component";
 
-const source = `
-Minikube allows you to run Kyma locally, develop, and test your solutions on a small scale before you push them to a cluster. With the Installation and Getting Started guides at hand, you can start developing in a matter of minutes.
+const text1 = `
+Kyma allows you to connect applications and third-party services in a cloud-native environment. Use it to create extensions for the existing systems, regardless of the language they are written in. Customize extensions with minimum effort and time devoted to learning their configuration details.
 
-Read, learn, and try on your own to:
+Focus purely on coding with these out-of-the-box functionalities at hand:
+- Service-to-service communication and proxying (Istio Service Mesh)
+- In-built monitoring, tracing, and logging (Grafana, Prometheus, Jaeger, Loki)
+- Secure authentication and authorization (Dex, Service Identity, TLS, Role Based Access Control)
+- The catalog of services to choose from (Service Catalog, Service Brokers)
+- The development platform to run lightweight functions in a cost-efficient and scalable way (Serverless, Kubeless)
+- The endpoint to register Events and APIs of external applications (Application Connector)
+- The messaging channel to receive Events, enrich them, and trigger business flows using lambdas or services (Event Bus, NATS)
+- CLI supported by the intuitive UI (Console)
+`;
 
-- [Install Kyma locally](#installation-install-kyma-locally)
-- [Install Kyma on a cluster](#installation-install-kyma-on-a-cluster)
-- [Deploy a sample service locally](#tutorials-sample-service-deployment-on-local)
-- [Deploy a service on a cluster](#tutorials-sample-service-deployment-on-a-cluster)
-- [Develop a service locally without using Docker](#tutorials-develop-a-service-locally-without-using-docker)
-- [Publish a service Docker image and deploy it to Kyma](#tutorials-publish-a-service-docker-image-and-deploy-it-to-kyma)
-- [Configure the Installer with override values for Helm charts](#tutorials-helm-overrides-for-kyma-installation)
-- [Register a Broker in Service Catalog](/components/service-catalog#tutorials-register-a-broker-in-the-service-catalog)
-- [Create a new Application](/components/application-connector#tutorials-create-a-new-application)
-- [Get the client certificate](/components/application-connector#tutorials-get-the-client-certificate)
-- [Register a service](/components/application-connector#tutorials-register-a-service)
-- [Bind an Application to a Namespace](/components/application-connector#tutorials-bind-an-application-to-a-namespace)
-- [Trigger a lambda with events](/components/application-connector#tutorials-trigger-a-lambda-with-events)
-- [Call a registered external service from Kyma](/components/application-connector#tutorials-call-a-registered-external-service-from-kyma)
-- [Expose custom metrics in Kyma](/components/monitoring#tutorials-expose-custom-metrics-in-kyma)
+const text2 = `
+Kyma packages its components into [Helm](https://github.com/helm/helm/tree/master/docs) charts that the [Installer](https://github.com/kyma-project/kyma/tree/master/components/installer) uses during installation and updates.
+This document describes how to configure the Installer with new values for Helm [charts](https://github.com/helm/helm/blob/master/docs/charts.md) to override the default settings in \`values.yaml\` files.
 
-Emphasis, aka italics, with *asterisks* or _underscores_.
+## Overview
 
-Strong emphasis, aka bold, with **asterisks** or __underscores__.
+The Installer is a [Kubernetes Operator](https://coreos.com/operators/) that uses Helm to install Kyma components.
+Helm provides an **overrides** feature to customize the installation of charts, for example to configure environment-specific values.
+When using Installer for Kyma installation, users can't interact with Helm directly. The installation is not an interactive process.
 
-Combined emphasis with **asterisks and _underscores_**.
+To customize the Kyma installation, the Installer exposes a generic mechanism to configure Helm overrides called **user-defined** overrides.
 
-Strikethrough uses two tildes. ~~Scratch this.~~
+## User-defined overrides
 
-Three or more...
+The Installer finds user-defined overrides by reading the ConfigMaps and Secrets deployed in the \`kyma-installer\` Namespace and marked with:
+- the \`installer: overrides\` label
+- a \`component: {COMPONENT_NAME}\` label if the override refers to a specific component
 
----
+>**NOTE:** There is also an additional \`kyma-project.io/installation: ""\` label in all ConfigMaps and Secrets that allows you to easily filter the installation resources.
 
-Hyphens
+The Installer constructs a single override by inspecting the ConfigMap or Secret entry key name. The key name should be a dot-separated sequence of strings corresponding to the structure of keys in the chart's \`values.yaml\` file or the entry in chart's template.
 
-***
+The Installer merges all overrides recursively into a single \`yaml\` stream and passes it to Helm during the Kyma installation and upgrade operations.
 
-Asterisks
+## Common vs. component overrides
 
-___
+The Installer looks for available overrides each time a component installation or an update operation is due.
+Overrides for a component are composed of two sets: **common** overrides and **component-specific** overrides.
 
-Underscores
+Kyma uses common overrides for the installation of all components. ConfigMaps and Secrets marked with the \`installer: overrides\` label contain the definition.
 
-> **NOTE**: Blockquotes are very handy in email to emulate reply text.
+Kyma uses component-specific overrides only for the installation of specific components. ConfigMaps and Secrets marked with both \`installer: overrides\` and \`component: {component-name}\` labels contain the definition. Component-specific overrides have precedence over common ones in case of conflicting entries.
 
-Quote break.
+>**NOTE:** Add the additional \`kyma-project.io/installation: ""\` label to both common and component-specific overrides to enable easy installation resources filtering.
 
-> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can *put* **Markdown** into a blockquote.
+## Overrides examples
 
+### Top-level charts overrides
 
+Overrides for top-level charts are straightforward. Just use the template value from the chart as the entry key in the ConfigMap or Secret. Leave out the \`.Values.\` prefix.
 
+Se an example:
 
+The Installer uses an \`asset-store\` top-level chart that contains a template with the following value reference:
 
-Colons can be used to align columns.
-
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
-
-There must be at least 3 dashes separating each header cell.
-The outer pipes (|) are optional, and you don't need to make the 
-raw Markdown line up prettily. You can also use inline Markdown.
-
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | \`renders\` | **nicely**
-1 | 2 | 3
-
-
-
-# H1
-## H2
-### H3
-#### H4
-##### H5
-###### H6
-#### H4
-##### H5
-###### H6
-
-------
-
-\`youtube: https://youtu.be/NI4cOWO9HnA\`
-\`dupa\`
-
-\`\`\`javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
 \`\`\`
- 
-\`\`\`python
-s = "Python syntax highlighting"
-print s
+resources: {{ toYaml .Values.resources | indent 12 }}
 \`\`\`
- 
+
+The chart's default values \`minio.resources.limits.memory\` and \`minio.resources.limits.cpu\` in the \`values.yaml\` file resolve the template.
+The following fragment of \`values.yaml\` shows this definition:
 \`\`\`
-No language indicated, so no syntax highlighting. 
-But let's throw in a <b>tag</b>.
+minio:
+  resources:
+    limits:
+      memory: "128Mi"
+      cpu: "100m"
+\`\`\`
+
+To override these values, for example to \`512Mi\` and \`250m\`, proceed as follows:
+- Create a ConfigMap in the \`kyma-installer\` Namespace and label it.
+- Add the \`minio.resources.limits.memory: 512Mi\` and \`minio.resources.limits.cpu: 250m\` entries to the ConfigMap and apply it:
+
+\`\`\`
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assetstore-overrides
+  namespace: kyma-installer
+  labels:
+    installer: overrides
+    component: assetstore
+    kyma-project.io/installation: ""
+data:
+  minio.resources.limits.memory: 512Mi #increased from 128Mi
+  minio.resources.limits.cpu: 250m #increased from 100m
+EOF
+\`\`\`
+
+Once the installation starts, the Installer generates overrides based on the ConfigMap entries. The system uses the values of \`512Mi\` instead of the default \`128Mi\` for Minio memory and \`250m\` instead of \`100m\` for Minio CPU from the chart's \`values.yaml\` file.
+
+For overrides that the system should keep in Secrets, just define a Secret object instead of a ConfigMap with the same key and a base64-encoded value. Be sure to label the Secret.
+
+If you add the overrides in the runtime, trigger the update process using this command:
+
+\`\`\`
+kubectl label installation/kyma-installation action=install
+\`\`\`
+
+### Sub-chart overrides
+
+Overrides for sub-charts follow the same convention as top-level charts. However, overrides require additional information about sub-chart location.
+
+When a sub-chart contains the \`values.yaml\` file, the information about the chart location is not necessary because the chart and its \`values.yaml\` file are on the same level in the directory hierarchy.
+
+The situation is different when the Installer installs a chart with sub-charts.
+All template values for a sub-chart must be prefixed with a sub-chart "path" that is relative to the top-level "parent" chart.
+
+This is not an Installer-specific requirement. The same considerations apply when you provide overrides manually using the \`helm\` command-line tool.
+
+Here is an example.
+There's a \`core\` top-level chart that the Installer installs.
+There's an \`application-connector\` sub-chart in \`core\` with a nested \`connector-service\` sub-chart.
+In one of its templates, there's a following fragment:
+
+\`\`\`
+spec:
+  containers:
+  - name: {{ .Chart.Name }}
+	args:
+	  - "/connectorservice"
+	  - '--appName={{ .Chart.Name }}'
+	  - "--domainName={{ .Values.global.domainName }}"
+	  - "--tokenExpirationMinutes={{ .Values.deployment.args.tokenExpirationMinutes }}"
+\`\`\`
+
+This fragment of the \`values.yaml\` file in the \`connector-service\` chart defines the default value for \`tokenExpirationMinutes\`:
+
+\`\`\`
+deployment:
+  args:
+    tokenExpirationMinutes: 60
+\`\`\`
+
+To override this value, and change it from \`60\` to \`90\`, do the following:
+
+- Create a ConfigMap in the \`kyma-installer\` Namespace and label it.
+- Add the \`application-connector.connector-service.deployment.args.tokenExpirationMinutes: 90\` entry to the ConfigMap.
+
+Notice that the user-provided override key now contains two parts:
+
+- The chart "path" inside the top-level \`core\` chart called \`application-connector.connector-service\`
+- The original template value reference from the chart without the \`.Values.\` prefix, \`deployment.args.tokenExpirationMinutes\`.
+
+Once the installation starts, the Installer generates overrides based on the ConfigMap entries. The system uses the value of \`90\` instead of the default value of \`60\` from the \`values.yaml\` chart file.
+
+
+## Global overrides
+
+There are several important parameters usually shared across the charts.
+Helm convention to provide these requires the use of the \`global\` override key.
+For example, to define the \`global.domain\` override, just use \`global.domain\` as the name of the key in a ConfigMap or Secret for the Installer.
+
+Once the installation starts, the Installer merges all of the ConfigMap entries and collects all of the global entries under the \`global\` top-level key to use for the installation.
+
+
+## Values and types
+
+The Installer generally recognizes all override values as strings. It internally renders overrides to Helm as a \`yaml\` stream with only string values.
+
+There is one exception to this rule with respect to handling booleans:
+The system converts \`true\` or \`false\` strings that it encounters to a corresponding boolean \`true\` or \`false\` value.
+
+
+## Merging and conflicting entries
+
+When the Installer encounters two overrides with the same key prefix, it tries to merge them.
+If both of them represent a ConfigMap (they have nested sub-keys), their nested keys are recursively merged.
+If at least one of keys points to a final value, the Installer performs the merge in a non-deterministic order, so either one of the overrides is rendered in the final \`yaml\` data.
+
+It is important to avoid overrides having the same keys for final values.
+
+
+### Non-conflicting merge example
+
+Two overrides with a common key prefix ("a.b"):
+
+\`\`\`
+"a.b.c": "first"
+"a.b.d": "second"
+\`\`\`
+
+The Installer yields the correct output:
+
+\`\`\`
+a:
+  b:
+    c: first
+    d: second
+\`\`\`
+
+### Conflicting merge example
+
+Two overrides with the same key ("a.b"):
+
+\`\`\`
+"a.b": "first"
+"a.b": "second"
+\`\`\`
+
+The Installer yields either:
+
+\`\`\`
+a:
+  b: "first"
+\`\`\`
+
+Or (due to non-deterministic merge order):
+
+\`\`\`
+a:
+  b: "second"
 \`\`\`
 `;
 
-{/* <div tabs>
-  <details>
-  <summary>
-  From a release
-  </summary>
-    
-  1. Provision a Kubernetes cluster on Minikube. Run:
-    
-    \`\`\`bash
-    kyma provision minikube
-    \`\`\`
-    > **NOTE:** The \`provision\` command uses the default Minikube VM driver installed for your operating system. For a list of supported VM drivers see [this document](https://kubernetes.io/docs/setup/minikube/#quickstart).
-  
-  2. Install the latest Kyma release on Minikube:
+const text3 = `
+Starting with Kyma release 0.9.0 the communication with Helm and Tiller is [secured with TLS](/components/security/#details-tls-in-tiller).
 
-    \`\`\`bash
-    kyma install 
-    \`\`\`
-    >**NOTE** If you want to install a specific release version, go to the [GitHub releases page](https://github.com/kyma-project/kyma/releases) to find out more about available releases. Use the release version as a parameter when calling \`kyma install --release {KYMA_RELEASE}\`.
-   
-  </details>
-  <details>
-  <summary>
-  From sources
-  </summary>
-    
-  1. Open a terminal window and navigate to a space in which you want to store local Kyma sources.
-    
-  2. Clone the \`Kyma\` repository using HTTPS. Run:
-     
-    \`\`\`bash
-    git clone https://github.com/kyma-project/kyma.git
-    \`\`\`
+If you try to install Kyma using your own image and the installation freezes at the \`ContainerCreating\` step, it means that the Installer cannot start because a required set of client-server certificates is not found in the system.
 
-  3. Provision a Kubernetes cluster on Minikube. Run:
+The \`my-kyma.yaml\` file contains two \`image\` fields. One of them defines the Tiller TLS certificates image and cannot be edited. Edit the field that defines the URL of the Installer image.
 
-    \`\`\`bash
-    kyma provision minikube
-    \`\`\`
-    
-    >  **NOTE:** The \`provision\` command uses default Minikube VM driver installed for your OS. For a list of supported VM drivers see [this document](http://github.com/kyma-project/cli).
+\`\`\`
+# This field defines the Tiller TLS certificates image URL. Do not edit.
+image: eu.gcr.io/kyma-project/test-infra/alpine-kubectl:v20190325-ff66a3a
 
-  4. Install Kyma from sources. Run:
-     
-    \`\`\`bash
-    kyma install --local --src-path {YOUR_KYMA_SOURCE_PATH}
-    \`\`\`
-
-  </details>
-</div> */}
-
-const Dupa: React.FunctionComponent<any> = ({
-  source,
-  isGroup,
-}) => {
-  return (
-    <>
-      {source.data.renderedContent}
-      <HeadersNavigation sources={[source]} />
-    </>
-  );
-}
-
-const Dupa2: React.FunctionComponent = () => {
-  return (
-    <>
-      <RenderedContent sourceTypes={["md"]}/>
-    </>
-  )
-}
+# This field defines the Kyma Installer image URL. Edit this field.
+image: eu.gcr.io/kyma-project/develop/installer:0fdc80dd
+\`\`\`
+`;
 
 const Playground: React.FunctionComponent = () => {
-  const sources: Sources = [
-    [
-      {
-        source: {
-          type: "md",
-          rawContent: source,
-        }
+  const docs: Source[] = [
+    {
+      type: "md",
+      rawContent: text1,
+      data: {
+        frontmatter: {
+          title: "In a nutshell",
+          type: "Overview",
+        },
       },
-      {
-        source: {
-          type: "md",
-          rawContent: source,
-        }
-      }
-    ]
+    },
+    {
+      type: "md",
+      rawContent: text2,
+      data: {
+        frontmatter: {
+          title: "Helm overrides for Kyma installation",
+          type: "Configuration",
+        },
+      },
+    },
+    {
+      type: "md",
+      rawContent: text3,
+      data: {
+        frontmatter: {
+          title: "Installation stuck at ContainerCreating",
+          type: "Troubleshooting",
+        },
+      },
+    },
   ];
 
-  return (
-    <HeadlessCMS.Provider
-      sources={sources}
-      plugins={[
-        markdownHeadersPlugin,
-        markdownTabsMutationPlugin
-      ]}
-      renderEngines={[{
-        renderEngine: markdownRenderEngine,
-        options: {
-          parsers: [
-            markdownTabsParserPlugin,
-          ]
-        }
-      }]}
-    >
-      <Content 
-        renderers={{
-          single: [
-            {
-              sourceType: ["md"],
-              component: Dupa,
-            }
-          ],
-          group: Dupa2,
-        }}
-      />
-      {/* <SideNavigation /> */}
-    </HeadlessCMS.Provider>
-  );
+  return <DocsComponent sources={docs} navigation={true} />;
 };
 
 export default Playground;

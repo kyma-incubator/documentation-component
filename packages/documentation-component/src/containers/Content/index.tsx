@@ -2,15 +2,40 @@ import React from "react";
 import { useContext } from "../../common";
 import { Provider } from "./groupProvider";
 import { createElementClass } from "../../helpers";
-import { Source, PureSources, RenderEngineWithOptions } from "../../interfaces";
+import { RenderedContent } from "./RenderedContent";
+import {
+  Source,
+  PureSources,
+  RenderEngineWithOptions,
+  RenderEngineProps,
+} from "../../interfaces";
 
-function renderGroup(sources: Source[], groupRenderer?: React.ReactNode): React.ReactNode {
+export interface SingleRendererComponent {
+  source: Source;
+  isGroup: boolean;
+  k: string;
+}
+
+export interface GroupRendererComponent {
+  sources: Source[];
+}
+
+export interface SingleRenderer {
+  sourceType: string[];
+  component: React.ReactNode;
+}
+
+export interface Renderers {
+  single?: SingleRenderer[];
+  group?: React.ReactNode;
+}
+
+function renderGroup(
+  sources: Source[],
+  groupRenderer?: React.ReactNode,
+): React.ReactNode {
   if (!groupRenderer) {
-    return (
-      <>
-        {sources.map(source => source.data.renderedContent)}
-      </>
-    )
+    return <>{sources.map(source => source.data.renderedContent)}</>;
   }
 
   return (
@@ -19,29 +44,41 @@ function renderGroup(sources: Source[], groupRenderer?: React.ReactNode): React.
         sources,
       })}
     </Provider>
-  )
-};
+  );
+}
 
-function renderEngine(source: Source, renderEngines: RenderEngineWithOptions[]): React.ReactNode {
-  const renderEngine = renderEngines.find(r => r.renderEngine.sourceTypes.includes(source.type));
+function renderEngine(
+  source: Source,
+  renderEngines: RenderEngineWithOptions[],
+): React.ReactNode {
+  const re = renderEngines.find(r =>
+    r.renderEngine.sourceTypes.includes(source.type),
+  );
 
-  if (renderEngine) {
-    const component = renderEngine.renderEngine.component as string;
-    const options = renderEngine.options;
+  if (re) {
+    const component = re.renderEngine.component as string;
+    const options = re.options;
 
     return React.createElement(component, {
-      source: source.content ? source.content : source.rawContent,
-      ...options,
-    })
+      source,
+      options,
+      key: source.rawContent.substring(0, 30),
+    } as RenderEngineProps);
   }
   return null;
 }
 
-function renderSingle(source: Source, renderEngines: RenderEngineWithOptions[], isGroup?: boolean, renderers?: SingleRenderer[]): React.ReactNode {
+function renderSingle(
+  source: Source,
+  renderEngines: RenderEngineWithOptions[],
+  isGroup?: boolean,
+  renderers?: SingleRenderer[],
+): React.ReactNode {
   let renderedContent = renderEngine(source, renderEngines);
   if (!renderedContent) return null;
 
-  const singleRenderer = renderers && renderers.find(r => r.sourceType.includes(source.type));
+  const singleRenderer =
+    renderers && renderers.find(r => r.sourceType.includes(source.type));
   if (singleRenderer) {
     const component = singleRenderer.component as string;
 
@@ -54,24 +91,29 @@ function renderSingle(source: Source, renderEngines: RenderEngineWithOptions[], 
         },
       },
       isGroup,
-    })
+      k: source.rawContent.substring(0, 30),
+    });
   }
 
   return renderedContent;
-};
+}
 
-function render(sources: PureSources, renderEngines: RenderEngineWithOptions[], renderers?: Renderers): React.ReactNode[] {
+function render(
+  sources: PureSources,
+  renderEngines: RenderEngineWithOptions[],
+  renderers?: Renderers,
+): React.ReactNode[] {
   const singleRenderers = renderers && renderers.single;
   return sources.map(source => {
     if (!Array.isArray(source)) {
       return renderSingle(source, renderEngines, false, singleRenderers);
-    };
+    }
     const renderedGroup = source.map(s => ({
       ...s,
       data: {
         ...s.data,
         renderedContent: renderSingle(s, renderEngines, false, singleRenderers),
-      }
+      },
     }));
 
     const groupRenderer = renderers && renderers.group;
@@ -79,23 +121,11 @@ function render(sources: PureSources, renderEngines: RenderEngineWithOptions[], 
   });
 }
 
-export interface SingleRenderer {
-  sourceType: string[];
-  component: React.ReactNode;
-} 
-
-export interface Renderers {
-  single?: SingleRenderer[];
-  group?: React.ReactNode;
-} 
-
 export interface ContentProps {
   renderers?: Renderers;
 }
 
-export const Content: React.FunctionComponent<ContentProps> = ({
-  renderers = {},
-}) => {
+const Content: React.FunctionComponent<ContentProps> = ({ renderers = {} }) => {
   const { sources, renderEngines } = useContext();
 
   if (!sources || !renderEngines) {
@@ -103,9 +133,7 @@ export const Content: React.FunctionComponent<ContentProps> = ({
   }
   const renderedSources = render(sources, renderEngines, renderers);
 
-  return (
-    <>
-      {renderedSources}
-    </>
-  );
+  return <>{renderedSources}</>;
 };
+
+export { Content, RenderedContent };

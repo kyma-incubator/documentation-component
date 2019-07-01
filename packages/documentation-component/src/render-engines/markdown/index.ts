@@ -6,6 +6,4 @@ const markdownRenderEngine: RenderEngine = {
   sourceTypes: ["markdown", "md"],
 };
 
-export { 
-  markdownRenderEngine 
-};
+export { markdownRenderEngine };

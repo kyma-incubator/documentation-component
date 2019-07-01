@@ -1,23 +1,24 @@
 import React from "react";
 import { useContext } from "../../common";
 import ReactMarkdown from "react-markdown";
-//@ts-ignore
+// @ts-ignore
 import HtmlToReact from "html-to-react";
-//@ts-ignore
+// @ts-ignore
 import htmlParser from "react-markdown/plugins/html-parser";
 import * as Components from "./renderers";
-import { Renderers, MarkdownParserPlugin, MarkdownRenderEngineOptions } from "./types";
+import {
+  Renderers,
+  MarkdownParserPlugin,
+  MarkdownRenderEngineOptions,
+} from "./types";
 
-function parser({
-  customRenderers = {},
-  parsers = [],
-}: MarkdownRenderEngineOptions) {
+function parser({ parsers = [], ...others }: MarkdownRenderEngineOptions) {
   const isValidNode = (node: any) => node.type !== "script";
   const processNodeDefinitions = new HtmlToReact.ProcessNodeDefinitions(React);
   return htmlParser({
     isValidNode,
     processingInstructions: [
-      ...parsers.map(p => p({ parsers, customRenderers })),
+      ...parsers.map(p => p({ parsers, ...others })),
       {
         // Anything else
         shouldProcessNode: (node: any) => true,
@@ -25,7 +26,7 @@ function parser({
       },
     ],
   });
-};
+}
 
 export const Markdown: React.FunctionComponent<MarkdownRenderEngineOptions> = ({
   source,
@@ -33,6 +34,9 @@ export const Markdown: React.FunctionComponent<MarkdownRenderEngineOptions> = ({
   skipHtml = false,
   customRenderers = {},
   parsers = [],
+  highlightTheme = null,
+  headingPrefix = "",
+  copyButton = null,
 }) => {
   if (!source) return null;
 
@@ -58,15 +62,31 @@ export const Markdown: React.FunctionComponent<MarkdownRenderEngineOptions> = ({
     list: Components.List,
     listItem: Components.ListItem,
     definition: Components.Definition,
-    heading: Components.Heading,
+    heading: (props: any) => (
+      <Components.Heading {...props} headingPrefix={headingPrefix} />
+    ),
     inlineCode: Components.InlineCode,
-    code: Components.Code,
+    code: (props: any) => (
+      <Components.Code
+        {...props}
+        highlightTheme={highlightTheme}
+        copyButton={copyButton}
+      />
+    ),
     html: Components.HTML,
     virtualHtml: Components.VirtualHTML,
     parsedHtml: Components.ParsedHTML,
   };
 
-  const astPlugins = [parser({ parsers, customRenderers })]
+  const astPlugins = [
+    parser({
+      parsers,
+      customRenderers,
+      highlightTheme,
+      headingPrefix,
+      copyButton,
+    }),
+  ];
 
   return (
     <ReactMarkdown

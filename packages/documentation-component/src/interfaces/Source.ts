@@ -10,17 +10,22 @@ export interface Source {
   rawContent: string;
   content?: string;
   data?: any;
-};
+}
 export interface SourceWithPluginsOptions {
   source: Source;
   pluginsOptions?: PluginOptionsForSource[];
 }
 
-export type SourceGroup = (Source | SourceWithPluginsOptions)[];
+export type SourceGroup = Array<Source | SourceWithPluginsOptions>;
 export interface SourceGroupWithPluginsOptions {
   sources: SourceGroup;
   pluginsOptions?: PluginOptionsForSource[];
 }
 
-export type Sources = (Source | SourceWithPluginsOptions | SourceGroup | SourceGroupWithPluginsOptions)[];
-export type PureSources = (Source | Source[])[];
+export type Sources = Array<
+  | Source
+  | SourceWithPluginsOptions
+  | SourceGroup
+  | SourceGroupWithPluginsOptions
+>;
+export type PureSources = Array<Source | Source[]>;

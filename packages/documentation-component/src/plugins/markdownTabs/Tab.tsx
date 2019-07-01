@@ -15,11 +15,14 @@ export const Tab: React.FunctionComponent<TabProps> = ({
   isActive = false,
   parentCallback,
 }) => (
-  <li className={createElementClass("tab")} key={tabIndex}>
+  <li
+    className={`${createElementClass("tab")} ${
+      isActive ? createModifierClass("active", "tab") : ""
+    }`}
+    key={tabIndex}
+  >
     <div
-      className={`${createElementClass("tab-label")} ${
-        isActive ? createModifierClass("active", "tab-label") : ""
-      }`}
+      className={createElementClass("tab-label")}
       onClick={(event: any) => {
         event.preventDefault();
         parentCallback!(tabIndex!);

@@ -1,15 +1,13 @@
 import React from "react";
 import createUseContext from "constate";
 import { runPlugins } from "./system";
-import {
-  Context as C,
-  Options,
-  Source,
-  PureSources,
-} from "../interfaces";
+import { Context as C, Options, Source, PureSources } from "../interfaces";
 
 const Container = (context: Options): C => {
-  const preProcessedSources: PureSources  = runPlugins(context.sources, context.plugins);
+  const preProcessedSources: PureSources = runPlugins(
+    context.sources,
+    context.plugins,
+  );
 
   return {
     sources: preProcessedSources,

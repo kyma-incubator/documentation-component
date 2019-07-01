@@ -2,11 +2,18 @@ import React from "react";
 import { Tabs } from "./Tabs";
 import { Tab } from "./Tab";
 import { Markdown } from "../../render-engines/markdown/Markdown";
-import { MarkdownRenderEngineOptions, MarkdownParserPluginReturnType } from "../../render-engines/markdown/types";
+import {
+  MarkdownRenderEngineOptions,
+  MarkdownParserPluginReturnType,
+} from "../../render-engines/markdown/types";
 
 let tabsCounter = 0;
+const blockquoteRegex = /(^( *>).*?\n)/gm;
+const orderedListRegex = /^( *[0-9])+.(.*)/gm;
 
-export const tabsParser = (args: MarkdownRenderEngineOptions): MarkdownParserPluginReturnType => ({
+export const tabsParser = (
+  args: MarkdownRenderEngineOptions,
+): MarkdownParserPluginReturnType => ({
   replaceChildren: true,
   shouldProcessNode: (node: any) =>
     node.type === "tag" &&
@@ -14,6 +21,10 @@ export const tabsParser = (args: MarkdownRenderEngineOptions): MarkdownParserPlu
     node.attribs &&
     node.attribs.hasOwnProperty("tabs"),
   processNode: (node: any) => {
+    if (!node.children) {
+      return null;
+    }
+
     const children = node.children.map((child: any) => {
       if (child.type === "tag" && child.name === "details" && child.children) {
         return child.children.map((childDetails: any) => {
@@ -26,7 +37,15 @@ export const tabsParser = (args: MarkdownRenderEngineOptions): MarkdownParserPlu
             childDetails.next.data
           ) {
             const label = childDetails.children[0].data;
-            const source = childDetails.next.data;
+            const source = childDetails.next.data
+              .replace(
+                blockquoteRegex,
+                (blockquote: string) => `${blockquote}\n`,
+              )
+              .replace(
+                orderedListRegex,
+                (listElement: string) => `\n${listElement}\n`,
+              );
 
             return (
               <Tab key={label} label={label}>

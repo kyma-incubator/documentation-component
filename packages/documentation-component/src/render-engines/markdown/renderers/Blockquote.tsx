@@ -44,11 +44,9 @@ export const Blockquote: React.FunctionComponent<BlockquoteProps> = ({
     ));
   };
 
-  const modifiedChildren =
-    Array.isArray(children) &&
-    children.reduce((accumulator: any, curr: any) => {
-      if (!accumulator.length) return children;
-
+  let modifiedChildren = null;
+  if (children && Array.isArray(children)) {
+    modifiedChildren = children.reduce((accumulator: any, curr: any) => {
       const currType = getPanelType(curr);
       if (isOneOfTypes(currType)) {
         return [...accumulator, [curr]];
@@ -58,6 +56,7 @@ export const Blockquote: React.FunctionComponent<BlockquoteProps> = ({
       const newLastElement = [...accumulator[len], curr];
       return [...accumulator.slice(0, len), newLastElement];
     }, []);
+  }
 
-  return <>{createPanels(modifiedChildren)}</>;
+  return modifiedChildren ? <>{createPanels(modifiedChildren)}</> : null;
 };

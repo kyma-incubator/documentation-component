@@ -31,11 +31,13 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "start": "lerna exec --parallel -- npm run start",
-    "lint-check": "tslint -c tslint.json --project tsconfig.json --format verbose && prettier --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "lint-fix": "tslint -c tslint.json --project tsconfig.json --format verbose --fix; prettier --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-check": "lerna exec --parallel -- npm run lint-check",
+    "lint-fix": "lerna exec --parallel -- npm run lint-fix",
     "conflict-check": "tslint-config-prettier-check ./tslint.json",
     "type-check": "tsc --noEmit",
-    "markdownlint": "markdownlint **/*.md"
+    "markdownlint": "markdownlint **/*.md",
+    "prettier": "prettier --config .prettierrc --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-staged": "lint-staged"
   },
   "devDependencies": {
     "husky": "^2.4.1",
@@ -56,15 +58,13 @@
   "lint-staged": {
     "linters": {
       "**/*.{js,jsx,json,css,html,yaml}": [
-        "prettier --config .prettierrc --write",
         "git add"
       ],
-      "src/**/*.{ts,tsx}": [
-        "tslint -c tslint.json --project tsconfig.json --format verbose --fix",
-        "prettier --config .prettierrc --write",
+      "**/*.{ts,tsx}": [
+        "npm run lint-check",
         "git add"
       ],
-      "**/.md": [
+      "**/*.md": [
         "markdownlint"
       ]
     },

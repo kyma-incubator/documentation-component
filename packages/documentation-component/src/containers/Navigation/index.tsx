@@ -15,15 +15,13 @@ export interface NavigationNodes {
 
 function createNavigation(navigationNodes: NavigationNodes): React.ReactNode {
   const Component: React.ReactNode = navigationNodes.component;
-  
+
   const articles = sources.map((source, index) => (
     <article
       className={createElementClass("content-doc")}
       key={`content-doc-${index}`}
     >
-      <Markdown
-        source={source.content ? source.content : source.source}
-      />
+      <Markdown source={source.content ? source.content : source.source} />
     </article>
   ));
 

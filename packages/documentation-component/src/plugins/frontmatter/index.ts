@@ -1,15 +1,26 @@
 import { Plugin, PluginType } from "../../interfaces";
-import { extractMetadata } from "./extractorPlugin";
+import { extractFrontmatter } from "./extractorPlugin";
+import { removeFrontmatter } from "./mutationPlugin";
 
 const FRONTMATTER_EXTRACTOR_PLUGIN = "frontmatter-extractor";
-const frontmatterPlugin: Plugin = {
-  name: "frontmatter-extractor",
+const frontmatterExtractorPlugin: Plugin = {
+  name: FRONTMATTER_EXTRACTOR_PLUGIN,
   type: PluginType.EXTRACTOR,
   sourceTypes: ["markdown", "md"],
-  fun: extractMetadata,
+  fun: extractFrontmatter,
 };
 
-export { 
-  frontmatterPlugin,
-  FRONTMATTER_EXTRACTOR_PLUGIN
+const FRONTMATTER_MUTATION_PLUGIN = "frontmatter-mutation";
+const frontmatterMutationPlugin: Plugin = {
+  name: FRONTMATTER_MUTATION_PLUGIN,
+  type: PluginType.MUTATION,
+  sourceTypes: ["markdown", "md"],
+  fun: removeFrontmatter,
+};
+
+export {
+  frontmatterExtractorPlugin,
+  FRONTMATTER_EXTRACTOR_PLUGIN,
+  frontmatterMutationPlugin,
+  FRONTMATTER_MUTATION_PLUGIN,
 };

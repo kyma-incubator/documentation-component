@@ -1,10 +1,15 @@
-export type RenderEngine = {
+import { Source } from "./Source";
+
+export interface RenderEngine {
   sourceTypes: string[];
   component: React.ReactNode;
 }
 
-export type RenderEngineOptions = { [key: string]: any };
-export type RenderEngineWithOptions = {
+export interface RenderEngineWithOptions<T = any> {
   renderEngine: RenderEngine;
-  options?: RenderEngineOptions;
+  options?: T;
+}
+export interface RenderEngineProps<T = any> {
+  source: Source;
+  options?: T;
 }

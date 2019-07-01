@@ -1,29 +1,35 @@
 import { Source } from "./Source";
 
-export type Plugin = {
+export interface Plugin {
   name: string;
   type: PluginType;
   sourceTypes: string[];
   fun: ExtractorPlugin | MutationPlugin;
-};
+}
 
 export enum PluginType {
   EXTRACTOR = "extractor",
   MUTATION = "mutation",
 }
 
-export type PluginOptions = { [key: string]: any };
+export type PluginOptions<T = any> = T;
 
-export type ExtractorPluginReturnType = { [key: string]: any };
-export type ExtractorPluginArgs = {
-  source: Source;
-  options?: PluginOptions;
+export interface ExtractorPluginReturnType {
+  [key: string]: any;
 }
-export type ExtractorPlugin = (args: ExtractorPluginArgs) => ExtractorPluginReturnType;
+export interface ExtractorPluginArgs<T = any> {
+  source: Source;
+  options?: PluginOptions<T>;
+}
+export type ExtractorPlugin = (
+  args: ExtractorPluginArgs,
+) => ExtractorPluginReturnType;
 
 export type MutationPluginReturnType = string;
-export type MutationPluginArgs = {
+export interface MutationPluginArgs<T = any> {
   source: Source;
-  options?: PluginOptions;
+  options?: PluginOptions<T>;
 }
-export type MutationPlugin = (args: MutationPluginArgs) => MutationPluginReturnType;
+export type MutationPlugin = (
+  args: MutationPluginArgs,
+) => MutationPluginReturnType;

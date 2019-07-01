@@ -11,9 +11,8 @@ export const TableCell: React.FunctionComponent<TableCellProps> = ({
   isHeader = false,
   children,
 }) => {
-  const createClassName = (type: string, align: string): string => {
-    return `${createElementClass(type)} ${createModifierClass(align, type)}`;
-  };
+  const createClassName = (type: string, al: string): string =>
+    `${createElementClass(type)} ${createModifierClass(al, type)}`;
 
   return isHeader ? (
     <th className={createClassName("table-cell-head", align)} align={align}>

@@ -1,7 +1,13 @@
-import { Source, ExtractorPluginReturnType, ExtractorPluginArgs } from "../../interfaces";
-import { Header, PluginOptions } from "./types";
+import {
+  Source,
+  ExtractorPluginReturnType,
+  ExtractorPluginArgs,
+} from "../../interfaces";
+import { Header, ExtractHeadersPluginOptions } from "./types";
 
-const headingRegex = /\n(#+\s*)(.*)/g;
+const HEADING_PREFIX = /\n(#+\s*)(.*)/g;
+const CODE_BLOCKS_REGEX = /^(([ \t]*`{3,4})([^\n]*)([\s\S]+?)(^[ \t]*\2))/gm;
+const TABS_BLOCKS_REGEX = /<div\s+tabs\s*?(name=('|").+('|"))?\s*?>(.|\n)*?<\/div>/g;
 
 const toKebabCase = (str: string) => {
   const matched = str.match(
@@ -13,18 +19,38 @@ const toKebabCase = (str: string) => {
   return str;
 };
 
-const getHeaders = (source: string, headerPrefix: string): Header[] => {
+const getHeaders = (
+  source: string,
+  headerPrefix: string,
+  customNodes: string[],
+  startWith: number,
+): Header[] => {
+  source = source.replace(TABS_BLOCKS_REGEX, "").replace(CODE_BLOCKS_REGEX, "");
+
   const headers: Header[] = [];
   if (!source) return headers;
 
-  const matchedHeaders = source.match(headingRegex);
-  if (!matchedHeaders || !matchedHeaders.length) return [];
+  const lastIndexes = new Array(6).fill(null); // array of references
+  if (customNodes) {
+    customNodes.map((n, index) => {
+      const title = n;
+      const h: Header = {
+        title,
+        level: 1,
+        id: toKebabCase(headerPrefix ? `${headerPrefix}-${title}` : title),
+      };
+      headers.push(h);
+      lastIndexes[index] = h;
+    });
+  }
 
-  const lastIndexes = new Array(6).fill(null);
+  const matchedHeaders = source.match(HEADING_PREFIX);
+  if (!matchedHeaders || !matchedHeaders.length) return headers;
+
   for (const header of matchedHeaders) {
     const level: number = (header.match(/#/g) || []).length;
     const title = header.replace(/#/g, "").trim();
-    let id = headerPrefix ? `${headerPrefix}-${title}` : title;
+    const id = headerPrefix ? `${headerPrefix}-${title}` : title;
 
     const h: Header = {
       title,
@@ -39,6 +65,11 @@ const getHeaders = (source: string, headerPrefix: string): Header[] => {
     }
 
     const occurrence = level - 2;
+    if (!lastIndexes[occurrence]) {
+      continue;
+    }
+
+    h.parent = lastIndexes[occurrence];
     if (lastIndexes[occurrence].children) {
       lastIndexes[occurrence].children.push(h);
     } else {
@@ -49,17 +80,23 @@ const getHeaders = (source: string, headerPrefix: string): Header[] => {
   return headers;
 };
 
-export const extractHeaders = ({ source, options }: ExtractorPluginArgs): ExtractorPluginReturnType => {
+export const extractHeaders = ({
+  source,
+  options,
+}: ExtractorPluginArgs<
+  ExtractHeadersPluginOptions
+>): ExtractorPluginReturnType => {
   let hp = "";
+  let customN: string[] = [];
+  let startW: number = 1;
   if (options) {
-    const { headerPrefix = "" } = options;
-    if (typeof headerPrefix === "function") {
-      hp = headerPrefix(source);
-    } else {
-      hp = headerPrefix;
-    }
+    const { headerPrefix = "", customNodes = [], startWith = 1 } = options;
+    hp =
+      typeof headerPrefix === "function" ? headerPrefix(source) : headerPrefix;
+    customN = customNodes.map(n => (typeof n === "function" ? n(source) : n));
+    startW = startWith;
   }
-  const headers: Header[] = getHeaders(source.rawContent, hp);
+  const headers: Header[] = getHeaders(source.rawContent, hp, customN, startW);
 
   return {
     headers,

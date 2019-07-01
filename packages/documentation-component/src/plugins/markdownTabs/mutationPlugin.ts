@@ -1,15 +1,21 @@
-import { Source, MutationPluginReturnType, MutationPluginArgs } from "../../interfaces";
+import {
+  Source,
+  MutationPluginReturnType,
+  MutationPluginArgs,
+} from "../../interfaces";
 
-const tabsBlockRegex = /<div\s+tabs\s*?(name=('|").+('|"))?\s*?>(.|\n)*?<\/div>/g;
+const TABS_BLOCKS_REGEX = /<div\s+tabs\s*?(name=('|").+('|"))?\s*?>(.|\n)*?<\/div>/g;
 // Regex for removing blank lines for correct parsing toggle in ReactMarkdown component
-const blankLinesRegex = /^\s*$(?:\r\n?|\n)/gm;
+const BLANK_LINES_REGEX = /^\s*$(?:\r\n?|\n)/gm;
 
-const removeBlankLines = (source: string) =>
-  source.replace(blankLinesRegex, "");
+export const removeBlankLines = (source: string) =>
+  source.replace(BLANK_LINES_REGEX, "");
 
-export const removeBlankLinesFromTabsBlock = ({ source }: MutationPluginArgs): MutationPluginReturnType => {
+export const removeBlankLinesFromTabsBlock = ({
+  source,
+}: MutationPluginArgs): MutationPluginReturnType => {
   const fun = (str: string): string =>
-    str.replace(tabsBlockRegex, occurrence => removeBlankLines(occurrence));
+    str.replace(TABS_BLOCKS_REGEX, occurrence => removeBlankLines(occurrence));
 
   if (source.content) {
     return fun(source.content);
