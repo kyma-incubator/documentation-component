@@ -15,4 +15,4 @@ It supports:
 
 ## Development
 
-Please read about development process [here](../../README.md#development).
+Please read about development process [here](../../README.md#installation).

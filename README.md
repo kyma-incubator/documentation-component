@@ -13,17 +13,17 @@ It supports:
 - Passing custom styling
 - Custom rendering architecture 
 
-## Development
-
-> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and better development experience
-
-### Prerequisites
+## Prerequisites
 
 Use the following tools to set up the project:
 
 * Node.js
 * React (version 16.8.0 or higher)
 * TypeScript (version 3.0.0 or higher)
+
+## Installation
+
+> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and better development experience
 
 ### Install dependencies
 
