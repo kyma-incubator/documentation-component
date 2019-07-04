@@ -1,1 +1,1 @@
-export { HeadlessCMS, Provider } from "./context";
+export { DC } from "./context";

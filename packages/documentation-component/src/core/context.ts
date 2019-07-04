@@ -16,6 +16,6 @@ const Container = (context: Options): C => {
 };
 
 const { Provider, Context } = createUseContext(Container);
-const HeadlessCMS = { Provider, Context };
+const DC = { Provider, Context };
 
-export { HeadlessCMS, Provider, Context };
+export { DC, Provider, Context };

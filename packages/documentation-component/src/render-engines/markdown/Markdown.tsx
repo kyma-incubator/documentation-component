@@ -39,6 +39,7 @@ export const Markdown: React.FunctionComponent<MarkdownRenderEngineOptions> = ({
   copyButton = null,
 }) => {
   if (!source) return null;
+  const headings: Set<string> = new Set<string>();
 
   const defaultRenderers: Renderers = {
     root: Components.Root,
@@ -63,7 +64,11 @@ export const Markdown: React.FunctionComponent<MarkdownRenderEngineOptions> = ({
     listItem: Components.ListItem,
     definition: Components.Definition,
     heading: (props: any) => (
-      <Components.Heading {...props} headingPrefix={headingPrefix} />
+      <Components.Heading
+        {...props}
+        headingPrefix={headingPrefix}
+        headings={headings}
+      />
     ),
     inlineCode: Components.InlineCode,
     code: (props: any) => (

@@ -20,42 +20,56 @@ const toKebabCase = (str: string) => {
 };
 
 const getHeaders = (
-  source: string,
+  source: Source,
   headerPrefix: string,
   customNodes: string[],
   startWith: number,
 ): Header[] => {
-  source = source.replace(TABS_BLOCKS_REGEX, "").replace(CODE_BLOCKS_REGEX, "");
+  const headings: Set<string> = new Set<string>();
+  const content = source.rawContent
+    .replace(TABS_BLOCKS_REGEX, "")
+    .replace(CODE_BLOCKS_REGEX, "");
 
   const headers: Header[] = [];
-  if (!source) return headers;
+  if (!content) return headers;
 
   const lastIndexes = new Array(6).fill(null); // array of references
-  if (customNodes) {
+  if (customNodes && customNodes.length) {
     customNodes.map((n, index) => {
       const title = n;
       const h: Header = {
         title,
         level: 1,
         id: toKebabCase(headerPrefix ? `${headerPrefix}-${title}` : title),
+        source,
       };
       headers.push(h);
       lastIndexes[index] = h;
     });
   }
 
-  const matchedHeaders = source.match(HEADING_PREFIX);
+  const matchedHeaders = content.match(HEADING_PREFIX);
   if (!matchedHeaders || !matchedHeaders.length) return headers;
 
   for (const header of matchedHeaders) {
     const level: number = (header.match(/#/g) || []).length;
     const title = header.replace(/#/g, "").trim();
-    const id = headerPrefix ? `${headerPrefix}-${title}` : title;
+
+    let id = headerPrefix ? `${headerPrefix}-${title}` : title;
+    if (headings.has(id)) {
+      if (/[1-9]$/.test(id)) {
+        id = `${id}-${Number(id[id.length - 1]) + 1}`;
+      } else {
+        id = `${id}-1`;
+      }
+    }
+    headings.add(id);
 
     const h: Header = {
       title,
       level,
       id: toKebabCase(id),
+      source,
     };
     lastIndexes[level - 1] = h;
 
@@ -96,7 +110,7 @@ export const extractHeaders = ({
     customN = customNodes.map(n => (typeof n === "function" ? n(source) : n));
     startW = startWith;
   }
-  const headers: Header[] = getHeaders(source.rawContent, hp, customN, startW);
+  const headers: Header[] = getHeaders(source, hp, customN, startW);
 
   return {
     headers,

@@ -14,6 +14,7 @@ export interface HeadersNavigationProps {
   selector?: string; // must contains anchor html tag
   offset?: number;
   cachingHeadings?: boolean;
+  postProcessing?: (sources: Source[], headers: Header[]) => Header[];
 }
 
 function flatHeaders(headers?: Header[]): Header[] {
@@ -46,6 +47,7 @@ const HeadersProvider = ({
   selector = `.${createElementClass(`${tocClassName}-wrapper`)} li > a`,
   offset = 10,
   cachingHeadings = true,
+  postProcessing,
 }: HeadersNavigationProps) => {
   const emptyAnchors: ActiveAnchors = {
     "1": "",
@@ -98,6 +100,8 @@ const HeadersProvider = ({
     }
   };
 
+  const getActiveAnchors = () => activeAnchors;
+
   let srcs = sources;
   const { sources: s } = useContext();
   if (!srcs || !srcs.length) {
@@ -117,11 +121,14 @@ const HeadersProvider = ({
   if (!filteredSources || !filteredSources.length) {
     return;
   }
-  const headers = extractHeaders(filteredSources);
+  let headers = extractHeaders(filteredSources);
+  if (postProcessing) {
+    headers = postProcessing(filteredSources, headers);
+  }
   const flattenHeaders = flatHeaders(headers);
 
   return {
-    activeAnchors,
+    getActiveAnchors,
     headers,
     className: tocClassName,
   };

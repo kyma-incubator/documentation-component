@@ -69,7 +69,7 @@ export function scrollSpy({
           headings[i].classList.remove("active");
         }
       }
-    }, 1);
+    }, 0);
   }
 
   function domContentLoaded() {
@@ -90,5 +90,6 @@ export function scrollSpy({
   }
 
   addListeners();
+  onScroll();
   return removeListeners;
 }

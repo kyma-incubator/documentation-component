@@ -4,6 +4,7 @@ export interface Header {
   title: string;
   id: string;
   level: number;
+  source?: Source;
   parent?: Header;
   children?: Header[];
 }
