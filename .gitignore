@@ -62,7 +62,6 @@ typings/
 .vscode/
 
 .cache/
-public
 yarn-error.log
 
 # temporary folder
