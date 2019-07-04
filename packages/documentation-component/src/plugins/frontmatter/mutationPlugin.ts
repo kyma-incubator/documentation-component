@@ -6,11 +6,11 @@ import {
 
 const FRONTMATTER_MD_REGEX = /^---(.|\n)*?---\n/;
 
-function fun(str: string): string {
+function fn(str: string): string {
   return str.replace(/^\s+|\s+$/g, "").replace(FRONTMATTER_MD_REGEX, "");
 }
 
 export const removeFrontmatter = ({
   source,
 }: MutationPluginArgs): MutationPluginReturnType =>
-  source.content ? fun(source.content) : fun(source.rawContent);
+  source.content ? fn(source.content) : fn(source.rawContent);

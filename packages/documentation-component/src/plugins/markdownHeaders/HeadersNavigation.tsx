@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext as uc } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import createUseContext from "constate";
-import { useContext } from "../../common";
+import { useDCContext } from "../../common";
 import { PureSources, Source } from "../../interfaces";
 import { Header, ActiveAnchors } from "./types";
 import { createElementClass } from "../../helpers";
@@ -103,7 +103,7 @@ const HeadersProvider = ({
   const getActiveAnchors = () => activeAnchors;
 
   let srcs = sources;
-  const { sources: s } = useContext();
+  const { sources: s } = useDCContext();
   if (!srcs || !srcs.length) {
     srcs = s;
   }
@@ -141,7 +141,7 @@ const HeadersNavigation: React.FunctionComponent<HeadersNavigationProps> = ({
   ...others
 }) => <Provider {...others}>{children}</Provider>;
 function useHeadersContext() {
-  return uc(Context);
+  return useContext(Context);
 }
 
 export { HeadersNavigation, useHeadersContext };

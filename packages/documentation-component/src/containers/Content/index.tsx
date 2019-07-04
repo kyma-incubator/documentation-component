@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "../../common";
+import { useDCContext } from "../../common";
 import { Provider } from "./groupProvider";
 import { createElementClass } from "../../helpers";
 import { RenderedContent } from "./RenderedContent";
@@ -37,12 +37,13 @@ function renderGroup(
   if (!groupRenderer) {
     return <>{sources.map(source => source.data.renderedContent)}</>;
   }
+  const GroupRenderer = groupRenderer as React.FunctionComponent<{
+    sources: Source[];
+  }>;
 
   return (
     <Provider sources={sources}>
-      {React.createElement(groupRenderer as string, {
-        sources,
-      })}
+      <GroupRenderer sources={sources} />
     </Provider>
   );
 }
@@ -56,14 +57,18 @@ function renderEngine(
   );
 
   if (re) {
-    const component = re.renderEngine.component as string;
+    const Render = re.renderEngine.component as React.FunctionComponent<
+      RenderEngineProps
+    >;
     const options = re.options;
 
-    return React.createElement(component, {
-      source,
-      options,
-      key: source.rawContent.substring(0, 30),
-    } as RenderEngineProps);
+    return (
+      <Render
+        source={source}
+        options={options}
+        key={source.rawContent.substring(0, 30)}
+      />
+    );
   }
   return null;
 }
@@ -126,7 +131,7 @@ export interface ContentProps {
 }
 
 const Content: React.FunctionComponent<ContentProps> = ({ renderers = {} }) => {
-  const { sources, renderEngines } = useContext();
+  const { sources, renderEngines } = useDCContext();
 
   if (!sources || !renderEngines) {
     return null;

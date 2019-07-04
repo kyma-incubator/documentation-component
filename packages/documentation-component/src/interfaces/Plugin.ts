@@ -4,7 +4,7 @@ export interface Plugin {
   name: string;
   type: PluginType;
   sourceTypes: string[];
-  fun: ExtractorPlugin | MutationPlugin;
+  fn: ExtractorPlugin | MutationPlugin;
 }
 
 export enum PluginType {

@@ -10,7 +10,7 @@ const markdownTabsMutationPlugin: Plugin = {
   name: MARKDOWN_TABS_MUTATION_PLUGIN,
   type: PluginType.MUTATION,
   sourceTypes: ["markdown", "md"],
-  fun: removeBlankLinesFromTabsBlock,
+  fn: removeBlankLinesFromTabsBlock,
 };
 const markdownTabsParserPlugin: MarkdownParserPlugin = tabsParser;
 

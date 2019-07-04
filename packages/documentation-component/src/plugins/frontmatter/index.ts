@@ -7,7 +7,7 @@ const frontmatterExtractorPlugin: Plugin = {
   name: FRONTMATTER_EXTRACTOR_PLUGIN,
   type: PluginType.EXTRACTOR,
   sourceTypes: ["markdown", "md"],
-  fun: extractFrontmatter,
+  fn: extractFrontmatter,
 };
 
 const FRONTMATTER_MUTATION_PLUGIN = "frontmatter-mutation";
@@ -15,7 +15,7 @@ const frontmatterMutationPlugin: Plugin = {
   name: FRONTMATTER_MUTATION_PLUGIN,
   type: PluginType.MUTATION,
   sourceTypes: ["markdown", "md"],
-  fun: removeFrontmatter,
+  fn: removeFrontmatter,
 };
 
 export {

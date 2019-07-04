@@ -8,7 +8,7 @@ const markdownEmbedVideoMutationPlugin: Plugin = {
   name: EMBED_VIDEO_MUTATION_PLUGIN,
   type: PluginType.MUTATION,
   sourceTypes: ["markdown", "md"],
-  fun: embedVideoMutationPlugin,
+  fn: embedVideoMutationPlugin,
 };
 const markdownEmbedVideoParserPlugin: MarkdownParserPlugin = embedVideoParser;
 

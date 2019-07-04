@@ -1,1 +1,1 @@
-export * from "./useCmsContext";
+export * from "./useDCContext";

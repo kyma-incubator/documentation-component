@@ -171,9 +171,9 @@ function runPlugin(
 
   switch (plugin.type) {
     case PluginType.EXTRACTOR:
-      return runExtractor(source, plugin.fun as ExtractorPlugin, options);
+      return runExtractor(source, plugin.fn as ExtractorPlugin, options);
     case PluginType.MUTATION:
-      return runMutation(source, plugin.fun as MutationPlugin, options);
+      return runMutation(source, plugin.fn as MutationPlugin, options);
     default:
       return source;
   }

@@ -2,7 +2,7 @@
   "include": ["./packages/**/*", "./playground"],
   "exclude": ["**/node_modules/**/*"],
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "module": "commonjs",
     "lib": ["dom", "es2017"],
     "jsx": "react",

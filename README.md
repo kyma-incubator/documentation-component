@@ -1,17 +1,17 @@
-# Kyma Documentation Component (Kyma-DC)
+# Kyma Documentation Component
 
 ## Overview
 
-It is a generic, reusable React component that supports rendering of:
+Kyma Documentation Component (Kyma-DC) is a generic, reusable React component that allows you to render:
 - Markdown
 - OpenAPI
 - AsyncAPI
 - OData
 
 It supports:
-- Plugins (hooking) in with custom functions that customize components rendering
+- Hooking custom functions that customize components rendering
 - Passing custom styling
-- Custom rendering architecture 
+- Rendering of custom architecture
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Use the following tools to set up the project:
 
 ## Installation
 
-> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and better development experience
+> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and for a better development experience.
 
 ### Install dependencies
 
@@ -36,7 +36,7 @@ $ npm run bootstrap
 
 ### Launch a development environment
 
-Launch the development server with the hot reloading functionality that allows any change in files in the `playground/src` and `packages/documentation-component/src` folders to be immediately visible in the browser. Use this command:
+Launch the development server with the hot reloading functionality that allows you to immediately see any change made in files in the `playground/src` and `packages/documentation-component/src` folders in the browser. Use this command:
 
 ``` sh
 $ npm start

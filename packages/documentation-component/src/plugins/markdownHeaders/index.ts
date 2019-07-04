@@ -8,7 +8,7 @@ const markdownHeadersPlugin: Plugin = {
   name: MARKDOWN_HEADER_EXTRACTOR_PLUGIN,
   type: PluginType.EXTRACTOR,
   sourceTypes: ["markdown", "md"],
-  fun: extractHeaders,
+  fn: extractHeaders,
 };
 
 export {

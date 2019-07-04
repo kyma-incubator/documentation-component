@@ -11,8 +11,6 @@ export interface HeadingProps {
   headingPrefix?: string;
 }
 
-const headings: Set<string> = new Set<string>();
-
 export const Heading: React.FunctionComponent<HeadingProps> = ({
   level = 6,
   headings,

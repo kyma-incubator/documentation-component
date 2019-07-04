@@ -11,23 +11,25 @@ import {
   replaceAllLessThanCharsMutationPlugin,
   Tabs,
   Tab,
-  disableInternalLinksMutationPlugin,
   MARKDOWN_HEADER_EXTRACTOR_PLUGIN,
   Sources,
   Source,
-  HeadersNavigation,
 } from "@kyma-project/documentation-component";
+import { StickyContainer, Sticky } from "react-sticky";
 import {
-  asyncApiRenderEngine,
-  asyncApiOptions,
   MarkdownLink,
   highlightTheme,
-  RenderedHeader,
-  StyledHeadersNavigation,
+  CopyButton,
+  HeadersNavigation,
 } from "./render-engines";
-import { replaceImagePathsMutationPlugin } from "./plugins";
+import {
+  replaceImagePathsMutationPlugin,
+  disableInternalLinksMutationPlugin,
+  disableInternalLinksParserPlugin,
+} from "./plugins";
 import { headingPrefix, customNodes } from "./helpers";
 import { MarkdownSingleRenderer } from "./renderers";
+import { ContentWrapper } from "./styled";
 
 export interface DocsComponentProps {
   sources: Source[];
@@ -63,8 +65,8 @@ export const DocsComponent: React.FunctionComponent<DocsComponentProps> = ({
         replaceImagePathsMutationPlugin,
         replaceAllLessThanCharsMutationPlugin,
         markdownTabsMutationPlugin,
-        // disableInternalLinksMutationPlugin,
         markdownHeadersPlugin,
+        // disableInternalLinksMutationPlugin,
       ]}
       renderEngines={[
         {
@@ -73,32 +75,35 @@ export const DocsComponent: React.FunctionComponent<DocsComponentProps> = ({
             customRenderers: {
               link: MarkdownLink,
             },
-            parsers: [markdownTabsParserPlugin],
+            parsers: [
+              markdownTabsParserPlugin,
+              disableInternalLinksParserPlugin,
+            ],
             headingPrefix,
             highlightTheme,
-            // copyButton: CopyButton,
-          },
-        },
-        {
-          renderEngine: asyncApiRenderEngine,
-          options: {
-            ...asyncApiOptions,
+            copyButton: CopyButton,
           },
         },
       ]}
     >
-      <Content
-        renderers={{
-          single: [MarkdownSingleRenderer],
-        }}
-      />
-      {navigation && (
-        <HeadersNavigation>
-          <StyledHeadersNavigation className={`cms__toc-wrapper`}>
-            <RenderedHeader />
-          </StyledHeadersNavigation>
-        </HeadersNavigation>
-      )}
+      <ContentWrapper>
+        <StickyContainer>
+          <div>
+            <Content
+              renderers={{
+                single: [MarkdownSingleRenderer],
+              }}
+            />
+          </div>
+          <Sticky>
+            {({ style }: any) => (
+              <div style={{ ...style, zIndex: 200, width: "310px" }}>
+                <HeadersNavigation />
+              </div>
+            )}
+          </Sticky>
+        </StickyContainer>
+      </ContentWrapper>
     </DC.Provider>
   );
 };

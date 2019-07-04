@@ -1,32 +1,11 @@
 import React, { useState, useContext } from "react";
-import styled from "styled-components";
+import styled, { StyledComponentBase } from "styled-components";
 import {
   Header,
   ActiveAnchors,
   useHeadersContext,
 } from "@kyma-project/documentation-component";
-
-export const StyledHeadersNavigation = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-
-  &&& {
-    .cms__toc-list-item ul {
-      display: none;
-    }
-
-    .cms__toc-list-item--show,
-    .cms__toc-list-item--show ul {
-      display: block !important;
-    }
-
-    .cms__toc-list-item--show,
-    .cms__toc-list-item--show ul {
-      display: block !important;
-    }
-  }
-`;
+import { CollapseArrow } from "./styled";
 
 const CLASS_NAME_PREFIX = "cms";
 
@@ -53,24 +32,26 @@ const HeaderItem: React.FunctionComponent<HeaderItemProps> = ({
     activeAnchors && (activeAnchors as any)[header.level] === header.id;
 
   return (
-    <li className={createElementClass(`${className}-list-item`)}>
-      <a
-        href={`#${header.id}`}
-        // className={collapse ? createElementClass(
-        //   `${className}-list-item--collapse`,
-        // ): ""}
-      >
-        {header.title}
-      </a>
-      {header.level === 1 ? (
-        <span
+    <li
+      className={`${createElementClass(
+        `${className}-list-item`,
+      )} ${createModifierClass(
+        `level-${header.level}`,
+        `${className}-list-item`,
+      )}`}
+    >
+      {header.children ? (
+        <CollapseArrow
+          root={Boolean(!header.level)}
+          size="s"
+          glyph="feeder-arrow"
+          open={showNode || collapse}
           onClick={() => {
             setCollapse(c => !c);
           }}
-        >
-          dupa
-        </span>
+        />
       ) : null}
+      <a href={`#${header.id}`}>{header.title}</a>
       {header.children && (
         <RenderedHeader
           headers={header.children}
@@ -100,10 +81,11 @@ export const RenderedHeader: React.FunctionComponent<RenderedHeaderProps> = ({
     return null;
   }
 
-  const { headers: h, activeAnchors: aa, className } = context;
+  const { headers: h, getActiveAnchors, className } = context;
   if (!headers) {
     headers = h;
   }
+  const aa = getActiveAnchors();
   if (aa) {
     activeAnchors = aa;
   }

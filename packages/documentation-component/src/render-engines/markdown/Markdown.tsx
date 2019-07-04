@@ -1,5 +1,4 @@
 import React from "react";
-import { useContext } from "../../common";
 import ReactMarkdown from "react-markdown";
 // @ts-ignore
 import HtmlToReact from "html-to-react";

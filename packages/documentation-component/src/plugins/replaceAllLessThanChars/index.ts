@@ -7,7 +7,7 @@ const replaceAllLessThanCharsMutationPlugin: Plugin = {
   name: REPLACE_ALL_LESS_THAN_CHARS_MUTATION_PLUGIN,
   type: PluginType.MUTATION,
   sourceTypes: ["markdown", "md"],
-  fun: replaceAllLessThanChars,
+  fn: replaceAllLessThanChars,
 };
 
 export {
