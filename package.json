@@ -28,7 +28,7 @@
     "specification"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap && cd ./packages/documentation-component && npm run build",
     "clean": "lerna clean",
     "start": "lerna exec --parallel -- npm run start",
     "lint-check": "lerna exec --parallel -- npm run lint-check",
