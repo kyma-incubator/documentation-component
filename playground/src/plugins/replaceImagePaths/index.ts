@@ -6,7 +6,7 @@ const replaceImagePathsMutationPlugin: Plugin = {
   name: REPLACE_IMAGE_PATHS_MUTATION_PLUGIN,
   type: PluginType.MUTATION,
   sourceTypes: ["markdown", "md"],
-  fun: replaceImagePaths,
+  fn: replaceImagePaths,
 };
 
 export { replaceImagePathsMutationPlugin, REPLACE_IMAGE_PATHS_MUTATION_PLUGIN };

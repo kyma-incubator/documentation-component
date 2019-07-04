@@ -12,7 +12,7 @@ const disableInternalLinksMutationPlugin: Plugin = {
   name: DISABLE_INTERNAL_LINKS_MUTATION_PLUGIN,
   type: PluginType.MUTATION,
   sourceTypes: ["markdown", "md"],
-  fun: disableInternalLinks,
+  fn: disableInternalLinks,
 };
 const disableInternalLinksParserPlugin: MarkdownParserPlugin = disabledInternalLinkParser;
 

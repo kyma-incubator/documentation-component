@@ -53,6 +53,9 @@ export const Blockquote: React.FunctionComponent<BlockquoteProps> = ({
       }
 
       const len = accumulator.length - 1;
+      if (len < 0 || !accumulator[len]) {
+        return children;
+      }
       const newLastElement = [...accumulator[len], curr];
       return [...accumulator.slice(0, len), newLastElement];
     }, []);
