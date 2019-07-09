@@ -71,3 +71,4 @@ temp-*/
 
 # lib
 packages/documentation-component/lib
+**/lib
