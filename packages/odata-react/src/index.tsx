@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import ODataReact from "./ODataReact";
 import { PageWrapper } from "./components/styled/styled";
 import { mocks } from "./example/ODataFiles/index";
-import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
+// import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
+import "./index.css";
 
 ReactDOM.render(
   <PageWrapper>
