@@ -1,29 +1,17 @@
 {
+  "include": ["./packages/**/*", "./playground"],
+  "exclude": ["**/node_modules/**/*"],
   "compilerOptions": {
-    "outDir": "./lib",
+    "target": "es5",
     "module": "commonjs",
-    "target": "es2015",
-    "lib": ["es2017", "dom", "dom.iterable", "esnext"],
-    "sourceMap": true,
-    "allowJs": false,
+    "lib": ["dom", "es2017"],
     "jsx": "react",
-    "removeComments": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "alwaysStrict": true,
-    "strictFunctionTypes": false,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "declaration": true
-  },
-  "include": ["packages/**/*", "playground"],
-  "exclude": ["node_modules"]
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "importHelpers": true
+  }
 }

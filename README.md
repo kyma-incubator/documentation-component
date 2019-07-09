@@ -1,29 +1,45 @@
-# Documentation Component
+# Kyma Documentation Component
 
-It is a reusable React.js component that supports rendering of:
+## Overview
+
+Kyma Documentation Component (Kyma-DC) is a generic, reusable React component that allows you to render:
 - Markdown
 - OpenAPI
 - AsyncAPI
 - OData
 
-Must have:
-- npm package. New GitHub package feature?
-- sample app that proves it works and can be used for demos. If https://codesandbox.io/ is sufficient as start, let us not over do it
-
-
-It can be used in any context, like:
-- Existing Kyma Console UI
-  - Context of a specific service in the Service Catalog views
-  - Overal docs view
-  - Context help/docs in any Console UI view, like Application
-- Website docs - https://kyma-project.io/docs
-- Future presentation layer, reusable application for Headless CMS component
-
 It supports:
-- Hooking in with custom functions that customize components rendering
+- Hooking custom functions that customize components rendering
 - Passing custom styling
-- Props that allow you to configure basic display from tab oriented to different views, like clickable tiles that expand with content once you click them
+- Rendering of custom architecture
 
-What we solve:
-- Doing the same thing several times. We simply make an investment that pays back later
-- We have one npm package to help everywhere in any application with slight configuration
+## Prerequisites
+
+Use the following tools to set up the project:
+
+* Node.js
+* React (version 16.8.0 or higher)
+* TypeScript (version 3.0.0 or higher)
+
+## Installation
+
+> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and for a better development experience.
+
+### Install dependencies
+
+To install all dependencies for the [Playground](./playground) application and prepare a symlink for the [`documentation-component`](./packages/documentation-component) package, run these commands:
+
+``` sh
+$ npm install
+$ npm run bootstrap
+```
+
+### Launch a development environment
+
+Launch the development server with the hot reloading functionality that allows you to immediately see any change made in files in the `playground/src` and `packages/documentation-component/src` folders in the browser. Use this command:
+
+``` sh
+$ npm start
+```
+
+You can access the live development server at [localhost:3000](http://localhost:3000/).
