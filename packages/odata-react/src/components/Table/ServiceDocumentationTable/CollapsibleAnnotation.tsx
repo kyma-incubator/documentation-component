@@ -16,12 +16,12 @@ interface Props {
 }
 
 const CollapsibleAnnotation: React.FunctionComponent<Props> = ({ data }) => {
+  const [show, useShow] = useState<boolean>(false);
   const headers = data.children
     .map((child: Node) => child.name)
     .filter(makeUnique);
 
-  const [show, useShow] = useState<boolean>(false);
-
+  /* tslint:disable:react-hooks-nesting */
   return (
     <StyledTable>
       <TableHead>

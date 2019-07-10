@@ -16,6 +16,17 @@ interface Props {
 }
 
 const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
+  const [show, setShow] = useState<boolean[]>(
+    Array(data.children.length).fill(false),
+  );
+
+  const toggleProperRow = (index: number): void => {
+    const arr = [...show];
+    arr[index] = !arr[index];
+    console.log(arr);
+    setShow(arr);
+  };
+
   const attributesColumn: string[] = data.children
     .flatMap((elem: { attributes: any }) => Object.keys(elem.attributes))
     .filter(makeUnique);
@@ -43,30 +54,32 @@ const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
         {data.children.map((child: Node, index: number) => {
           const specialHeader: Node = child.children[0];
           if (specialHeader && specialHeader.name === "Collection") {
-            const [show, setShow] = useState<boolean>(false);
+            console.log("object");
             return (
-              <Fragment key={index}>
-                <TableRow>
-                  {columnHeaders.map((el: string, idx: number) => (
-                    <TableCell key={idx}>
-                      {child.attributes[el] ||
-                        (specialHeader && specialHeader.name === el && (
-                          <CollapseArrow
-                            open={show}
-                            clickHandler={() => setShow(!show)}
-                          />
-                        ))}
-                    </TableCell>
-                  ))}
-                </TableRow>
-                {show && (
+              <div style={{ border: "1px solid green" }}>
+                <Fragment key={index}>
                   <TableRow>
-                    <TableCell colSpan={columnHeaders.length}>
-                      <CollapsibleAnnotation data={specialHeader} />
-                    </TableCell>
+                    {columnHeaders.map((el: string, idx: number) => (
+                      <TableCell key={idx}>
+                        {child.attributes[el] ||
+                          (specialHeader && specialHeader.name === el && (
+                            <CollapseArrow
+                              open={show[index]}
+                              clickHandler={() => toggleProperRow(index)}
+                            />
+                          ))}
+                      </TableCell>
+                    ))}
                   </TableRow>
-                )}
-              </Fragment>
+                  {show[index] && (
+                    <TableRow>
+                      <TableCell colSpan={columnHeaders.length}>
+                        <CollapsibleAnnotation data={specialHeader} />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </Fragment>
+              </div>
             );
           }
 
