@@ -54,32 +54,29 @@ const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
         {data.children.map((child: Node, index: number) => {
           const specialHeader: Node = child.children[0];
           if (specialHeader && specialHeader.name === "Collection") {
-            console.log("object");
             return (
-              <div style={{ border: "1px solid green" }}>
-                <Fragment key={index}>
+              <Fragment key={index}>
+                <TableRow>
+                  {columnHeaders.map((el: string, idx: number) => (
+                    <TableCell key={idx}>
+                      {child.attributes[el] ||
+                        (specialHeader && specialHeader.name === el && (
+                          <CollapseArrow
+                            open={show[index]}
+                            clickHandler={() => toggleProperRow(index)}
+                          />
+                        ))}
+                    </TableCell>
+                  ))}
+                </TableRow>
+                {show[index] && (
                   <TableRow>
-                    {columnHeaders.map((el: string, idx: number) => (
-                      <TableCell key={idx}>
-                        {child.attributes[el] ||
-                          (specialHeader && specialHeader.name === el && (
-                            <CollapseArrow
-                              open={show[index]}
-                              clickHandler={() => toggleProperRow(index)}
-                            />
-                          ))}
-                      </TableCell>
-                    ))}
+                    <TableCell colSpan={columnHeaders.length}>
+                      <CollapsibleAnnotation data={specialHeader} />
+                    </TableCell>
                   </TableRow>
-                  {show[index] && (
-                    <TableRow>
-                      <TableCell colSpan={columnHeaders.length}>
-                        <CollapsibleAnnotation data={specialHeader} />
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </Fragment>
-              </div>
+                )}
+              </Fragment>
             );
           }
 
