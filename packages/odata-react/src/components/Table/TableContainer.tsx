@@ -35,9 +35,11 @@ const TableContainer: React.FunctionComponent<Props> = ({ arg }) => {
 
   const [showAll, setShowAll] = useState<boolean>(true);
 
+  const useToggleShowAll = () => setShowAll(!showAll);
+
   return (
     <>
-      <CollapseButton open={showAll} onClick={() => setShowAll(!showAll)}>
+      <CollapseButton open={showAll} onClick={useToggleShowAll}>
         {showAll ? "Collapse" : "Expand"}
       </CollapseButton>
 

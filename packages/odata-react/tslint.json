@@ -25,7 +25,8 @@
     "no-debugger": true,
     "radix": true,
     "prefer-object-spread": true,
-    "no-boolean-literal-compare": true
+    "no-boolean-literal-compare": true,
+    "react-hooks-nesting": "error"
   },
   "linterOptions": {
     "exclude": [

@@ -4,11 +4,14 @@ import commonjs from "rollup-plugin-commonjs";
 import visualizer from "rollup-plugin-visualizer";
 import cleanup from "rollup-plugin-cleanup";
 import { terser } from "rollup-plugin-terser";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
-
-const projectName = { name: "ODataReact" };
+import pkg from "./package.json";
+// const projectName = { name: "ODataReact" };
 
 const extensions = [".ts", ".tsx"];
+
+const projectName = { name: "ODataReact" };
 
 const globals = {
   react: "React",
@@ -16,27 +19,27 @@ const globals = {
   "styled-components": "styled",
 };
 
-//zmien nazwy plikow w inputach na ODatareact
-
 export default {
   input: "./src/ODataReact.tsx",
   output: [
     {
-      file: "./lib/index.umd.js",
+      exports: "default",
+      esModule: false,
+      file: pkg.browser,
       format: "umd",
       ...projectName,
       globals,
       sourcemap: true,
     },
     {
-      file: "./lib/index.esm.js",
+      file: pkg.module,
       format: "es",
       globals,
       sourcemap: true,
       ...projectName,
     },
     {
-      file: "./lib/index.iife.js",
+      file: pkg.main,
       format: "iife",
       globals,
       sourcemap: true,
@@ -44,9 +47,13 @@ export default {
     },
   ],
   plugins: [
-    resolve({ extensions: [...DEFAULT_EXTENSIONS, ...extensions] }),
+    resolve({
+      extensions: [...DEFAULT_EXTENSIONS, ...extensions],
+      browser: true,
+      mainFields: ["module", "main", "browser"],
+    }),
     commonjs({
-      include: "**/node_modules/**",
+      include: "node_modules/**",
       namedExports: {
         "node_modules/fundamental-react/lib/index.js": [
           "Table",
@@ -58,17 +65,22 @@ export default {
           "PanelActions",
           "Alert",
         ],
+        "node_modules/react/index.js": [
+          "useState",
+          "Fragment",
+          "useEffect",
+          "useRef",
+        ],
       },
     }),
-
     babel({
       extensions,
       include: ["src/**/*"],
       exclude: "node_modules/**",
     }),
-    terser(),
-    cleanup({ extensions: ["ts", "tsx", "js", "jsx"], comments: "none" }), // this has to be last
+    // terser(),
+    // cleanup({ extensions: ["ts", "tsx", "js", "jsx"], comments: "none" }), // this has to be last
     visualizer(),
   ],
-  external: Object.keys(globals),
+  external: [...Object.keys(globals)],
 };
