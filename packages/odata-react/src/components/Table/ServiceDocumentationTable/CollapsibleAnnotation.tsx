@@ -15,13 +15,16 @@ interface Props {
   data: Node;
 }
 
-const CollapsibleAnnotation: React.FunctionComponent<Props> = ({ data }) => {
+export const CollapsibleAnnotation: React.FunctionComponent<Props> = ({
+  data,
+}) => {
   const [show, useShow] = useState<boolean>(false);
   const headers = data.children
     .map((child: Node) => child.name)
     .filter(makeUnique);
 
-  /* tslint:disable:react-hooks-nesting */
+  const useToggleShow = () => useShow(!show);
+
   return (
     <StyledTable>
       <TableHead>
@@ -32,7 +35,7 @@ const CollapsibleAnnotation: React.FunctionComponent<Props> = ({ data }) => {
       <TableBody>
         <TableRow>
           <TableCell>
-            <CollapseArrow open={show} clickHandler={() => useShow(!show)} />
+            <CollapseArrow open={show} clickHandler={useToggleShow} />
           </TableCell>
         </TableRow>
         {show && (
@@ -49,5 +52,3 @@ const CollapsibleAnnotation: React.FunctionComponent<Props> = ({ data }) => {
     </StyledTable>
   );
 };
-
-export default CollapsibleAnnotation;

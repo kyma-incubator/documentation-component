@@ -135,7 +135,6 @@ Icon.defaultProps = {
 
 export const CollapseButton = styled(Button)`
   && {
-    direction: rtl;
     margin-bottom: 20px;
   }
   &:before {
@@ -145,6 +144,7 @@ export const CollapseButton = styled(Button)`
     ${(props: { open?: boolean }) => props.open && "transform: rotate(90deg);"};
   }
 `;
+CollapseButton.displayName = "CollapseButton";
 
 Button.defaultProps = {
   option: "emphasized",

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import CollapsibleAnnotation from "./CollapsibleAnnotation";
+import { CollapsibleAnnotation } from "./CollapsibleAnnotation";
 import { makeUnique } from "../utils";
 import { Node } from "../../../types";
 import {

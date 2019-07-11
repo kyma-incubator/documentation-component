@@ -73,3 +73,5 @@ temp-*/
 packages/documentation-component/lib
 **/lib
 **/bundle_analyzer
+stats.html
+.rpt2_cache

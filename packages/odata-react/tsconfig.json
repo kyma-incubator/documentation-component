@@ -2,10 +2,15 @@
   "extends": "./../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./lib",
-    "declaration": true,
     "module": "esnext",
     "target": "es5",
-    "importHelpers": true
+    "declaration": false,
+    "importHelpers": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "isolatedModules": true
   },
   "include": ["src/*.ts", "src/**/*.ts", "src/*.tsx", "src/**/*.tsx"]
 }
