@@ -35,6 +35,9 @@ export const GroupRenderer: React.FunctionComponent<GroupRendererComponent> = ({
       <Tab label="Console">
         <RenderedContent sourceTypes={["openapi", "open-api", "swagger"]} />
       </Tab>
+      <Tab label="OData">
+        <RenderedContent sourceTypes={["odata"]} />
+      </Tab>
     </Tabs>
   );
 };

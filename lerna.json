@@ -4,6 +4,10 @@
   "npmClient": "npm",
   "packages": [
     "playground", 
-    "packages/*"
+    "packages/documentation-component",
+    "packages/markdown-render-engine",
+    "packages/open-api-render-engine",
+    "packages/async-api-render-engine",
+    "packages/odata-render-engine"
   ]
 }

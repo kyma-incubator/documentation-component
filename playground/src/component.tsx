@@ -6,6 +6,7 @@ import {
 } from "@kyma-project/dc-markdown-render-engine";
 import { asyncApiRenderEngine } from "@kyma-project/dc-async-api-render-engine";
 import { openApiRenderEngine } from "@kyma-project/dc-open-api-render-engine";
+import { odataRenderEngine } from "@kyma-project/dc-odata-render-engine";
 import {
   replaceImagePathsMutationPlugin,
   disableInternalLinksParserPlugin,
@@ -55,6 +56,7 @@ export const DocsComponent: React.FunctionComponent<DocsComponentProps> = ({
         },
         asyncApiRenderEngine,
         openApiRenderEngine,
+        odataRenderEngine,
       ]}
     >
       <Content

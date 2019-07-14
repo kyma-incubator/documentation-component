@@ -15,8 +15,9 @@
   "dependencies": {
     "@kyma-project/documentation-component": "0.1.0",
     "@kyma-project/dc-markdown-render-engine": "0.1.0",
-    "@kyma-project/dc-async-api-render-engine": "0.1.0",
     "@kyma-project/dc-open-api-render-engine": "0.1.0",
+    "@kyma-project/dc-async-api-render-engine": "0.1.0",
+    "@kyma-project/dc-odata-render-engine": "0.1.0",
     "styled-components": "4.3.2",
     "react-sticky": "^6.0.3",
     "react": "^16.8.6",
