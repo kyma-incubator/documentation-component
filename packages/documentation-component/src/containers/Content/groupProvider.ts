@@ -1,18 +1,20 @@
-import React, { useContext as uc } from "react";
+import { useContext } from "react";
 import createUseContext from "constate";
-import { Source } from "../..";
+import { Source } from "../../interfaces";
 
-export interface GroupProviderProps {
+export interface GroupProviderContext {
   sources: Source[];
 }
 
-const GroupProvider = (context: GroupProviderProps) => ({
+const GroupProvider = (
+  context: GroupProviderContext,
+): GroupProviderContext => ({
   ...context,
 });
 
 const { Provider, Context } = createUseContext(GroupProvider);
 function useGroupContext() {
-  return uc(Context);
+  return useContext(Context);
 }
 
-export { Provider, Context, useGroupContext };
+export { Provider as GroupProvider, Context as GroupContext, useGroupContext };

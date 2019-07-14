@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Source } from "@kyma-project/documentation-component";
+import { Sources } from "@kyma-project/documentation-component";
 import { DocsComponent } from "./component";
 
 const text1 = `
@@ -14,147 +14,6 @@ Kyma allows you to connect applications and third-party services in a cloud-nati
 - The endpoint to register Events and APIs of external applications (Application Connector)
 - The messaging channel to receive Events, enrich them, and trigger business flows using lambdas or services (Event Bus, NATS)
 - CLI supported by the intuitive UI (Console)
-`;
-
-const text2 = `
-Kyma packages its components into [Helm](https://github.com/helm/helm/tree/master/docs) charts that the [Installer](https://github.com/kyma-project/kyma/tree/master/components/installer) uses during installation and updates.
-This document describes how to configure the Installer with new values for Helm [charts](https://github.com/helm/helm/blob/master/docs/charts.md) to override the default settings in \`values.yaml\` files.
- ## Overview
- The Installer is a [Kubernetes Operator](https://coreos.com/operators/) that uses Helm to install Kyma components.
-Helm provides an **overrides** feature to customize the installation of charts, for example to configure environment-specific values.
-When using Installer for Kyma installation, users can't interact with Helm directly. The installation is not an interactive process.
- To customize the Kyma installation, the Installer exposes a generic mechanism to configure Helm overrides called **user-defined** overrides.
- ## User-defined overrides
- The Installer finds user-defined overrides by reading the ConfigMaps and Secrets deployed in the \`kyma-installer\` Namespace and marked with:
-- the \`installer: overrides\` label
-- a \`component: {COMPONENT_NAME}\` label if the override refers to a specific component
- >**NOTE:** There is also an additional \`kyma-project.io/installation: ""\` label in all ConfigMaps and Secrets that allows you to easily filter the installation resources.
- The Installer constructs a single override by inspecting the ConfigMap or Secret entry key name. The key name should be a dot-separated sequence of strings corresponding to the structure of keys in the chart's \`values.yaml\` file or the entry in chart's template.
- The Installer merges all overrides recursively into a single \`yaml\` stream and passes it to Helm during the Kyma installation and upgrade operations.
- ## Common vs. component overrides
- The Installer looks for available overrides each time a component installation or an update operation is due.
-Overrides for a component are composed of two sets: **common** overrides and **component-specific** overrides.
- Kyma uses common overrides for the installation of all components. ConfigMaps and Secrets marked with the \`installer: overrides\` label contain the definition.
- Kyma uses component-specific overrides only for the installation of specific components. ConfigMaps and Secrets marked with both \`installer: overrides\` and \`component: {component-name}\` labels contain the definition. Component-specific overrides have precedence over common ones in case of conflicting entries.
- >**NOTE:** Add the additional \`kyma-project.io/installation: ""\` label to both common and component-specific overrides to enable easy installation resources filtering.
- ## Overrides examples
- ### Top-level charts overrides
- Overrides for top-level charts are straightforward. Just use the template value from the chart as the entry key in the ConfigMap or Secret. Leave out the \`.Values.\` prefix.
- Se an example:
- The Installer uses an \`asset-store\` top-level chart that contains a template with the following value reference:
- \`\`\`
-resources: {{ toYaml .Values.resources | indent 12 }}
-\`\`\`
- The chart's default values \`minio.resources.limits.memory\` and \`minio.resources.limits.cpu\` in the \`values.yaml\` file resolve the template.
-The following fragment of \`values.yaml\` shows this definition:
-\`\`\`
-minio:
-  resources:
-    limits:
-      memory: "128Mi"
-      cpu: "100m"
-\`\`\`
- To override these values, for example to \`512Mi\` and \`250m\`, proceed as follows:
-- Create a ConfigMap in the \`kyma-installer\` Namespace and label it.
-- Add the \`minio.resources.limits.memory: 512Mi\` and \`minio.resources.limits.cpu: 250m\` entries to the ConfigMap and apply it:
- \`\`\`
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: assetstore-overrides
-  namespace: kyma-installer
-  labels:
-    installer: overrides
-    component: assetstore
-    kyma-project.io/installation: ""
-data:
-  minio.resources.limits.memory: 512Mi #increased from 128Mi
-  minio.resources.limits.cpu: 250m #increased from 100m
-EOF
-\`\`\`
- Once the installation starts, the Installer generates overrides based on the ConfigMap entries. The system uses the values of \`512Mi\` instead of the default \`128Mi\` for Minio memory and \`250m\` instead of \`100m\` for Minio CPU from the chart's \`values.yaml\` file.
- For overrides that the system should keep in Secrets, just define a Secret object instead of a ConfigMap with the same key and a base64-encoded value. Be sure to label the Secret.
- If you add the overrides in the runtime, trigger the update process using this command:
- \`\`\`
-kubectl label installation/kyma-installation action=install
-\`\`\`
- ### Sub-chart overrides
- Overrides for sub-charts follow the same convention as top-level charts. However, overrides require additional information about sub-chart location.
- When a sub-chart contains the \`values.yaml\` file, the information about the chart location is not necessary because the chart and its \`values.yaml\` file are on the same level in the directory hierarchy.
- The situation is different when the Installer installs a chart with sub-charts.
-All template values for a sub-chart must be prefixed with a sub-chart "path" that is relative to the top-level "parent" chart.
- This is not an Installer-specific requirement. The same considerations apply when you provide overrides manually using the \`helm\` command-line tool.
- Here is an example.
-There's a \`core\` top-level chart that the Installer installs.
-There's an \`application-connector\` sub-chart in \`core\` with a nested \`connector-service\` sub-chart.
-In one of its templates, there's a following fragment:
- \`\`\`
-spec:
-  containers:
-  - name: {{ .Chart.Name }}
-	args:
-	  - "/connectorservice"
-	  - '--appName={{ .Chart.Name }}'
-	  - "--domainName={{ .Values.global.domainName }}"
-	  - "--tokenExpirationMinutes={{ .Values.deployment.args.tokenExpirationMinutes }}"
-\`\`\`
- This fragment of the \`values.yaml\` file in the \`connector-service\` chart defines the default value for \`tokenExpirationMinutes\`:
- \`\`\`
-deployment:
-  args:
-    tokenExpirationMinutes: 60
-\`\`\`
- To override this value, and change it from \`60\` to \`90\`, do the following:
- - Create a ConfigMap in the \`kyma-installer\` Namespace and label it.
-- Add the \`application-connector.connector-service.deployment.args.tokenExpirationMinutes: 90\` entry to the ConfigMap.
- Notice that the user-provided override key now contains two parts:
- - The chart "path" inside the top-level \`core\` chart called \`application-connector.connector-service\`
-- The original template value reference from the chart without the \`.Values.\` prefix, \`deployment.args.tokenExpirationMinutes\`.
- Once the installation starts, the Installer generates overrides based on the ConfigMap entries. The system uses the value of \`90\` instead of the default value of \`60\` from the \`values.yaml\` chart file.
- ## Global overrides
- There are several important parameters usually shared across the charts.
-Helm convention to provide these requires the use of the \`global\` override key.
-For example, to define the \`global.domain\` override, just use \`global.domain\` as the name of the key in a ConfigMap or Secret for the Installer.
- Once the installation starts, the Installer merges all of the ConfigMap entries and collects all of the global entries under the \`global\` top-level key to use for the installation.
- ## Values and types
- The Installer generally recognizes all override values as strings. It internally renders overrides to Helm as a \`yaml\` stream with only string values.
- There is one exception to this rule with respect to handling booleans:
-The system converts \`true\` or \`false\` strings that it encounters to a corresponding boolean \`true\` or \`false\` value.
- ## Merging and conflicting entries
- When the Installer encounters two overrides with the same key prefix, it tries to merge them.
-If both of them represent a ConfigMap (they have nested sub-keys), their nested keys are recursively merged.
-If at least one of keys points to a final value, the Installer performs the merge in a non-deterministic order, so either one of the overrides is rendered in the final \`yaml\` data.
- It is important to avoid overrides having the same keys for final values.
- ### Non-conflicting merge example
- Two overrides with a common key prefix ("a.b"):
- \`\`\`
-"a.b.c": "first"
-"a.b.d": "second"
-\`\`\`
- The Installer yields the correct output:
- \`\`\`
-a:
-  b:
-    c: first
-    d: second
-\`\`\`
- ### Conflicting merge example
- Two overrides with the same key ("a.b"):
- \`\`\`
-"a.b": "first"
-"a.b": "second"
-\`\`\`
- The Installer yields either:
- \`\`\`
-a:
-  b: "first"
-\`\`\`
- Or (due to non-deterministic merge order):
- \`\`\`
-a:
-  b: "second"
-\`\`\`
 `;
 
 const text3 = `
@@ -284,37 +143,1062 @@ kubectl get pods --all-namespaces
 \`\`\`
 `;
 
+const asyncapi = `
+asyncapi: '1.2.0'
+info:
+  title: Slack Real Time Messaging API
+  version: '1.0.0'
+
+servers:
+  - url: https://slack.com/api/rtm.connect
+    scheme: https
+    schemeVersion: '1.1'
+
+security:
+  - token: []
+
+events:
+  receive:
+    - $ref: '#/components/messages/hello'
+    - $ref: '#/components/messages/connectionError'
+    - $ref: '#/components/messages/accountsChanged'
+    - $ref: '#/components/messages/botAdded'
+    - $ref: '#/components/messages/botChanged'
+    - $ref: '#/components/messages/channelArchive'
+    - $ref: '#/components/messages/channelCreated'
+    - $ref: '#/components/messages/channelDeleted'
+    - $ref: '#/components/messages/channelHistoryChanged'
+    - $ref: '#/components/messages/channelJoined'
+    - $ref: '#/components/messages/channelLeft'
+    - $ref: '#/components/messages/channelMarked'
+    - $ref: '#/components/messages/channelRename'
+    - $ref: '#/components/messages/channelUnarchive'
+    - $ref: '#/components/messages/commandsChanged'
+    - $ref: '#/components/messages/dndUpdated'
+    - $ref: '#/components/messages/dndUpdatedUser'
+    - $ref: '#/components/messages/emailDomainChanged'
+    - $ref: '#/components/messages/emojiRemoved'
+    - $ref: '#/components/messages/emojiAdded'
+    - $ref: '#/components/messages/fileChange'
+    - $ref: '#/components/messages/fileCommentAdded'
+    - $ref: '#/components/messages/fileCommentDeleted'
+    - $ref: '#/components/messages/fileCommentEdited'
+    - $ref: '#/components/messages/fileCreated'
+    - $ref: '#/components/messages/fileDeleted'
+    - $ref: '#/components/messages/filePublic'
+    - $ref: '#/components/messages/fileShared'
+    - $ref: '#/components/messages/fileUnshared'
+    - $ref: '#/components/messages/goodbye'
+    - $ref: '#/components/messages/groupArchive'
+    - $ref: '#/components/messages/groupClose'
+    - $ref: '#/components/messages/groupHistoryChanged'
+    - $ref: '#/components/messages/groupJoined'
+    - $ref: '#/components/messages/groupLeft'
+    - $ref: '#/components/messages/groupMarked'
+    - $ref: '#/components/messages/groupOpen'
+    - $ref: '#/components/messages/groupRename'
+    - $ref: '#/components/messages/groupUnarchive'
+    - $ref: '#/components/messages/imClose'
+    - $ref: '#/components/messages/imCreated'
+    - $ref: '#/components/messages/imMarked'
+    - $ref: '#/components/messages/imOpen'
+    - $ref: '#/components/messages/manualPresenceChange'
+    - $ref: '#/components/messages/memberJoinedChannel'
+    - $ref: '#/components/messages/message'
+  send:
+    - $ref: '#/components/messages/outgoingMessage'
+
+components:
+  securitySchemes:
+    token:
+      type: httpApiKey
+      name: token
+      in: query
+
+  schemas:
+    attachment:
+      type: object
+      properties:
+        fallback:
+          type: string
+        color:
+          type: string
+        pretext:
+          type: string
+        author_name:
+          type: string
+        author_link:
+          type: string
+          format: uri
+        author_icon:
+          type: string
+          format: uri
+        title:
+          type: string
+        title_link:
+          type: string
+          format: uri
+        text:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              value:
+                type: string
+              short:
+                type: boolean
+        image_url:
+          type: string
+          format: uri
+        thumb_url:
+          type: string
+          format: uri
+        footer:
+          type: string
+        footer_icon:
+          type: string
+          format: uri
+        ts:
+          type: number
+
+  messages:
+    hello:
+      summary: First event received upon connection.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['hello']
+
+    connectionError:
+      summary: Event received when a connection error happens.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['error']
+          error:
+            type: object
+            properties:
+              code:
+                type: number
+              msg:
+                type: string
+
+    accountsChanged:
+      summary: The list of accounts a user is signed into has changed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['accounts_changed']
+
+    botAdded:
+      summary: A bot user was added.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['bot_added']
+          bot:
+            type: object
+            properties:
+              id:
+                type: string
+              app_id:
+                type: string
+              name:
+                type: string
+              icons:
+                type: object
+                additionalProperties:
+                  type: string
+
+    botChanged:
+      summary: A bot user was changed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['bot_added']
+          bot:
+            type: object
+            properties:
+              id:
+                type: string
+              app_id:
+                type: string
+              name:
+                type: string
+              icons:
+                type: object
+                additionalProperties:
+                  type: string
+
+    channelArchive:
+      summary: A channel was archived.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_archive']
+          channel:
+            type: string
+          user:
+            type: string
+
+    channelCreated:
+      summary: A channel was created.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_created']
+          channel:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              created:
+                type: number
+              creator:
+                type: string
+
+    channelDeleted:
+      summary: A channel was deleted.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_deleted']
+          channel:
+            type: string
+
+    channelHistoryChanged:
+      summary: Bulk updates were made to a channel's history.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_history_changed']
+          latest:
+            type: string
+          ts:
+            type: string
+          event_ts:
+            type: string
+
+    channelJoined:
+      summary: You joined a channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_joined']
+          channel:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              created:
+                type: number
+              creator:
+                type: string
+
+    channelLeft:
+      summary: You left a channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_left']
+          channel:
+            type: string
+
+    channelMarked:
+      summary: Your channel read marker was updated.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_marked']
+          channel:
+            type: string
+          ts:
+            type: string
+
+    channelRename:
+      summary: A channel was renamed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_rename']
+          channel:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              created:
+                type: number
+
+    channelUnarchive:
+      summary: A channel was unarchived.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['channel_unarchive']
+          channel:
+            type: string
+          user:
+            type: string
+
+    commandsChanged:
+      summary: A slash command has been added or changed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['commands_changed']
+          event_ts:
+            type: string
+
+    dndUpdated:
+      summary: Do not Disturb settings changed for the current user.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['dnd_updated']
+          user:
+            type: string
+          dnd_status:
+            type: object
+            properties:
+              dnd_enabled:
+                type: boolean
+              next_dnd_start_ts:
+                type: number
+              next_dnd_end_ts:
+                type: number
+              snooze_enabled:
+                type: boolean
+              snooze_endtime:
+                type: number
+
+    dndUpdatedUser:
+      summary: Do not Disturb settings changed for a member.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['dnd_updated_user']
+          user:
+            type: string
+          dnd_status:
+            type: object
+            properties:
+              dnd_enabled:
+                type: boolean
+              next_dnd_start_ts:
+                type: number
+              next_dnd_end_ts:
+                type: number
+
+    emailDomainChanged:
+      summary: The workspace email domain has changed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['email_domain_changed']
+          email_domain:
+            type: string
+          event_ts:
+            type: string
+
+    emojiRemoved:
+      summary: A custom emoji has been removed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['emoji_changed']
+          subtype:
+            type: string
+            enum: ['remove']
+          names:
+            type: array
+            items:
+              type: string
+          event_ts:
+            type: string
+
+    emojiAdded:
+      summary: A custom emoji has been added.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['emoji_changed']
+          subtype:
+            type: string
+            enum: ['add']
+          name:
+            type: string
+          value:
+            type: string
+            format: uri
+          event_ts:
+            type: string
+
+    fileChange:
+      summary: A file was changed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_change']
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    fileCommentAdded:
+      summary: A file comment was added.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_comment_added']
+          comment: {}
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    fileCommentDeleted:
+      summary: A file comment was deleted.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_comment_deleted']
+          comment:
+            type: string
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    fileCommentEdited:
+      summary: A file comment was edited.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_comment_edited']
+          comment: {}
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    fileCreated:
+      summary: A file was created.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_created']
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    fileDeleted:
+      summary: A file was deleted.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_deleted']
+          file_id:
+            type: string
+          event_ts:
+            type: string
+
+    filePublic:
+      summary: A file was made public.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_public']
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    fileShared:
+      summary: A file was shared.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_shared']
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    fileUnshared:
+      summary: A file was unshared.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['file_unshared']
+          file_id:
+            type: string
+          file:
+            type: object
+            properties:
+              id:
+                type: string
+
+    goodbye:
+      summary: The server intends to close the connection soon.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['goodbye']
+
+    groupArchive:
+      summary: A private channel was archived.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_archive']
+          channel:
+            type: string
+
+    groupClose:
+      summary: You closed a private channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_close']
+          user:
+            type: string
+          channel:
+            type: string
+
+    groupHistoryChanged:
+      summary: Bulk updates were made to a private channel's history.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_history_changed']
+          latest:
+            type: string
+          ts:
+            type: string
+          event_ts:
+            type: string
+
+    groupJoined:
+      summary: You joined a private channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_joined']
+          channel:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              created:
+                type: number
+              creator:
+                type: string
+
+    groupLeft:
+      summary: You left a private channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_left']
+          channel:
+            type: string
+
+    groupMarked:
+      summary: A private channel read marker was updated.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_marked']
+          channel:
+            type: string
+          ts:
+            type: string
+
+    groupOpen:
+      summary: You opened a private channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_open']
+          user:
+            type: string
+          channel:
+            type: string
+
+    groupRename:
+      summary: A private channel was renamed.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_rename']
+          channel:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              created:
+                type: number
+
+    groupUnarchive:
+      summary: A private channel was unarchived.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['group_unarchive']
+          channel:
+            type: string
+          user:
+            type: string
+
+    imClose:
+      summary: You closed a DM.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['im_close']
+          channel:
+            type: string
+          user:
+            type: string
+
+    imCreated:
+      summary: A DM was created.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['im_created']
+          channel:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              created:
+                type: number
+              creator:
+                type: string
+          user:
+            type: string
+
+    imMarked:
+      summary: A direct message read marker was updated.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['im_marked']
+          channel:
+            type: string
+          ts:
+            type: string
+
+    imOpen:
+      summary: You opened a DM.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['im_open']
+          channel:
+            type: string
+          user:
+            type: string
+
+    manualPresenceChange:
+      summary: You manually updated your presence.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['manual_presence_change']
+          presence:
+            type: string
+
+    memberJoinedChannel:
+      summary: A user joined a public or private channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['member_joined_channel']
+          user:
+            type: string
+          channel:
+            type: string
+          channel_type:
+            type: string
+            enum:
+              - C
+              - G
+          team:
+            type: string
+          inviter:
+            type: string
+
+    memberLeftChannel:
+      summary: A user left a public or private channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['member_left_channel']
+          user:
+            type: string
+          channel:
+            type: string
+          channel_type:
+            type: string
+            enum:
+              - C
+              - G
+          team:
+            type: string
+
+    message:
+      summary: A message was sent to a channel.
+      payload:
+        type: object
+        properties:
+          type:
+            type: string
+            enum: ['message']
+          user:
+            type: string
+          channel:
+            type: string
+          text:
+            type: string
+          ts:
+            type: string
+          attachments:
+            type: array
+            items:
+              $ref: '#/components/schemas/attachment'
+          edited:
+            type: object
+            properties:
+              user:
+                type: string
+              ts:
+                type: string
+
+    outgoingMessage:
+      summary: A message was sent to a channel.
+      payload:
+        type: object
+        properties:
+          id:
+            type: number
+          type:
+            type: string
+            enum: ['message']
+          channel:
+            type: string
+          text:
+            type: string
+`;
+
+const openapi = {
+  swagger: "2.0",
+  info: {
+    version: "1.0.0",
+    title: "Swagger Petstore",
+    license: {
+      name: "MIT",
+    },
+  },
+  host: "petstore.swagger.io",
+  basePath: "/v1",
+  schemes: ["http"],
+  consumes: ["application/json"],
+  produces: ["application/json"],
+  paths: {
+    "/pets": {
+      get: {
+        summary: "List all pets",
+        operationId: "listPets",
+        tags: ["pets"],
+        parameters: [
+          {
+            name: "limit",
+            in: "query",
+            description: "How many items to return at one time (max 100)",
+            required: false,
+            type: "integer",
+            format: "int32",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "An paged array of pets",
+            headers: {
+              "x-next": {
+                type: "string",
+                description: "A link to the next page of responses",
+              },
+            },
+            schema: {
+              $ref: "#/definitions/Pets",
+            },
+          },
+          default: {
+            description: "unexpected error",
+            schema: {
+              $ref: "#/definitions/Error",
+            },
+          },
+        },
+      },
+      post: {
+        summary: "Create a pet",
+        operationId: "createPets",
+        tags: ["pets"],
+        responses: {
+          "201": {
+            description: "Null response",
+          },
+          default: {
+            description: "unexpected error",
+            schema: {
+              $ref: "#/definitions/Error",
+            },
+          },
+        },
+      },
+    },
+    "/pets/{petId}": {
+      get: {
+        summary: "Info for a specific pet",
+        operationId: "showPetById",
+        tags: ["pets"],
+        parameters: [
+          {
+            name: "petId",
+            in: "path",
+            required: true,
+            description: "The id of the pet to retrieve",
+            type: "string",
+          },
+        ],
+        responses: {
+          "200": {
+            description: "Expected response to a valid request",
+            schema: {
+              $ref: "#/definitions/Pets",
+            },
+          },
+          default: {
+            description: "unexpected error",
+            schema: {
+              $ref: "#/definitions/Error",
+            },
+          },
+        },
+      },
+    },
+  },
+  definitions: {
+    Pet: {
+      required: ["id", "name"],
+      properties: {
+        id: {
+          type: "integer",
+          format: "int64",
+        },
+        name: {
+          type: "string",
+        },
+        tag: {
+          type: "string",
+        },
+      },
+    },
+    Pets: {
+      type: "array",
+      items: {
+        $ref: "#/definitions/Pet",
+      },
+    },
+    Error: {
+      required: ["code", "message"],
+      properties: {
+        code: {
+          type: "integer",
+          format: "int32",
+        },
+        message: {
+          type: "string",
+        },
+      },
+    },
+  },
+};
+
 const Playground: React.FunctionComponent = () => {
-  const docs: Source[] = [
+  const docs: Sources = [
     {
-      type: "md",
-      rawContent: text1,
-      data: {
-        frontmatter: {
-          title: "In a nutshell",
-          type: "Overview",
+      sources: [
+        {
+          source: {
+            type: "md",
+            rawContent: text1,
+            data: {
+              frontmatter: {
+                title: "In a nutshell",
+                type: "Overview",
+              },
+            },
+          },
         },
-      },
-    },
-    {
-      type: "md",
-      rawContent: text2,
-      data: {
-        frontmatter: {
-          title: "Helm overrides for Kyma installation",
-          type: "Configuration",
+        {
+          source: {
+            type: "md",
+            rawContent: text3,
+            data: {
+              frontmatter: {
+                title: "Installation stuck at ContainerCreating",
+                type: "Troubleshooting",
+              },
+            },
+          },
         },
-      },
-    },
-    {
-      type: "md",
-      rawContent: text3,
-      data: {
-        frontmatter: {
-          title: "Installation stuck at ContainerCreating",
-          type: "Troubleshooting",
+        {
+          source: {
+            type: "asyncapi",
+            rawContent: asyncapi,
+          },
         },
-      },
+        {
+          source: {
+            type: "openapi",
+            rawContent: openapi,
+          },
+        },
+      ],
     },
   ];
 

@@ -1,9 +1,9 @@
-import { Plugin } from "./Plugin";
+import { Plugins } from "./Plugin";
 import { Sources } from "./Source";
-import { RenderEngineWithOptions } from "./RenderEngine";
+import { RenderEngines } from "./RenderEngine";
 
 export interface Options {
   sources: Sources;
-  renderEngines: RenderEngineWithOptions[];
-  plugins?: Plugin[];
+  renderEngines: RenderEngines;
+  plugins?: Plugins;
 }

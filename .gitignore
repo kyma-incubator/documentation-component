@@ -70,7 +70,6 @@ temp-*/
 .DS_Store
 
 # lib
-packages/documentation-component/lib
 **/lib
 **/bundle_analyzer
 stats.html

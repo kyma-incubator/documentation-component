@@ -1,0 +1,58 @@
+{
+  "name": "@kyma-project/dc-open-api-render-engine",
+  "description": "OpenApi render engine for @kyma-project/documentation-component",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kyma-incubator/documentation-component/blob/master/packages/open-api-render-engine"
+  },
+  "author": {
+    "name": "Kyma Core & Supporting Team",
+    "url": "http://kyma-project.io"
+  },
+  "keywords": [
+    "documentation",
+    "docs",
+    "react",
+    "component",
+    "open-api",
+    "openapi",
+    "swagger",
+    "specification",
+    "render-engine"
+  ],
+  "scripts": {
+    "start": "tsc --watch",
+    "build": "tsc",
+    "lint-check": "tslint -c ../../tslint.json --project tsconfig.json --format verbose && prettier --config ../../.prettierrc --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-fix": "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix; prettier --config ../../.prettierrc --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "@kyma-project/documentation-component": "^0.1.0",
+    "@types/swagger-ui-dist": "^3.0.0",
+    "react": "16.8.6",
+    "swagger-ui-dist": "^3.22.3"
+  },
+  "devDependencies": {
+    "@types/react": "16.8.20",
+    "prettier": "^1.18.2",
+    "tslint": "^5.17.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "tslint-react-hooks": "^2.1.1",
+    "typescript": "3.5.2"
+  },
+  "peerDependencies": {
+    "@kyma-project/documentation-component": ">= 0.1.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "/lib",
+    "./README.md",
+    "./LICENSE"
+  ]
+}
