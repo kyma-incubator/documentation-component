@@ -35,7 +35,11 @@ export const CollapsibleAnnotation: React.FunctionComponent<Props> = ({
       <TableBody>
         <TableRow>
           <TableCell>
-            <CollapseArrow open={show} clickHandler={useToggleShow} />
+            <CollapseArrow
+              open={show}
+              clickHandler={useToggleShow}
+              blueArrow={true}
+            />
           </TableCell>
         </TableRow>
         {show && (

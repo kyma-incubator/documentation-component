@@ -23,7 +23,6 @@ const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
   const toggleProperRow = (index: number): void => {
     const arr = [...show];
     arr[index] = !arr[index];
-    console.log(arr);
     setShow(arr);
   };
 
@@ -62,6 +61,7 @@ const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
                       {child.attributes[el] ||
                         (specialHeader && specialHeader.name === el && (
                           <CollapseArrow
+                            blueArrow={true}
                             open={show[index]}
                             clickHandler={() => toggleProperRow(index)}
                           />

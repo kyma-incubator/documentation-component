@@ -60,7 +60,6 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
     <TableWrapper>
       <TablePanel>
         <TableHeaderWrapper
-          className="asdfg"
           onClick={() => {
             if (show) {
               setShowPart(Array(data.length).fill(false));
@@ -99,6 +98,7 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                       <TableCell>{value.attributes.Target}</TableCell>
                       <TableCell>
                         <CollapseArrow
+                          blueArrow={true}
                           open={showEl}
                           clickHandler={() =>
                             setShowPart(inverseArrayValue(showPart, index))

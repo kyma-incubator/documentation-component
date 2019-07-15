@@ -3,7 +3,7 @@ import ServiceDocumentationTable from "./ServiceDocumentationTable/ServiceDocume
 import { Node } from "../../types";
 import { makeUnique } from "./utils";
 import Table from "./MainDataTable/Table";
-import { CollapseButton } from "../styled/styled";
+import { CollapseButton, AppWrapper } from "../styled/styled";
 
 interface Props {
   arg: Node[];
@@ -38,9 +38,9 @@ const TableContainer: React.FunctionComponent<Props> = ({ arg }) => {
   const useToggleShowAll = () => setShowAll(!showAll);
 
   return (
-    <>
+    <AppWrapper>
       <CollapseButton open={showAll} onClick={useToggleShowAll}>
-        {showAll ? "Collapse" : "Expand"}
+        {showAll ? "Collapse All" : "Expand All"}
       </CollapseButton>
 
       {Documentation && Documentation.length > 0 && (
@@ -81,7 +81,7 @@ const TableContainer: React.FunctionComponent<Props> = ({ arg }) => {
           />
         );
       })}
-    </>
+    </AppWrapper>
   );
 };
 
