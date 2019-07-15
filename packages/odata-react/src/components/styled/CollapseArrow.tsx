@@ -27,10 +27,10 @@ const Wrapper = styled.section<StyledProps>`
       display: inline-block;
       cursor: pointer;
       transform: rotate(90deg);
-      ${(props) => props.blueArrow && "color: #0a6ed1;"};
+      ${props => props.blueArrow && "color: #0a6ed1;"};
       &:before {
         transition: 0.4s ease;
-        ${(props) => props.open && "transform: rotate(-180deg);"};
+        ${props => props.open && "transform: rotate(-180deg);"};
       }
     }
   }
