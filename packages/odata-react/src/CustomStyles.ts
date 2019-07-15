@@ -63,7 +63,7 @@ export const StyledOData = styled.main`
         background-color: #f3f4f573;
       }
     }
-    .TableCell {
+    td.TableCell {
       & > table.StyledTable {
         table-layout: fixed;
         border-collapse: collapse;

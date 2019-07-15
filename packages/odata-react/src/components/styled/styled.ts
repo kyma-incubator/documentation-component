@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { Button, Icon, Panel, PanelHeader, Table } from "fundamental-react";
+export { CollapseArrow } from "./CollapseArrow";
 
 export const AppWrapper = styled.section.attrs(() => ({
   className: "ODataRoot",
 }))``;
+
 AppWrapper.displayName = "AppWrapper";
 
 export const StyledTable = styled.table.attrs(() => ({
@@ -160,28 +162,6 @@ export const NotFoundMessage = styled.p.attrs(() => ({
 `;
 
 NotFoundMessage.displayName = "NotFoundMessage";
-interface CollapseArrowProps {
-  open?: boolean;
-  blueArrow?: boolean;
-}
-
-export const CollapseArrow = styled(Icon)`
-  && {
-    margin-left: 5px;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    transform: rotate(90deg);
-    ${(props: CollapseArrowProps) => props.blueArrow && "color: #0a6ed1;"};
-  }
-  &:before {
-    transition: 0.4s ease;
-    ${(props: CollapseArrowProps) =>
-      props.open && "transform: rotate(-180deg);"};
-  }
-`;
-
-CollapseArrow.displayName = "CollapseArrow";
 
 Icon.defaultProps = {
   size: "l",
