@@ -1,4 +1,3 @@
-import babel from "rollup-plugin-babel";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import visualizer from "rollup-plugin-visualizer";
@@ -8,6 +7,10 @@ import { terser } from "rollup-plugin-terser";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 import pkg from "./package.json";
 
+import ts from "@wessberg/rollup-plugin-ts";
+
+const tsconfig = "tsconfig.prod.json";
+const babelConfig = ".babelrc";
 const extensions = [".ts", ".tsx"];
 
 const projectName = { name: "ODataReact" };
@@ -69,9 +72,11 @@ export default {
         ],
       },
     }),
-    babel({
-      extensions,
-      include: ["src/**/*"],
+    ts({
+      tsconfig,
+      babelConfig,
+      transpiler: "babel",
+      include: "src/**/*",
       exclude: "node_modules/**",
     }),
     terser(),

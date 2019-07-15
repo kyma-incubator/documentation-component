@@ -31,6 +31,10 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
   data,
   showAll,
 }) => {
+  if (!Array.isArray(data)) {
+    return null;
+  }
+
   function usePrevious(value: boolean) {
     const ref = useRef<boolean>();
     useEffect(() => {
@@ -51,10 +55,6 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
   const [showPart, setShowPart] = useState<boolean[]>(
     Array(data.length).fill(false),
   );
-
-  if (!Array.isArray(data)) {
-    return null;
-  }
 
   return (
     <TableWrapper>
