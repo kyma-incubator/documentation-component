@@ -6,13 +6,13 @@ export const StyledOData = styled.main`
       font-family: "72";
     }
 
-    section.ODataRoot {
+    section.odata-root {
       display: flex;
       flex-direction: column;
       padding: 20px; /* TODO: check this later */
     }
 
-    button.CollapseButton {
+    button.collapse-button {
       font-size: 14px;
       font-weight: normal;
       font-style: normal;
@@ -31,13 +31,13 @@ export const StyledOData = styled.main`
       }
     }
 
-    section.TableWrapper {
+    section.table-wrapper {
       margin-bottom: 16px;
       border-radius: 4px;
       border: solid 1px #97979742;
-      & > div.TablePanel {
+      & > div.table-panel {
         border-radius: 4px;
-        & > div.TableHeaderWrapper {
+        & > div.table-header-wrapper {
           border-top: none;
           border-radius: 4px;
         }
@@ -54,24 +54,24 @@ export const StyledOData = styled.main`
       color: #32363a;
     }
 
-    tr.TableRow {
+    tr.table-row {
       border-radius: 4px;
-      & > td.TableCell {
+      & > td.table-cell {
         border-radius: 4px;
       }
-      th.TableHeadCell {
+      th.table-head-cell {
         background-color: #f3f4f573;
       }
     }
-    td.TableCell {
-      & > table.StyledTable {
+    td.table-cell {
+      & > table.styled-table {
         table-layout: fixed;
         border-collapse: collapse;
         border-radius: 5px;
-        > thead.TableHead {
+        > thead.table-head {
           border: 1px solid #97979742;
         }
-        > tbody.TableBody {
+        > tbody.table-body {
           border: 1px solid #97979742;
         }
       }

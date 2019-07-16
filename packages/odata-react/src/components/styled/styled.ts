@@ -3,13 +3,13 @@ import { Button, Icon, Panel, PanelHeader, Table } from "fundamental-react";
 export { CollapseArrow } from "./CollapseArrow";
 
 export const AppWrapper = styled.section.attrs(() => ({
-  className: "ODataRoot",
+  className: "odata-root",
 }))``;
 
 AppWrapper.displayName = "AppWrapper";
 
 export const StyledTable = styled.table.attrs(() => ({
-  className: "StyledTable",
+  className: "styled-table",
 }))`
   font-size: 14px;
   line-height: 1.42857;
@@ -41,7 +41,7 @@ export const StyledTable = styled.table.attrs(() => ({
 StyledTable.displayName = "StyledTable";
 
 export const TableHead = styled.thead.attrs(() => ({
-  className: "TableHead",
+  className: "table-head",
 }))`
   font-size: 0.85714rem;
   line-height: 1.33333;
@@ -58,20 +58,20 @@ export const TableHead = styled.thead.attrs(() => ({
 TableHead.displayName = "TableHead";
 
 export const PageWrapper = styled.section.attrs(() => ({
-  className: "PageWrapper",
+  className: "page-wrapper",
 }))`
   margin: 20px;
 `;
 PageWrapper.displayName = "PageWrapper";
 
 export const TableBody = styled.tbody.attrs(() => ({
-  className: "TableBody",
+  className: "table-body",
 }))``;
 
 TableBody.displayName = "TableBody";
 
 export const TableHeadCell = styled.th.attrs(() => ({
-  className: "TableHeadCell",
+  className: "table-head-cell",
 }))`
   text-align: left;
   padding: 16px 20px;
@@ -82,14 +82,14 @@ export const TableHeadCell = styled.th.attrs(() => ({
 TableHeadCell.displayName = "TableHeadCell";
 
 export const TableRow = styled.tr.attrs(() => ({
-  className: "TableRow",
+  className: "table-row",
 }))`
   transition: background-color 125ms ease-in;
 `;
 TableRow.displayName = "TableRow";
 
 export const TableCell = styled.td.attrs(() => ({
-  className: "TableCell",
+  className: "table-cell",
 }))`
   text-align: left;
   padding: 16px 20px;
@@ -97,25 +97,25 @@ export const TableCell = styled.td.attrs(() => ({
 TableCell.displayName = "TableCell";
 
 export const LeftAlignedHeader = styled.th.attrs(() => ({
-  className: "LeftAlignedHeader",
+  className: "left-aligned-header",
 }))`
   text-align: left;
 `;
 LeftAlignedHeader.displayName = "LeftAlignedHeader";
 
 export const StyledCode = styled.code.attrs(() => ({
-  className: "StyledCode",
+  className: "styled-code",
 }))``;
 StyledCode.displayName = "StyledCode";
 
 export const TableWrapper = styled.section.attrs(() => ({
-  className: "TableWrapper",
+  className: "table-wrapper",
 }))``;
 
 TableWrapper.displayName = "TableWrapper";
 
 export const TableHeader = styled.p.attrs(() => ({
-  className: "TableHeader",
+  className: "table-header",
 }))`
   margin: 5px;
   font-size: 20px;
@@ -124,7 +124,7 @@ export const TableHeader = styled.p.attrs(() => ({
 TableHeader.displayName = "TableHeader";
 
 export const TableContent = styled(Table).attrs(() => ({
-  className: "TableContent",
+  className: "table-content",
 }))`
   && {
     margin-bottom: 0;
@@ -150,7 +150,7 @@ export const TableContent = styled(Table).attrs(() => ({
 TableContent.displayName = "TableContent";
 
 export const NotFoundMessage = styled.p.attrs(() => ({
-  className: "NotFoundMessage",
+  className: "not-found-message",
 }))`
   width: 100%;
   font-size: 18px;
@@ -169,7 +169,7 @@ Icon.defaultProps = {
 };
 
 export const CollapseButton = styled(Button).attrs(() => ({
-  className: "CollapseButton",
+  className: "collapse-button",
 }))`
   && {
     padding: 0;
@@ -184,7 +184,7 @@ Button.defaultProps = {
 };
 
 export const TablePanel = styled(Panel).attrs(() => ({
-  className: "TablePanel",
+  className: "table-panel",
 }))`
   && {
     box-shadow: none;
@@ -193,7 +193,7 @@ export const TablePanel = styled(Panel).attrs(() => ({
 TablePanel.displayName = "TablePanel";
 
 export const TableHeaderWrapper = styled(PanelHeader).attrs(() => ({
-  className: "TableHeaderWrapper",
+  className: "table-header-wrapper",
 }))`
   && {
     border-top: solid 1px #eeeeef;
@@ -210,7 +210,7 @@ export const TableHeaderWrapper = styled(PanelHeader).attrs(() => ({
 TableHeaderWrapper.displayName = "TableHeaderWrapper";
 
 export const TextOverflowWrapper = styled.div.attrs(() => ({
-  className: "TextOverflowWrapper",
+  className: "text-overflow-wrapper",
 }))`
   display: block;
   white-space: nowrap;

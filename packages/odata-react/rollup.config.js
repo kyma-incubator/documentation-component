@@ -27,6 +27,7 @@ export default {
     {
       file: pkg.browser,
       format: "umd",
+      exports: "named",
       ...projectName,
       globals,
       sourcemap: true,
