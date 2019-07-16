@@ -33,12 +33,13 @@ const inverseArrayValue = (arr: boolean[], index: number) => {
 const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
   data,
 }) => {
-  const { state, updatePart } = useCollapseContext();
+  const { state, updatePartOfCollapseState } = useCollapseContext();
   const show = state[STORE_DOC_TABLE_NAME];
-  const setShow = () => updatePart({ [STORE_DOC_TABLE_NAME]: !show });
+  const setShow = () =>
+    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: !show });
 
   if (state[STORE_DOC_TABLE_NAME] === undefined) {
-    updatePart({ [STORE_DOC_TABLE_NAME]: true });
+    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: true });
   }
 
   const [showPart, setShowPart] = useState<boolean[]>(

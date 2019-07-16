@@ -34,7 +34,7 @@ const Table: React.FunctionComponent<Props> = ({
 }) => {
   const {
     state: collapseState,
-    updatePart: updateState,
+    updatePartOfCollapseState: updateState,
   } = useCollapseContext();
   const show = collapseState[id];
   const setShow = () => updateState({ [id]: !show });

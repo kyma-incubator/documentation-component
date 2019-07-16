@@ -9,7 +9,7 @@ import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
 ReactDOM.render(
   <PageWrapper>
     <StyledOData>
-      <ODataReact schema={mocks.ODataFav5} />
+      <ODataReact schema={mocks.ODataFav1} />
     </StyledOData>
   </PageWrapper>,
   document.getElementById("root"),
