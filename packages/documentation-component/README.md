@@ -1,18 +1,17 @@
-# Kyma Documentation Component
+# Documentation Component
 
 ## Overview
 
-Kyma Documentation Component (Kyma-DC) is a generic, reusable React component that allows you to render:
-- Markdown
-- OpenAPI
-- AsyncAPI
-- OData
+Documentation Component (also known DC) is a generic, reusable React component that allows you to render any specifications.
 
-It supports:
-- Hooking custom functions that customize components rendering
-- Passing custom styling
-- Rendering of custom architecture 
+## Prerequisites
+
+See [this](../../README.md#prerequisites) document to read about the prerequisites.
+
+## Installation
+
+See [this](../../README.md#installation) document to read about the installation process.
 
 ## Development
 
-See [this](../../README.md#installation) document to read about the development process.
+See [this](../../README.md#development) document to read about the development process.

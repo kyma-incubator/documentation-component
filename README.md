@@ -2,44 +2,92 @@
 
 ## Overview
 
-The Documentation component is a generic, reusable React component that allows you to render:
-- [Markdown](https://daringfireball.net/projects/markdown/)
-- [OpenAPI](https://www.openapis.org/)
-- [AsyncAPI](https://www.asyncapi.org/)
-- [OData](https://www.odata.org/)
+Documentation Component is a generic, reusable React component that allows you to render any specifications.
 
 It supports:
-- Hooking custom functions that customize components rendering
-- Passing custom styling
-- Rendering of custom architecture
+- Hooking custom functions that customize content rendering by plugins system.
+- Passing custom render engines to render specific types of document.
+- Set custom architecture.
 
-## Prerequisites
+## Usage
 
-Use the following tools to set up the project:
+### Props
 
-* Node.js
-* React (version 16.8.0 or higher)
-* TypeScript (version 3.0.0 or higher)
+The list of props for the AsyncApi React component includes:
 
-## Installation
+  - **sources: (SourceWithOptions | SourceGroupWithOptions)[]**
 
-> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and for a better development experience.
+    The `sources` property is required and contains sources for component. For more information on what render engine is, read the [Sources characteristic](./docs/props/sources.md) document.
 
-### Install dependencies
+  - **renderEngines: RenderEngines**
 
-To install all dependencies for the [Playground](./playground) application and prepare a symlink for the [`documentation-component`](./packages/documentation-component) package, run these commands:
+    The `renderEngines` property is required (require is only one property in array) and contains render engines for component. For more information on what render engine is, read the [Render engine characteristic](./docs/props/render-engine.md) document.
 
-``` sh
-$ npm install
-$ npm run bootstrap
+  - **plugins?: Plugins**
+
+    The `plugins` property is optional and contains plugins for component. For more information on what plugin is, read the [Plugin characteristic](./docs/props/plugin.md) document.
+
+### Example
+
+See exemplary using below.
+
+``` tsx
+import React from "react";
+import { render } from "react-dom";
+import {
+  DC,
+  Content,
+  Sources,
+  RenderEngines,
+  Plugins,
+} from '@kyma-project/documentation-component';
+import { markdownRenderEngine, plugins as markdownPlugins } from '@kyma-project/dc-markdown-render-engine';
+
+const SOURCES: Sources = [
+  {
+    source: {
+      type: "md",
+      rawContent: "Example content",
+    }
+  }
+]
+
+const RENDER_ENGINES: RenderEngines = [
+  markdownRenderEngine,
+];
+
+const PLUGINS: Plugins = [
+  markdownPlugins.frontmatterMutationPlugin,
+];
+
+const App: React.FunctionComponent<> = () => (
+  <DC.Provider
+    sources={SOURCES}
+    renderEngines={RENDER_ENGINES}
+    plugins={PLUGINS}
+  >
+    <Content />
+  </DC.Provider>
+);
+
+render(<App />, document.getElementById("root"));
 ```
 
-### Launch a development environment
+### Custom render engine
 
-Launch the development server with the hot reloading functionality that allows you to immediately see any change made in files in the `playground/src` and `packages/documentation-component/src` folders in the browser. Use this command:
+For information how to write custom render engine for specific types, read [Custom render engine](./docs/guidelines/custom-render-engine.md) document.
 
-``` sh
-$ npm start
-```
+### Custom plugin
 
-You can access the live development server at [localhost:3000](http://localhost:3000/).
+For information how to write custom plugin for specific types, read [Custom plugin](./docs/guidelines/custom-plugin.md) document.
+
+## Development
+
+For information on how to set up a development environment, write and run tests, follow the naming and architecture convention defined for the project in the [Development Guide](./docs/development/guide.md).
+
+## Contribution
+
+If you have a feature request, add it as an issue or propose changes in a pull request (PR).
+If you create a feature request, use the dedicated **Feature request** issue template. When you create a PR, follow the contributing rules described in the [`CONTRIBUTING.md`](CONTRIBUTING.md) document.
+
+If you have a bug to report, reproduce it in an online code editor. For example, use [CodeSandbox](https://codesandbox.io/). Attach the link to the reproduced bug to your issue. Log the bug using the **Bug report** template.

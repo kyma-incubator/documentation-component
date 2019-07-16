@@ -14,5 +14,5 @@ npm i @kyma-project/dc-open-api-render-engine
 
 | Name | Required | Type | Default value | Description |
 |---|---|---|---|---|
-| `plugins` | NO | `any[]` | `[]` | Custom plugin for [swagger-ui-dist](https://github.com/swagger-api/swagger-ui) component |
+| `plugins` | NO | `any` | `[]` | Custom plugins for [swagger-ui-dist](https://github.com/swagger-api/swagger-ui) component. More info [here](https://github.com/swagger-api/swagger-ui/blob/master/docs/customization/plugin-api.md) |
 | `schemaUrl` | NO | `any` | `{}` | Custom schema for [swagger-ui-dist](https://github.com/swagger-api/swagger-ui) |
