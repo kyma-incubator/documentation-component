@@ -10,7 +10,7 @@ import pkg from "./package.json";
 import ts from "@wessberg/rollup-plugin-ts";
 
 const tsconfig = "tsconfig.prod.json";
-const babelConfig = ".babelrc";
+
 const extensions = [".ts", ".tsx"];
 
 const projectName = { name: "ODataReact" };
@@ -75,7 +75,6 @@ export default {
     }),
     ts({
       tsconfig,
-      babelConfig,
       transpiler: "babel",
       include: "src/**/*",
       exclude: "node_modules/**",
