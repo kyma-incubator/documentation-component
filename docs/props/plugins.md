@@ -18,7 +18,7 @@ Task of extractor plugin is extract some additional data from content, like a me
 
 For types of plugins, see [file](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/Plugin.ts).
 
-## Passing globally options to plugin
+## Passing globally options
 
 `plugins` property allows to define options for single plugin. Instead of passing a single one, pass object with `plugin` field (with appropriate plugin as value) and second `options` field. See example.
 

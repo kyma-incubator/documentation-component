@@ -9,11 +9,19 @@ It supports:
 - Passing custom render engines to render specific types of document.
 - Set custom architecture.
 
+## Installation
+
+Run this command to install the component:
+
+``` bash
+npm i @kyma-project/documentation-component
+```
+
 ## Usage
 
-### Props
+### Properties (props)
 
-The list of props for the AsyncApi React component includes:
+The list of properties for the `documentation-component` includes:
 
   - **sources: (SourceWithOptions | SourceGroupWithOptions)[]**
 
@@ -24,6 +32,22 @@ The list of props for the AsyncApi React component includes:
     The `renderEngines` property is required (require is only one property in array) and contains render engines for component. For more information on what render engine is, read the [Render engine characteristic](./docs/props/render-engine.md) document.
 
   - **plugins?: Plugins**
+
+    The `plugins` property is optional and contains plugins for component. For more information on what plugin is, read the [Plugin characteristic](./docs/props/plugin.md) document.
+
+### SubComponents
+
+The list of components available in the `documentation-component` includes:
+
+  - **Provider**
+
+    The `sources` property is required and contains sources for component. For more information on what render engine is, read the [Sources characteristic](./docs/props/sources.md) document.
+
+  - **Content**
+
+    The `renderEngines` property is required (require is only one property in array) and contains render engines for component. For more information on what render engine is, read the [Render engine characteristic](./docs/props/render-engine.md) document.
+
+  - **SourceTypes**
 
     The `plugins` property is optional and contains plugins for component. For more information on what plugin is, read the [Plugin characteristic](./docs/props/plugin.md) document.
 

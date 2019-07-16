@@ -10,7 +10,7 @@ Render engine is pure React component which task is render content of specific t
 
 For types of render engines, see [file](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/RenderEngine.ts).
 
-## Passing globally options to plugin
+## Passing globally options
 
 `renderEngines` property allows to define options for single render engine. Instead of passing a single one, pass object with `renderEngine` field (with appropriate render engine as value) and second `options` field. See example.
 

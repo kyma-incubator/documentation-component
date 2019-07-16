@@ -21,3 +21,5 @@ npm i @kyma-project/dc-async-api-render-engine
 |---|---|---|---|---|
 | `config` | NO | [`ConfigInterface`](https://github.com/asyncapi/asyncapi-react/blob/master/docs/configuration/config-modification.md) | [Default values](https://github.com/asyncapi/asyncapi-react/blob/master/library/src/config/default.ts#L3) | Configuration of [`asyncapi-react`](https://github.com/asyncapi/asyncapi-react) component |
 | `theme` | NO | [`ThemeInterface`](https://github.com/asyncapi/asyncapi-react/blob/master/docs/configuration/theme-modification.md) | [Default values](https://github.com/asyncapi/asyncapi-react/blob/master/library/src/theme/default.ts#L4) | Theme of [`asyncapi-react`](https://github.com/asyncapi/asyncapi-react) component |
+
+> **NOTE**: For information how to pass options of render engine, read [this](../../docs/props/render-engines.md#passing-globally-options) document.
