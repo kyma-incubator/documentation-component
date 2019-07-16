@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { Node } from "../../../types";
 import { makeUnique } from "../utils";
 import CollapsibleRow from "./CollapsibleRow";
@@ -17,19 +17,32 @@ import {
   TableBody,
 } from "../../styled/styled";
 
+import { useCollapseContext } from "../../../store";
+
 interface Props {
   columnData: string[];
   title: string;
   filteredData: Node[];
-  showAll: boolean;
+  id: string;
 }
 
 const Table: React.FunctionComponent<Props> = ({
   columnData,
   title,
   filteredData,
-  showAll,
+  id,
 }) => {
+  const {
+    state: collapseState,
+    updatePart: updateState,
+  } = useCollapseContext();
+  const show = collapseState[id];
+  const setShow = () => updateState({ [id]: !show });
+  if (collapseState[id] === undefined) {
+    // setting initial state
+    updateState({ [id]: true });
+  }
+
   const annotationsData: string[] = filteredData
     .map(
       (elem: Node) =>
@@ -45,31 +58,22 @@ const Table: React.FunctionComponent<Props> = ({
     makeUnique,
   );
 
-  function usePrevious(value: boolean) {
-    const ref = useRef<boolean>();
-    useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-  }
-
-  const [show, setShow] = useState<boolean>(showAll);
-
-  const prevShowAll = usePrevious(showAll);
-
-  useEffect(() => {
-    if (prevShowAll !== undefined && prevShowAll !== showAll) {
-      setShow(showAll);
-    }
-  }, [prevShowAll, showAll]);
-
   return (
     <TableWrapper>
       <TablePanel>
-        <TableHeaderWrapper onClick={() => setShow(!show)}>
+        <TableHeaderWrapper
+          onClick={() => {
+            setShow();
+          }}
+        >
           <PanelHead title={title} />
           <PanelActions>
-            <CollapseArrow open={show} clickHandler={() => setShow(!show)} />
+            <CollapseArrow
+              open={show}
+              clickHandler={() => {
+                setShow();
+              }}
+            />
           </PanelActions>
         </TableHeaderWrapper>
         {show && (

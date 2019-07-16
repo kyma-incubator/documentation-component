@@ -17,6 +17,7 @@
     "specification"
   ],
   "dependencies": {
+    "constate": "^1.2.0",
     "fiori-fundamentals": "^1.4.3",
     "fundamental-react": "0.4.0",
     "react-xml-parser": "^1.1.2",
