@@ -1,10 +1,10 @@
 {
   "include": ["./packages/**/*", "./playground"],
-  "exclude": ["**/node_modules/**/*"],
+  "exclude": ["**/node_modules/**/*", "**/lib/**/*"],
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "esnext"],
     "jsx": "react",
     "strict": true,
     "alwaysStrict": true,

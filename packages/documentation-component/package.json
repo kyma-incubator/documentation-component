@@ -29,8 +29,8 @@
   "scripts": {
     "start": "tsc --watch",
     "build": "tsc",
-    "lint-check": "tslint -c ../../tslint.json --project tsconfig.json --format verbose && prettier --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "lint-fix": "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix; prettier --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-check": "tslint -c ../../tslint.json --project tsconfig.json --format verbose && prettier --ignore-path ../../.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-fix": "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix; prettier --ignore-path ../../.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
     "prepare": "npm run build"
   },
   "dependencies": {

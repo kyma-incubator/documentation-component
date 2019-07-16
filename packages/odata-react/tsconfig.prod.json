@@ -5,13 +5,7 @@
     "baseUrl": "./src",
     "module": "esnext",
     "target": "es5",
-    "declaration": false,
-    "importHelpers": true,
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve"
+    "importHelpers": true
   },
   "include": ["src/*.ts", "src/**/*.ts", "src/*.tsx", "src/**/*.tsx"]
 }

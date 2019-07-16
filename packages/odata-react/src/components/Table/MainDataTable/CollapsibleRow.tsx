@@ -19,7 +19,11 @@ const CollapsibleRow: React.FunctionComponent<Props> = ({
         {columnHeaders.map((row: string, index: number) => (
           <TableCell key={index}>
             {row === "Annotation" ? (
-              <CollapseArrow open={show} clickHandler={() => setShow(!show)} />
+              <CollapseArrow
+                open={show}
+                clickHandler={() => setShow(!show)}
+                blueArrow={true}
+              />
             ) : (
               data.attributes[row] || data[row.toLowerCase()] || ""
             )}

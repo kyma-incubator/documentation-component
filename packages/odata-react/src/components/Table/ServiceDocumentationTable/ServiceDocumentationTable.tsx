@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
+import React, { Fragment, useState } from "react";
 import CollapsibleTable from "./CollapsibleTable";
 import { Node } from "../../../types";
 
@@ -16,9 +16,12 @@ import {
   TableHeaderWrapper,
 } from "../../styled/styled";
 
+import { useCollapseContext } from "../../../store";
+
+const STORE_DOC_TABLE_NAME = "service_documentation_table";
+
 interface Props {
   data: Node[];
-  showAll: boolean;
 }
 
 const inverseArrayValue = (arr: boolean[], index: number) => {
@@ -29,25 +32,16 @@ const inverseArrayValue = (arr: boolean[], index: number) => {
 
 const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
   data,
-  showAll,
 }) => {
-  function usePrevious(value: boolean) {
-    const ref = useRef<boolean>();
-    useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
+  const { state, updatePartOfCollapseState } = useCollapseContext();
+  const show = state[STORE_DOC_TABLE_NAME];
+  const setShow = () =>
+    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: !show });
+
+  if (state[STORE_DOC_TABLE_NAME] === undefined) {
+    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: true });
   }
 
-  const [show, setShow] = useState<boolean>(showAll);
-
-  const prevShowAll = usePrevious(showAll);
-
-  useEffect(() => {
-    if (prevShowAll !== undefined && prevShowAll !== showAll) {
-      setShow(showAll);
-    }
-  }, [prevShowAll, showAll]);
   const [showPart, setShowPart] = useState<boolean[]>(
     Array(data.length).fill(false),
   );
@@ -60,12 +54,11 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
     <TableWrapper>
       <TablePanel>
         <TableHeaderWrapper
-          className="asdfg"
           onClick={() => {
             if (show) {
               setShowPart(Array(data.length).fill(false));
             }
-            setShow(!show);
+            setShow();
           }}
         >
           <PanelHead title={"Service Documentation / Annotations"} />
@@ -76,12 +69,11 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                 if (show) {
                   setShowPart(Array(data.length).fill(false));
                 }
-                setShow(!show);
+                setShow();
               }}
             />
           </PanelActions>
         </TableHeaderWrapper>
-
         {show && (
           <StyledTable>
             <TableHead>
@@ -99,6 +91,7 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                       <TableCell>{value.attributes.Target}</TableCell>
                       <TableCell>
                         <CollapseArrow
+                          blueArrow={true}
                           open={showEl}
                           clickHandler={() =>
                             setShowPart(inverseArrayValue(showPart, index))
