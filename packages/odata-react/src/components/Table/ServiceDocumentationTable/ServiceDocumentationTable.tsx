@@ -101,9 +101,9 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                     </TableRow>
                     {showEl && (
                       <tr>
-                        <td colSpan={2}>
+                        <TableCell colSpan={2}>
                           <CollapsibleTable data={value} />
-                        </td>
+                        </TableCell>
                       </tr>
                     )}
                   </Fragment>
