@@ -9,7 +9,7 @@ export const StyledOData = styled.main`
     section.odata-root {
       display: flex;
       flex-direction: column;
-      padding: 20px; /* TODO: check this later */
+      padding: 20px;
     }
 
     button.collapse-button {
@@ -65,7 +65,6 @@ export const StyledOData = styled.main`
     }
     td.table-cell {
       & > table.styled-table {
-        table-layout: fixed;
         border-collapse: collapse;
         border-radius: 5px;
         > thead.table-head {
