@@ -64,7 +64,7 @@
   "peerDependencies": {
     "styled-components": ">= 4.2.0"
   },
-  "types": "lib/ODataReact.d.ts",
+  "types": "lib/ODataReact.esm.d.ts",
   "main": "lib/ODataReact.esm.js",
   "module": "lib/ODataReact.esm.js",
   "browser": "lib/ODataReact.umd.js",

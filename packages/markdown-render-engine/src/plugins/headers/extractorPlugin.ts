@@ -17,9 +17,11 @@ const getHeaders = (
   startWith: number,
 ): Header[] => {
   const headings: Set<string> = new Set<string>();
-  const content = (source.rawContent as string)
+  let content = (source.rawContent as string)
     .replace(TABS_BLOCKS_REGEX, "")
     .replace(CODE_BLOCKS_REGEX, "");
+
+  content = `\n${content}`;
 
   const headers: Header[] = [];
   if (!content) return headers;
@@ -101,7 +103,9 @@ export const extractHeaders = ({
     customN = customNodes.map(n => (typeof n === "function" ? n(source) : n));
     startW = startWith;
   }
-  const headers: Header[] = getHeaders(source, hp, customN, startW);
+  const headers: Header[] = getHeaders(source, hp, customN, startW).filter(
+    h => h.title,
+  );
 
   return {
     headers,
