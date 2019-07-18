@@ -50,7 +50,7 @@ export default {
     resolve({
       extensions: [...DEFAULT_EXTENSIONS, ...extensions],
       browser: true,
-      mainFields: ["module", "main", "browser"],
+      mainFields: ["module", "main", "browser", "types"],
     }),
     commonjs({
       include: "node_modules/**",

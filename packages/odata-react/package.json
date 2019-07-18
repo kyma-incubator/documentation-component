@@ -66,10 +66,8 @@
   },
   "types": "lib/ODataReact.esm.d.ts",
   "main": "lib/ODataReact.esm.js",
-  "module": "lib/ODataReact.esm.js",
-  "browser": "lib/ODataReact.umd.js",
   "files": [
-    "./lib/",
+    "./lib",
     "./README.md",
     "./LICENSE"
   ],
