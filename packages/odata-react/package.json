@@ -64,10 +64,12 @@
   "peerDependencies": {
     "styled-components": ">= 4.2.0"
   },
-  "types": "lib/ODataReact.esm.d.ts",
+  "types": "lib/ODataReact.umd.d.ts",
   "main": "lib/ODataReact.esm.js",
+  "module": "lib/ODataReact.esm.js",
+  "browser": "lib/ODataReact.umd.js",
   "files": [
-    "./lib",
+    "lib/**/*.{d.ts, js}",
     "./README.md",
     "./LICENSE"
   ],

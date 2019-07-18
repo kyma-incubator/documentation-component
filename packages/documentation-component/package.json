@@ -1,7 +1,7 @@
 {
   "name": "@kyma-project/documentation-component",
   "description": "Reusable React component compatible with markdown and most known specifications",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "Apache-2.0",
   "private": false,
   "repository": {
