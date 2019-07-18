@@ -9,38 +9,38 @@ The `sources` property is required and contains sources for component.
 The `sources` property is array type of `SourceWithOptions` and/or `SourceGroupWithOptions`. See characteristic of those structures below.
 
 ``` ts
-interface SourceWithOptions {
+interface SourceWithOptions<C = string> {
   source: {
     type: string;               // type of document, e.g.: "md"
-    rawContent: string | any;   // content of document
-    data?: any;                 // additional data - extracted or using by plugin or render engine
+    rawContent: C;   // content of document
+    data?: Record<string, any>;                 // additional data - extracted or using by plugin or render engine
   };
   pluginsOptions?: {
     name: string;
-    options: any; 
+    options: Record<string, any>; 
   }[];
   renderEngineOptions?: {
     name: string;
-    options: any; 
+    options: Record<string, any>; 
   }[];
 };
 
-interface SourceGroupWithOptions {
-  sources: SourceWithOptions[];
+interface SourceGroupWithOptions<C = string> {
+  sources: SourceWithOptions<C>[];
   pluginsOptions?: {
     name: string;
-    options: any; 
+    options: Record<string, any>; 
   }[];
   renderEngineOptions?: {
     name: string;
-    options: any; 
+    options: Record<string, any>; 
   }[];
 };
 ```
 
 ## Passing options
 
-Single `pluginsOptions` and `renderEngineOptions` are objects with two fields: `name`(`string` type) and `options`(`object` type). For passing `pluginsOptions` and/or `renderEngineOptions` you have to define for what plugin/render engine you want to provider options. Defines using the name of the plugin/render plugin as `name` field, and then provide options. 
+Single `pluginsOptions` and `renderEngineOptions` are objects with two fields: `name`(`string` type) and `options`(`object` type). For passing `pluginsOptions` and/or `renderEngineOptions` you have to define for what plugin/render engine you want to provide options. Defines using the name of the plugin/render plugin as `name` field, and then provide options. 
 
 ### Concatenating options
 

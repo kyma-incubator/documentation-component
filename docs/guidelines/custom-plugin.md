@@ -10,4 +10,4 @@ You can use exemplary project/code structure for custom plugin [here](../templat
 
 ## Example
 
-See exemplary plugin written in TypeScript for `markdown` content [here](https://github.com/kyma-incubator/documentation-component/tree/master/packages/markdown-render-engine/src/plugins/tabs).
+See exemplary plugin written in TypeScript for `markdown` content [here](../../packages/markdown-render-engine/src/plugins/tabs).

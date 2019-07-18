@@ -11,8 +11,6 @@ Read the document to find out how to install dependencies, launch the developmen
 Use the following tools to set up the project:
 
 * Node.js
-* React (version 16.8.0 or higher)
-* TypeScript (version 3.5.0 or higher)
 
 ## Installation
 
