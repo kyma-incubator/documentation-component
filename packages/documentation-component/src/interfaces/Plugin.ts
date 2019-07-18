@@ -12,28 +12,28 @@ export enum PluginType {
   MUTATION = "mutation",
 }
 
-export type PluginOptions<T = any> = T;
+export type PluginOptions = Record<string, any>;
 
-export interface PluginWithOptions<T = any> {
+export interface PluginWithOptions {
   plugin: Plugin;
-  options: PluginOptions<T>;
+  options: PluginOptions;
 }
 
 export interface ExtractorPluginReturnType {
   [key: string]: any;
 }
-export interface ExtractorPluginArgs<T = any, C = string> {
+export interface ExtractorPluginArgs<C = string> {
   source: Source<C>;
-  options?: PluginOptions<T>;
+  options?: PluginOptions;
 }
 export type ExtractorPlugin = (
   args: ExtractorPluginArgs,
 ) => ExtractorPluginReturnType;
 
 export type MutationPluginReturnType = string | any;
-export interface MutationPluginArgs<T = any> {
-  source: Source;
-  options?: PluginOptions<T>;
+export interface MutationPluginArgs<C = string> {
+  source: Source<C>;
+  options?: PluginOptions;
 }
 export type MutationPlugin = (
   args: MutationPluginArgs,

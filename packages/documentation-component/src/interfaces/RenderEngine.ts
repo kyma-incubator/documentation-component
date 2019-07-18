@@ -6,19 +6,19 @@ export interface RenderEngine {
   sourceTypes: string[];
 }
 
-export type RenderEngineOptions<T = any> = T;
+export type RenderEngineOptions = Record<string, any>;
 
-export interface RenderEngineWithOptions<T = any> {
+export interface RenderEngineWithOptions {
   renderEngine: RenderEngine;
-  options: RenderEngineOptions<T>;
+  options: RenderEngineOptions;
 }
 
 export type RenderEngineType = RenderEngine | RenderEngineWithOptions;
 export type RenderEngines = RenderEngineType[];
 
-export interface RenderEngineProps<T = any, C = string> {
+export interface RenderEngineProps<C = string> {
   source: Source<C>;
-  options?: RenderEngineOptions<T>;
+  options?: RenderEngineOptions;
 }
 
 export function isRenderEngine(
