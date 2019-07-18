@@ -56,7 +56,7 @@ function runPlugin(
   pluginT: PluginT,
   sourceGroupPluginOptions?: PluginOptions,
 ): SourceWithOptions {
-  let pluginOptions: PluginOptions;
+  let pluginOptions: PluginOptions = {};
   let plugin: Plugin;
 
   if (isPluginWithOptions(pluginT)) {

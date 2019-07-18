@@ -3,12 +3,12 @@ import { RenderEngineOptions } from "./RenderEngine";
 
 export interface PluginOptionsForSource<T = any> {
   name: string;
-  options: PluginOptions<T>;
+  options: PluginOptions;
 }
 
 export interface RenderEngineOptionsForSource<T = any> {
   name: string;
-  options: RenderEngineOptions<T>;
+  options: RenderEngineOptions;
 }
 
 export interface Source<C = string> {
