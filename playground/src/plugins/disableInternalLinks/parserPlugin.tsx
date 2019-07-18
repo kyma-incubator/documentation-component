@@ -2,8 +2,7 @@ import React from "react";
 import {
   MarkdownRenderEngineOptions,
   MarkdownParserPluginReturnType,
-} from "@kyma-project/documentation-component";
-import { Tooltip } from "@kyma-project/react-components";
+} from "@kyma-project/dc-markdown-render-engine";
 import styled from "styled-components";
 
 const GreyedText = styled.span`
@@ -32,12 +31,6 @@ export const disabledInternalLinkParser = (
     ) {
       return null;
     }
-    const content = "Placeholder";
-
-    return (
-      <Tooltip content={content} orientation={"top"}>
-        <GreyedText>{node.children[0].data}</GreyedText>
-      </Tooltip>
-    );
+    return <GreyedText>{node.children[0].data}</GreyedText>;
   },
 });

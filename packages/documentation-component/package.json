@@ -1,7 +1,7 @@
 {
   "name": "@kyma-project/documentation-component",
   "description": "Reusable React component compatible with markdown and most known specifications",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "Apache-2.0",
   "private": false,
   "repository": {
@@ -29,29 +29,25 @@
   "scripts": {
     "start": "tsc --watch",
     "build": "tsc",
-    "lint-check": "tslint -c ../../tslint.json --project tsconfig.json --format verbose && prettier --ignore-path ../../.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "lint-fix": "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix; prettier --ignore-path ../../.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-check": "tslint -c ../../tslint.json --project tsconfig.json --format verbose && prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-fix": "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix; prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
     "prepare": "npm run build"
   },
   "dependencies": {
     "constate": "^1.1.1",
-    "gray-matter": "^4.0.2",
-    "lodash.has": "^4.5.2",
-    "lodash.isdate": "^4.0.1",
-    "lodash.mapvalues": "^4.6.0",
-    "prism-react-renderer": "^0.1.6",
-    "react": "^16.8.6",
-    "react-copy-to-clipboard": "^5.0.1",
-    "react-markdown": "^4.1.0",
-    "react-player": "^1.11.1"
+    "deepmerge": "^3.3.0",
+    "uuid": "3.3.2",
+    "react": "^16.8.6"
   },
   "devDependencies": {
-    "@types/lodash.has": "^4.5.6",
-    "@types/lodash.isdate": "^4.0.6",
-    "@types/lodash.mapvalues": "^4.6.6",
     "@types/react": "16.8.20",
-    "@types/react-copy-to-clipboard": "^4.2.6",
-    "typescript": "3.5.2"
+    "@types/uuid": "^3.4.5",
+    "prettier": "^1.18.2",
+    "tslint": "^5.17.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0",
+    "tslint-react-hooks": "^2.1.1",
+    "typescript": "3.5.3"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

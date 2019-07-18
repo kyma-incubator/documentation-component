@@ -1,38 +1,21 @@
 import React from "react";
+import { DC, Content, Sources } from "@kyma-project/documentation-component";
 import {
-  DC,
-  Content,
-  markdownTabsMutationPlugin,
-  markdownTabsParserPlugin,
   markdownRenderEngine,
-  markdownHeadersPlugin,
-  RenderedContent,
-  frontmatterMutationPlugin,
-  replaceAllLessThanCharsMutationPlugin,
-  Tabs,
-  Tab,
-  MARKDOWN_HEADER_EXTRACTOR_PLUGIN,
-  Sources,
-  Source,
-} from "@kyma-project/documentation-component";
-import { StickyContainer, Sticky } from "react-sticky";
-import {
-  MarkdownLink,
-  highlightTheme,
-  CopyButton,
-  HeadersNavigation,
-} from "./render-engines";
+  plugins as markdownPlugins,
+} from "@kyma-project/dc-markdown-render-engine";
+import { asyncApiRenderEngine } from "@kyma-project/dc-async-api-render-engine";
+import { openApiRenderEngine } from "@kyma-project/dc-open-api-render-engine";
+import { odataRenderEngine } from "@kyma-project/dc-odata-render-engine";
 import {
   replaceImagePathsMutationPlugin,
-  disableInternalLinksMutationPlugin,
   disableInternalLinksParserPlugin,
 } from "./plugins";
 import { headingPrefix, customNodes } from "./helpers";
-import { MarkdownSingleRenderer } from "./renderers";
-import { ContentWrapper } from "./styled";
+import { MarkdownSingleRenderer, GroupRenderer } from "./renderers";
 
 export interface DocsComponentProps {
-  sources: Source[];
+  sources: Sources;
   navigation?: boolean;
 }
 
@@ -46,64 +29,42 @@ export const DocsComponent: React.FunctionComponent<DocsComponentProps> = ({
 
   return (
     <DC.Provider
-      sources={[
-        {
-          sources,
-          pluginsOptions: [
-            {
-              name: MARKDOWN_HEADER_EXTRACTOR_PLUGIN,
-              options: {
-                headerPrefix: headingPrefix,
-                customNodes,
-              },
-            },
-          ],
-        },
-      ]}
+      sources={sources}
       plugins={[
-        frontmatterMutationPlugin,
+        markdownPlugins.frontmatterMutationPlugin,
         replaceImagePathsMutationPlugin,
-        replaceAllLessThanCharsMutationPlugin,
-        markdownTabsMutationPlugin,
-        markdownHeadersPlugin,
-        // disableInternalLinksMutationPlugin,
+        markdownPlugins.replaceAllLessThanCharsMutationPlugin,
+        markdownPlugins.tabsMutationPlugin,
+        {
+          plugin: markdownPlugins.headersExtractorPlugin,
+          options: {
+            headerPrefix: headingPrefix,
+            customNodes,
+          },
+        },
       ]}
       renderEngines={[
         {
           renderEngine: markdownRenderEngine,
           options: {
-            customRenderers: {
-              link: MarkdownLink,
-            },
             parsers: [
-              markdownTabsParserPlugin,
+              markdownPlugins.tabsParserPlugin,
               disableInternalLinksParserPlugin,
             ],
             headingPrefix,
-            highlightTheme,
-            copyButton: CopyButton,
           },
         },
+        asyncApiRenderEngine,
+        openApiRenderEngine,
+        odataRenderEngine,
       ]}
     >
-      <ContentWrapper>
-        <StickyContainer>
-          <div>
-            <Content
-              renderers={{
-                single: [MarkdownSingleRenderer],
-              }}
-            />
-          </div>
-          <Sticky>
-            {({ style }: any) => (
-              <div style={{ ...style, zIndex: 200, width: "310px" }}>
-                <HeadersNavigation />
-              </div>
-            )}
-          </Sticky>
-        </StickyContainer>
-      </ContentWrapper>
+      <Content
+        renderers={{
+          single: [MarkdownSingleRenderer],
+          group: GroupRenderer,
+        }}
+      />
     </DC.Provider>
   );
 };

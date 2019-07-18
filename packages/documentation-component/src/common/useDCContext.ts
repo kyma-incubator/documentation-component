@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { Context } from "../core/context";
-import { Context as ContextType } from "../interfaces";
+import { DCContext } from "../core/context";
+import { Context } from "../interfaces";
 
-export function useDCContext(): ContextType {
-  return useContext(Context);
+export function useDCContext(): Context {
+  return useContext(DCContext);
 }

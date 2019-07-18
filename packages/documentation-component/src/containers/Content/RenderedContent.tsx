@@ -10,12 +10,18 @@ export const RenderedContent: React.FunctionComponent<RenderedContentProps> = ({
 }) => {
   const { sources } = useGroupContext();
 
-  if (!sources) {
+  if (!sources || !sources.length) {
     return null;
   }
-  const renderedContent = sources
-    .filter(source => sourceTypes.includes(source.type))
-    .map(source => source.data.renderedContent);
 
-  return <>{renderedContent}</>;
+  const renderedContents = sources
+    .filter(source => sourceTypes.includes(source.type))
+    .map(source => {
+      if (source.data) {
+        return source.data.renderedContent;
+      }
+      return null;
+    });
+
+  return <>{renderedContents}</>;
 };

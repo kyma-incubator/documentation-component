@@ -50,7 +50,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
     "tslint-react-hooks": "^2.1.1",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "engines": {
     "node": ">= 8.9.0"

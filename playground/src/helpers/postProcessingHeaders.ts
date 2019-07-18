@@ -1,4 +1,7 @@
-import { Source, Header } from "@kyma-project/documentation-component";
+import { Source } from "@kyma-project/documentation-component";
+import { plugins } from "@kyma-project/dc-markdown-render-engine";
+
+type Header = plugins.Header;
 
 const toKebabCase = (str: string) => {
   const matched = str.match(
@@ -18,6 +21,7 @@ function getTypes(sources: Source[]): string[] {
       const { title, type } = data.frontmatter;
       types.add(type ? type : title);
     }
+    return s;
   });
   return Array.from(types);
 }
@@ -50,6 +54,7 @@ export const postProcessingHeaders = (
         ph.children.push(h);
       }
     }
+    return h;
   });
 
   return processedHeaders;

@@ -1,7 +1,6 @@
-import { Source, PureSources } from "./Source";
-import { RenderEngineWithOptions } from "./RenderEngine";
+import { Sources, PureSources } from "./Source";
 
 export interface Context {
-  sources: PureSources;
-  renderEngines: RenderEngineWithOptions[];
+  sources: Sources;
+  pureSources: PureSources;
 }

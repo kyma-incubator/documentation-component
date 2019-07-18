@@ -1,4 +1,4 @@
-import { css, FlattenSimpleInterpolation } from "styled-components";
+import { css } from "styled-components";
 
 export const customScrollBar = ({
   scrollbarWidth = "6px",

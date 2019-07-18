@@ -5,11 +5,11 @@ import { Node } from "./types";
 import TableContainer from "./components/Table/TableContainer";
 import { ErrorComponent } from "./components/ErrorComponent/ErrorComponent";
 
-interface Props {
+export interface ODataProps {
   schema: string;
 }
 
-const ODataReact: React.FunctionComponent<Props> = ({ schema }) => {
+export const ODataReact: React.FunctionComponent<ODataProps> = ({ schema }) => {
   if (!schema) {
     return <ErrorComponent />;
   }
