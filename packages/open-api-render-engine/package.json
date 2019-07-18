@@ -31,7 +31,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@kyma-project/documentation-component": "^0.1.0",
+    "@kyma-project/documentation-component": "https://github.com/magicmatatjahu/documentation-component/raw/split-docs-component/packages/documentation-component/kyma-project-documentation-component-0.1.0.tgz",
     "@types/swagger-ui-dist": "^3.0.0",
     "react": "16.8.6",
     "swagger-ui-dist": "^3.22.3"

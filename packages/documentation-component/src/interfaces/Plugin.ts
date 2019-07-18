@@ -12,19 +12,19 @@ export enum PluginType {
   MUTATION = "mutation",
 }
 
-export type PluginOptions = Record<string, any>;
+export type PluginOptions<T = Record<string, any>> = T;
 
-export interface PluginWithOptions {
+export interface PluginWithOptions<T = Record<string, any>> {
   plugin: Plugin;
-  options: PluginOptions;
+  options: PluginOptions<T>;
 }
 
 export interface ExtractorPluginReturnType {
   [key: string]: any;
 }
-export interface ExtractorPluginArgs<C = string> {
+export interface ExtractorPluginArgs<T = Record<string, any>, C = string> {
   source: Source<C>;
-  options?: PluginOptions;
+  options?: PluginOptions<T>;
 }
 export type ExtractorPlugin = (
   args: ExtractorPluginArgs,

@@ -30,7 +30,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@kyma-project/documentation-component": "^0.1.0",
+    "@kyma-project/documentation-component": "https://github.com/magicmatatjahu/documentation-component/raw/split-docs-component/packages/documentation-component/kyma-project-documentation-component-0.1.0.tgz",
     "@kyma-project/asyncapi-react": "0.2.0",
     "react": "16.8.6"
   },
