@@ -11,27 +11,29 @@ export interface RenderEngineOptionsForSource<T = any> {
   options: RenderEngineOptions<T>;
 }
 
-export interface Source {
+export interface Source<C = string> {
   type: string;
-  rawContent: string | any;
-  content?: string | any;
-  data?: any;
+  rawContent: C;
+  content?: C;
+  data?: Record<string, any>;
 }
 
-export interface SourceWithOptions {
-  source: Source;
+export interface SourceWithOptions<C = string> {
+  source: Source<C>;
   pluginsOptions?: PluginOptionsForSource[];
   renderEngineOptions?: RenderEngineOptionsForSource[];
 }
 
-export interface SourceGroupWithOptions {
-  sources: SourceWithOptions[];
+export interface SourceGroupWithOptions<C = string> {
+  sources: Array<SourceWithOptions<C>>;
   pluginsOptions?: PluginOptionsForSource[];
   renderEngineOptions?: RenderEngineOptionsForSource[];
 }
 
-export type SourceType = SourceWithOptions | SourceGroupWithOptions;
-export type Sources = SourceType[];
+export type SourceType<C = string> =
+  | SourceWithOptions<C>
+  | SourceGroupWithOptions<C>;
+export type Sources<C = string> = Array<SourceType<C>>;
 
 export function isSourceWithOptions(
   source: SourceType,
@@ -45,8 +47,8 @@ export function isSourceGroupWithOptions(
   return Boolean((source as SourceGroupWithOptions).sources);
 }
 
-export type PureSourceType = Source | Source[];
-export type PureSources = PureSourceType[];
+export type PureSourceType<C = string> = Source<C> | Array<Source<C>>;
+export type PureSources<C = string> = Array<PureSourceType<C>>;
 
 export function isSource(source: PureSourceType): source is Source {
   return !Array.isArray(source);

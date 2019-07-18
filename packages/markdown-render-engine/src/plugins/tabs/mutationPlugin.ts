@@ -13,5 +13,5 @@ export const removeBlankLinesFromTabsBlock = ({
   const fn = (str: string): string =>
     str.replace(TABS_BLOCKS_REGEX, occurrence => removeBlankLines(occurrence));
 
-  return fn((source.content || source.rawContent) as string);
+  return fn(source.content || source.rawContent);
 };

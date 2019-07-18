@@ -16,8 +16,8 @@ export interface RenderEngineWithOptions<T = any> {
 export type RenderEngineType = RenderEngine | RenderEngineWithOptions;
 export type RenderEngines = RenderEngineType[];
 
-export interface RenderEngineProps<T = any> {
-  source: Source;
+export interface RenderEngineProps<T = any, C = string> {
+  source: Source<C>;
   options?: RenderEngineOptions<T>;
 }
 

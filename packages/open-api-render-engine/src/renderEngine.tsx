@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { RenderEngineProps } from "@kyma-project/documentation-component";
 import { OpenApiProps } from "./types";
 
-function createSwagger(schema: string, plugins: any) {
+function createSwagger(schema: any, plugins: any) {
   return import("swagger-ui-dist").then(swagger => {
     const presets = [swagger.SwaggerUIBundle.presets.apis, plugins];
 
@@ -32,14 +32,14 @@ function prepareDataForCreate(schema: any, url: string): any {
 }
 
 export const OpenApiRenderEngine: React.FunctionComponent<
-  RenderEngineProps<OpenApiProps>
+  RenderEngineProps<OpenApiProps, any>
 > = ({ source, options = {} }) => {
   useEffect(() => {
     const create = async () => {
       await createSwagger(
         prepareDataForCreate(
           source.content || source.rawContent,
-          source.data.url || options.schemaUrl,
+          (source.data && source.data.url) || options.schemaUrl,
         ),
         options.plugins,
       );

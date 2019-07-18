@@ -36,5 +36,4 @@ export function fn(source: string) {
 
 export const embedVideoMutationPlugin = ({
   source,
-}: MutationPluginArgs): string =>
-  fn((source.content || source.rawContent) as string);
+}: MutationPluginArgs): string => fn(source.content || source.rawContent);

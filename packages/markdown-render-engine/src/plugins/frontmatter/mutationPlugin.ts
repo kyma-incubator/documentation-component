@@ -7,4 +7,4 @@ function fn(str: string): string {
 }
 
 export const removeFrontmatter = ({ source }: MutationPluginArgs): string =>
-  fn((source.content || source.rawContent) as string);
+  fn(source.content || source.rawContent);

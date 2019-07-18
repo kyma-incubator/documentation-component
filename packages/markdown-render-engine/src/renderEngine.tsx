@@ -28,7 +28,7 @@ export const MarkdownRenderEngine: React.FunctionComponent<
   return (
     <MarkdownComponent
       {...options}
-      source={(source.content || source.rawContent) as string}
+      source={source.content || source.rawContent}
       headingPrefix={headingPrefix}
       key={headingPrefix}
     />

@@ -22,15 +22,26 @@ function renderGroupRenderer(
   singleRenderers?: SingleRenderer[],
 ): React.ReactNode {
   const renderedSources = sources.sources.map(source => {
-    source.source.data.renderedContent = renderSingleRenderer(
-      source,
-      singleRenderers,
-      true,
-    );
+    if (source.source.data) {
+      source.source.data.renderedContent = renderSingleRenderer(
+        source,
+        singleRenderers,
+        true,
+      );
+    }
     return source;
   });
   if (!groupRenderer) {
-    return <>{renderedSources.map(s => s.source.data.renderedContent)}</>;
+    return (
+      <>
+        {renderedSources.map(s => {
+          if (s.source.data) {
+            return s.source.data.renderedContent;
+          }
+          return null;
+        })}
+      </>
+    );
   }
 
   const Component = groupRenderer as React.FunctionComponent<
@@ -50,7 +61,8 @@ function renderSingleRenderer(
   renderers?: SingleRenderer[],
   isGroup?: boolean,
 ): React.ReactNode {
-  const renderedContent = source.source.data.renderedContent;
+  const renderedContent =
+    source.source.data && source.source.data.renderedContent;
   if (!renderedContent) {
     return null;
   }

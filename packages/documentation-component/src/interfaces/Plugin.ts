@@ -22,8 +22,8 @@ export interface PluginWithOptions<T = any> {
 export interface ExtractorPluginReturnType {
   [key: string]: any;
 }
-export interface ExtractorPluginArgs<T = any> {
-  source: Source;
+export interface ExtractorPluginArgs<T = any, C = string> {
+  source: Source<C>;
   options?: PluginOptions<T>;
 }
 export type ExtractorPlugin = (

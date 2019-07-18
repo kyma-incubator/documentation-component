@@ -2,7 +2,7 @@ import React from "react";
 import { createElementClass } from "../helpers";
 
 export interface ListItemProps {
-  checked: boolean | null;
+  checked: boolean;
   index: number;
 }
 

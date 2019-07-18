@@ -17,7 +17,7 @@ const getHeaders = (
   startWith: number,
 ): Header[] => {
   const headings: Set<string> = new Set<string>();
-  let content = (source.rawContent as string)
+  let content = source.rawContent
     .replace(TABS_BLOCKS_REGEX, "")
     .replace(CODE_BLOCKS_REGEX, "");
 

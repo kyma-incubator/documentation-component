@@ -80,11 +80,13 @@ function renderSingle(
   renderEngines: RenderEngines,
   sourceGroupRenderEngineOptions?: RenderEngineOptions,
 ): SourceWithOptions {
-  source.source.data.renderedContent = renderEngine(
-    source,
-    renderEngines,
-    sourceGroupRenderEngineOptions,
-  );
+  if (source.source.data) {
+    source.source.data.renderedContent = renderEngine(
+      source,
+      renderEngines,
+      sourceGroupRenderEngineOptions,
+    );
+  }
   return source;
 }
 

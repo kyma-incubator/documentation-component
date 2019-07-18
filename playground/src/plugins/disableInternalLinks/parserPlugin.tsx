@@ -3,7 +3,6 @@ import {
   MarkdownRenderEngineOptions,
   MarkdownParserPluginReturnType,
 } from "@kyma-project/dc-markdown-render-engine";
-// import { Tooltip } from "@kyma-project/react-components";
 import styled from "styled-components";
 
 const GreyedText = styled.span`
@@ -32,14 +31,6 @@ export const disabledInternalLinkParser = (
     ) {
       return null;
     }
-    // const content = "Placeholder";
-
     return <GreyedText>{node.children[0].data}</GreyedText>;
-
-    // return (
-    //   <Tooltip content={content} orientation={"top"}>
-    //     <GreyedText>{node.children[0].data}</GreyedText>
-    //   </Tooltip>
-    // );
   },
 });

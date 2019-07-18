@@ -16,7 +16,12 @@ export const RenderedContent: React.FunctionComponent<RenderedContentProps> = ({
 
   const renderedContents = sources
     .filter(source => sourceTypes.includes(source.type))
-    .map(source => source.data.renderedContent);
+    .map(source => {
+      if (source.data) {
+        return source.data.renderedContent;
+      }
+      return null;
+    });
 
   return <>{renderedContents}</>;
 };

@@ -1,6 +1,6 @@
 {
   "name": "@kyma-project/dc-async-api-render-engine",
-  "description": "AsyncApi render engine for @kyma-project/documentation-component",
+  "description": "AsyncAPI render engine for @kyma-project/documentation-component",
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": false,
@@ -41,7 +41,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
     "tslint-react-hooks": "^2.1.1",
-    "typescript": "3.5.2"
+    "typescript": "3.5.3"
   },
   "peerDependencies": {
     "@kyma-project/documentation-component": ">= 0.1.0"

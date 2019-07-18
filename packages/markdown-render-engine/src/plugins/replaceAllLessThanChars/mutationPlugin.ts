@@ -11,5 +11,4 @@ function fn(str: string): string {
 
 export const replaceAllLessThanChars = ({
   source,
-}: MutationPluginArgs): string =>
-  fn((source.content || source.rawContent) as string);
+}: MutationPluginArgs): string => fn(source.content || source.rawContent);
