@@ -1,7 +1,7 @@
 {
   "name": "@kyma-project/dc-markdown-render-engine",
   "description": "OpenApi render engine for @kyma-project/documentation-component",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
@@ -27,13 +27,13 @@
   "dependencies": {
     "constate": "1.2.0",
     "gray-matter": "4.0.2",
+    "lodash.has": "^4.5.2",
+    "lodash.isdate": "^4.0.1",
+    "lodash.mapvalues": "^4.6.0",
     "prism-react-renderer": "^0.1.6",
     "react-copy-to-clipboard": "^5.0.1",
     "react-markdown": "^4.1.0",
-    "react-player": "^1.11.1",
-    "lodash.has": "^4.5.2",
-    "lodash.isdate": "^4.0.1",
-    "lodash.mapvalues": "^4.6.0"
+    "react-player": "^1.11.1"
   },
   "devDependencies": {
     "@types/lodash.has": "^4.5.6",
