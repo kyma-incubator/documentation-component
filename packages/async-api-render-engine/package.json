@@ -3,7 +3,9 @@
   "description": "AsyncAPI render engine for @kyma-project/documentation-component",
   "version": "0.0.1",
   "license": "Apache-2.0",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kyma-incubator/documentation-component/blob/master/packages/async-api-render-engine"
@@ -22,29 +24,11 @@
     "specification",
     "render-engine"
   ],
-  "scripts": {
-    "start": "tsc --watch",
-    "build": "tsc",
-    "lint-check": "tslint -c ../../tslint.json --project tsconfig.json --format verbose && prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "lint-fix": "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix; prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "prepare": "npm run build"
-  },
   "dependencies": {
-    "@kyma-project/documentation-component": "https://github.com/magicmatatjahu/documentation-component/raw/split-docs-component/packages/documentation-component/kyma-project-documentation-component-0.1.0.tgz",
-    "@kyma-project/asyncapi-react": "0.2.0",
-    "react": "16.8.6"
-  },
-  "devDependencies": {
-    "@types/react": "16.8.20",
-    "prettier": "^1.18.2",
-    "tslint": "^5.17.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
-    "tslint-react-hooks": "^2.1.1",
-    "typescript": "3.5.3"
+    "@kyma-project/asyncapi-react": "0.2.0"
   },
   "peerDependencies": {
-    "@kyma-project/documentation-component": ">= 0.1.0"
+    "@kyma-project/documentation-component": "^0.0.1"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

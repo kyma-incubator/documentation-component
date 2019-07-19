@@ -3,7 +3,9 @@
   "description": "Reusable React component compatible with markdown and most known specifications",
   "version": "0.0.1",
   "license": "Apache-2.0",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component"
@@ -26,28 +28,13 @@
     "markdown",
     "specification"
   ],
-  "scripts": {
-    "start": "tsc --watch",
-    "build": "tsc",
-    "lint-check": "tslint -c ../../tslint.json --project tsconfig.json --format verbose && prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "lint-fix": "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix; prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "prepare": "npm run build"
-  },
   "dependencies": {
     "constate": "^1.1.1",
     "deepmerge": "^3.3.0",
-    "uuid": "3.3.2",
-    "react": "^16.8.6"
+    "uuid": "3.3.2"
   },
   "devDependencies": {
-    "@types/react": "16.8.20",
-    "@types/uuid": "^3.4.5",
-    "prettier": "^1.18.2",
-    "tslint": "^5.17.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.0.0",
-    "tslint-react-hooks": "^2.1.1",
-    "typescript": "3.5.3"
+    "@types/uuid": "^3.4.5"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -1,9 +1,11 @@
 {
   "name": "@kyma-project/odata-react",
   "description": "React component for visualization OData specification",
-  "version": "0.1.2",
+  "version": "0.0.1",
   "license": "Apache-2.0",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kyma-incubator/documentation-component/blob/master/packages/odata-react"
@@ -64,12 +66,10 @@
   "peerDependencies": {
     "styled-components": ">= 4.2.0"
   },
-  "types": "lib/ODataReact.umd.d.ts",
-  "main": "lib/ODataReact.esm.js",
-  "module": "lib/ODataReact.esm.js",
-  "browser": "lib/ODataReact.umd.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
-    "lib/**/*.{d.ts, js}",
+    "/lib",
     "./README.md",
     "./LICENSE"
   ],
