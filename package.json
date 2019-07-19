@@ -42,10 +42,10 @@
     "build:dev": "gulp build --dist node_modules/@kyma-project",
     "prerelease": "gulp copy-misc && gulp build --dist node_modules/@kyma-project",
     "publish": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --force-publish --exact -m \"Publish %s release\"",
-    "publish:rc": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --npm-tag=rc -m \"Publish %s release\"",
-    "publish:next": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --npm-tag=next --skip-git -m \"Publish %s release\"",
-    "publish:beta": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --npm-tag=beta -m \"Publish %s release\"",
-    "publish:test": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --force-publish --npm-tag=test --skip-git -m \"Publish %s release\""
+    "publish:rc": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --dist-tag=rc -m \"Publish %s release\"",
+    "publish:next": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --dist-tag=next --skip-git -m \"Publish %s release\"",
+    "publish:beta": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --dist-tag=beta -m \"Publish %s release\"",
+    "publish:test": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --force-publish --dist-tag=test --skip-git -m \"Publish %s release\""
   },
   "dependencies": {
     "@kyma-project/documentation-component": "./packages/documentation-component",
