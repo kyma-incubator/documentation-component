@@ -10,6 +10,10 @@ const log = require("fancy-log");
 const clc = require("cli-color");
 const { promisify } = require("util");
 
+process.on("unhandledRejection", err => {
+  throw err;
+});
+
 const sources = "packages";
 
 const documentationComponent = removeKymaPrefixFromPackage(
