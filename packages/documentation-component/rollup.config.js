@@ -1,68 +1,27 @@
-import resolve from "rollup-plugin-node-resolve";
-import commonjs from "rollup-plugin-commonjs";
-
-import cleanup from "rollup-plugin-cleanup";
-import cleaner from "rollup-plugin-cleaner";
-import replace from "rollup-plugin-replace";
-import { terser } from "rollup-plugin-terser";
-import { DEFAULT_EXTENSIONS } from "@babel/core";
 import pkg from "./package.json";
-import ts from "@wessberg/rollup-plugin-ts";
+import { plugins, outputs } from "../../rollup.base.config";
 
-const extensions = [".ts", ".tsx"];
-
-const projectName = { name: pkg.name };
+const projectName = pkg.name.replace("@kyma-project/", "");
 
 const globals = {
   react: "React",
   "react-dom": "ReactDOM",
+  constate: "createUseContext",
+  deepmerge: "deepmerge",
 };
 
 export default {
   input: "./src/index.ts",
-  output: [
-    {
-      file: pkg.browser,
-      format: "umd",
-      exports: "named",
-      ...projectName,
-      globals,
-      sourcemap: true,
+  output: outputs({
+    projectName,
+    browserName: pkg.browser,
+    moduleName: pkg.module,
+    globals,
+  }),
+  plugins: plugins({
+    commonjsOpts: {
+      namedExports: {},
     },
-    {
-      file: pkg.module,
-      format: "esm",
-      globals,
-      sourcemap: true,
-      ...projectName,
-    },
-  ],
-  plugins: [
-    cleaner({ targets: ["lib"] }),
-    replace({
-      values: {
-        "process.env.ENVIRONMENT": JSON.stringify("production"),
-        "process.env.NODE_ENV": JSON.stringify("production"),
-      },
-    }),
-    resolve({
-      extensions: [...DEFAULT_EXTENSIONS, ...extensions],
-      browser: true,
-      mainFields: ["module", "main", "browser"],
-    }),
-    commonjs({
-      include: "node_modules/**",
-      namedExports: {
-        "node_modules/deepmerge/dist/umd.js": ["deepmerge"],
-      },
-    }),
-    ts({
-      transpiler: "babel",
-      include: "src/**/*",
-      exclude: "node_modules/**",
-    }),
-    terser(),
-    cleanup({ extensions: ["ts", "tsx", "js", "jsx"], comments: "none" }), // this has to be last
-  ],
-  external: [...Object.keys(globals)],
+  }),
+  external: [...Object.keys(globals), ...Object.keys(pkg.dependencies || {})],
 };
