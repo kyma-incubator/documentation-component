@@ -41,15 +41,15 @@
     "build": "npm run clean && gulp build",
     "build:dev": "gulp build --dist node_modules/@kyma-project",
     "prerelease": "gulp copy-misc && gulp build --dist node_modules/@kyma-project",
-    "publish": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --force-publish --exact -m \"Publish %s release\"",
-    "publish:rc": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --dist-tag=rc -m \"Publish %s release\"",
-    "publish:next": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --dist-tag=next --skip-git -m \"Publish %s release\"",
-    "publish:beta": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --dist-tag=beta -m \"Publish %s release\"",
-    "publish:test": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --force-publish --dist-tag=test --skip-git -m \"Publish %s release\""
+    "publish": "npm run prerelease && npm run build && lerna publish --force-publish --exact -m \"Publish %s release\"",
+    "publish:rc": "npm run prerelease && npm run build && lerna publish --dist-tag=rc -m \"Publish %s release\"",
+    "publish:next": "npm run prerelease && npm run build && lerna publish --dist-tag=next --skip-git -m \"Publish %s release\"",
+    "publish:beta": "npm run prerelease && npm run build && lerna publish --dist-tag=beta -m \"Publish %s release\"",
+    "publish:test": "npm run prerelease && npm run build && lerna publish --force-publish --dist-tag=test --skip-git -m \"Publish %s release\""
   },
   "dependencies": {
     "@kyma-project/documentation-component": "./packages/documentation-component",
-    "@kyma-project/odata-react": "0.1.0",
+    "@kyma-project/odata-react": "./packages/odata-react",
     "@kyma-project/dc-markdown-render-engine": "./packages/markdown-render-engine",
     "@kyma-project/dc-open-api-render-engine": "./packages/open-api-render-engine",
     "@kyma-project/dc-async-api-render-engine": "./packages/async-api-render-engine",
@@ -77,7 +77,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.0.0",
     "tslint-react-hooks": "^2.1.1",
-    "typescript": "3.5.3"
+    "typescript": "^3.5.3"
   },
   "engines": {
     "node": ">= 8.9.0"
@@ -88,7 +88,7 @@
         "git add"
       ],
       "**/*.{ts,tsx}": [
-        "npm run lint-check",
+        "tslint -c ./tslint.json --project tsconfig.json --format verbose --fix; prettier --config ./.prettierrc --ignore-path ./.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
         "git add"
       ],
       "**/*.md": [

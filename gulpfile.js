@@ -12,12 +12,12 @@ const { promisify } = require("util");
 
 const sources = "packages";
 
-const documentationComponent = "documentation-component";
-const odataReact = "odata-react";
-const markdownRenderEngine = "markdown-render-engine";
-const openApiRenderEngine = "open-api-render-engine";
-const asyncApiRenderEngine = "async-api-render-engine";
-const odataRenderEngine = "odata-render-engine";
+const documentationComponent = removeKymaPrefixFromPackage(require("./packages/documentation-component/package.json").name);
+const odataReact = removeKymaPrefixFromPackage(require("./packages/odata-react/package.json").name);
+const markdownRenderEngine = removeKymaPrefixFromPackage(require("./packages/markdown-render-engine/package.json").name);
+const openApiRenderEngine = removeKymaPrefixFromPackage(require("./packages/open-api-render-engine/package.json").name);
+const asyncApiRenderEngine = removeKymaPrefixFromPackage(require("./packages/async-api-render-engine/package.json").name);
+const odataRenderEngine = removeKymaPrefixFromPackage(require("./packages/odata-render-engine/package.json").name);
 
 const packageNames = {
   [documentationComponent]: documentationComponent,
@@ -31,7 +31,7 @@ const packages = {
   [documentationComponent]: ts.createProject(
     `${sources}/${documentationComponent}/tsconfig.json`,
   ),
-  [odataReact]: ts.createProject(`${sources}/${odataReact}/tsconfig.json`),
+  [odataReact]: ts.createProject(`${sources}/${odataReact}/tsconfig.prod.json`),
   [markdownRenderEngine]: ts.createProject(
     `${sources}/${markdownRenderEngine}/tsconfig.json`,
   ),
@@ -49,6 +49,11 @@ const packages = {
 const modules = Object.keys(packages);
 const distId = process.argv.indexOf("--dist");
 const dist = distId < 0 ? sources : process.argv[distId + 1];
+
+function removeKymaPrefixFromPackage(packageName) {
+  const name = packageName.replace("@kyma-project/", "");
+  return name.replace("dc-", "");
+}
 
 gulp.task("install:packages", async () => {
   const packagesFolder = path.join(__dirname, sources);
@@ -149,9 +154,9 @@ const install = async folder => {
   await Promise.all(promises);
 };
 
-const getFolders = dir => {
+const filterFolders = dir => {
   return fs.readdirSync(dir).filter(file => {
     return fs.statSync(path.join(dir, file)).isDirectory();
   });
 };
-const getDirs = base => getFolders(base).map(path => `${base}/${path}`);
+const getDirs = base => filterFolders(base).map(path => `${base}/${path}`);
