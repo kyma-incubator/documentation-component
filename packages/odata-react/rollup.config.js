@@ -67,7 +67,7 @@ export default {
         "process.env.NODE_ENV": JSON.stringify("production"),
       },
     }),
-    // builtins(),
+
     resolve({
       extensions: [...DEFAULT_EXTENSIONS, ...extensions],
       browser: true,
@@ -103,7 +103,6 @@ export default {
     }),
     terser(),
     cleanup({ extensions: ["ts", "tsx", "js", "jsx"], comments: "none" }), // this has to be last
-    // nodeGlobals(),
     visualizer(),
   ],
   external: [...Object.keys(globals)],
