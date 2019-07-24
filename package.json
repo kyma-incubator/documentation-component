@@ -1,5 +1,5 @@
 {
-  "name": "@kyma-project/root-documentation-component",
+  "name": "@kyma-project/dc",
   "description": "Reusable React component compatible with markdown and most know specifications",
   "version": "0.0.1-alpha.0",
   "license": "Apache-2.0",
