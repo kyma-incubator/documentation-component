@@ -1,6 +1,6 @@
 import React from "react";
 import { parse } from "./tools/Parser";
-import { Node } from "./types";
+import { Node, ErrorNode, isErrorNode } from "./types";
 
 import TableContainer from "./components/Table/TableContainer";
 import { ErrorComponent } from "./components/ErrorComponent/ErrorComponent";
@@ -18,17 +18,11 @@ export const ODataReact: React.FunctionComponent<ODataProps> = ({ schema }) => {
     return <ErrorComponent />;
   }
 
-  const dataSchema = data.getElementsByTagName("Schema");
-
-  if (dataSchema.length < 1) {
-    return <ErrorComponent />;
-  }
-
-  const errors: Node[] = [];
+  const errors: ErrorNode[] = [];
   const dataForComponent: Node[] = [];
 
-  dataSchema[0].children.forEach((elem: Node) => {
-    if (elem.name === "parsererror") {
+  data.children.forEach((elem: Node | ErrorNode) => {
+    if (isErrorNode(elem)) {
       errors.push(elem);
     } else {
       dataForComponent.push(elem);
