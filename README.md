@@ -2,12 +2,12 @@
 
 ## Overview
 
-Documentation Component is a generic, reusable React component that allows you to render any specifications.
+Documentation Component, also known as DC, is a generic, reusable React component that allows you to render any available specification formats.
 
 It supports:
-- Hooking custom functions that customize content rendering by plugins system.
-- Passing custom render engines to render specific types of document.
-- Set custom architecture.
+- Passing custom functions that use system plugins to customize content rendering.
+- Passing custom render engines to render specific types of documents.
+- Setting custom architecture.
 
 ## Installation
 
@@ -19,41 +19,29 @@ npm i @kyma-project/documentation-component
 
 ## Usage
 
+Learn what the component consists of and see the exemplary code.
+
 ### Properties (props)
 
-The list of properties for the `documentation-component` includes:
+The list of properties for the Documentation Component includes:
 
   - **sources: (SourceWithOptions | SourceGroupWithOptions)[]**
 
-    The `sources` property is required and contains sources for component. For more information on what render engine is, read the [Sources characteristic](./docs/props/sources.md) document.
+    The `sources` property is required and contains source files for the component. For more information on what render engine is, read the [`sources.md`](./docs/props/sources.md) document.
 
   - **renderEngines: RenderEngines**
 
-    The `renderEngines` property is required (require is only one property in array) and contains render engines for component. For more information on what render engine is, read the [Render engine characteristic](./docs/props/render-engine.md) document.
+    The `renderEngines` property is required and contains render engines for the component. For more information on what render engine is, read the [`render-engines.md`](./docs/props/render-engine.md) document.
+    
+    > **NOTE:**  The array must contain at least one value.
 
   - **plugins?: Plugins**
 
-    The `plugins` property is optional and contains plugins for component. For more information on what plugin is, read the [Plugin characteristic](./docs/props/plugin.md) document.
-
-### SubComponents
-
-The list of components available in the `documentation-component` includes:
-
-  - **Provider**
-
-    The `sources` property is required and contains sources for component. For more information on what render engine is, read the [Sources characteristic](./docs/props/sources.md) document.
-
-  - **Content**
-
-    The `renderEngines` property is required (require is only one property in array) and contains render engines for component. For more information on what render engine is, read the [Render engine characteristic](./docs/props/render-engine.md) document.
-
-  - **SourceTypes**
-
-    The `plugins` property is optional and contains plugins for component. For more information on what plugin is, read the [Plugin characteristic](./docs/props/plugin.md) document.
+    The `plugins` property is optional and contains plugins for the component. For more information on what plugin is, read the [`plugin.md`](./docs/props/plugin.md) document.
 
 ### Example
 
-See exemplary using below.
+See an exemplary component code that renders the `.md` document source:
 
 ``` tsx
 import React from "react";
@@ -99,19 +87,39 @@ render(<App />, document.getElementById("root"));
 
 ### Custom render engine
 
-For information how to write custom render engine for specific types, read [Custom render engine](./docs/guidelines/custom-render-engine.md) document.
+For information on how to write a custom render engine for specific document types, read the [`custom-render-engine.md`](./docs/guidelines/custom-render-engine.md) document.
 
 ### Custom plugin
 
-For information how to write custom plugin for specific types, read [Custom plugin](./docs/guidelines/custom-plugin.md) document.
+For information on how to write a custom plugin for specific document types, read the [`custom-plugin.md`](./docs/guidelines/custom-plugin.md) document.
 
 ## Development
 
-For information on how to set up a development environment, write and run tests, follow the naming and architecture convention defined for the project in the [Development Guide](./docs/development/guide.md).
+> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and better development experience.
 
-## Contribution
+### Prerequisites
 
-If you have a feature request, add it as an issue or propose changes in a pull request (PR).
-If you create a feature request, use the dedicated **Feature request** issue template. When you create a PR, follow the contributing rules described in the [`CONTRIBUTING.md`](CONTRIBUTING.md) document.
+Use the following tools to set up the project:
 
-If you have a bug to report, reproduce it in an online code editor. For example, use [CodeSandbox](https://codesandbox.io/). Attach the link to the reproduced bug to your issue. Log the bug using the **Bug report** template.
+* Node.js
+
+### Installation
+
+#### Install dependencies
+
+To install all dependencies for the [Playground](./playground) application and prepare a symlink for the [`documentation-component`](./packages/documentation-component) package and other packages in the [`packages`](./packages) directory, run these commands:
+
+``` sh
+$ npm install
+$ npm run bootstrap
+```
+
+#### Launch a development environment
+
+Launch the development server with the hot reloading functionality that allows you to immediately see any changes made in files in `playground/src` and any package in the `packages` folder in the browser. Use this command:
+
+``` sh
+$ npm start
+```
+
+You can access the live development server at [localhost:3000](http://localhost:3000/).

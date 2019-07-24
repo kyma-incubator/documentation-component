@@ -1,19 +1,21 @@
-# `sources` property
+# sources
 
 ## Overview
 
-The `sources` property is required and contains sources for component. 
+The `sources` property is required and contains the source files that the component processes. 
 
 ## Types
 
-The `sources` property is array type of `SourceWithOptions` and/or `SourceGroupWithOptions`. See characteristic of those structures below.
+The `sources` property is an array type that contains `SourceWithOptions` and/or `SourceGroupWithOptions`. 
+
+See this example for details of these structures:
 
 ``` ts
 interface SourceWithOptions<C = string> {
   source: {
-    type: string;               // type of document, e.g.: "md"
-    rawContent: C;   // content of document
-    data?: Record<string, any>;                 // additional data - extracted or using by plugin or render engine
+    type: string;                 // type of document, e.g.: "md"
+    rawContent: C;                // content of document
+    data?: Record<string, any>;   // additional data - extracted or using by plugin or render engine
   };
   pluginsOptions?: {
     name: string;
@@ -38,20 +40,24 @@ interface SourceGroupWithOptions<C = string> {
 };
 ```
 
-## Passing options
+## Pass options
 
-Single `pluginsOptions` and `renderEngineOptions` are objects with two fields: `name`(`string` type) and `options`(`object` type). For passing `pluginsOptions` and/or `renderEngineOptions` you have to define for what plugin/render engine you want to provide options. Defines using the name of the plugin/render plugin as `name` field, and then provide options. 
+`pluginsOptions` and `renderEngineOptions` are objects with **name** (`string` type) and **options** (`object` type) fields. To pass `pluginsOptions` and/or `renderEngineOptions`, define the plugin or render engine for which you want to provide options. To do this, use the name of the plugin or render engine as the **name** field, and then provide options. 
 
-### Concatenating options
+### Concate options
 
-Core of `documentation-component` automatically concatenate options passing globally, for group of sources, and for single source with priorities: 
-- single source,
-- group of sources,
-- options passing globally.
+The core of the Documentation Component automatically concatenates options passed globally, for a group of sources, and for a single source, in this order of priorities: 
+1. Single source
+2. Group of sources
+3. Options passed globally
 
-> **NOTE**: For information how to pass options globally for plugins read [section](). For render engine, read [this]() section.
+> **NOTE**: For information on how to pass options globally:
+>  - for plugins, read [this](./plugins#pass-global-options) section.
+>  - for render engines, read [this](./render-engines#pass-global-options) section.
 
 ## Example
+
+See an example that demonstrates how to pass options for various source types:
 
 ``` ts
 const SOURCES: Sources = [

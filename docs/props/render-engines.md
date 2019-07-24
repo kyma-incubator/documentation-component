@@ -1,18 +1,20 @@
-# `renderEngines` property
+# renderEngines
 
 ## Overview
 
-The `renderEngines` property is required and contains render engines for component.
+The `renderEngines` property is required and contains an array of render engines specified for the component.
 
-Render engine is pure React component which task is render content of specific type of document to html.
+A render engine is a pure React component. Its purpose is to render the content of a specific type of document to the HTML format.
 
 ## Types
 
-For types of render engines, see [file](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/RenderEngine.ts).
+For types of render engines, see [this](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/RenderEngine.ts) file.
 
-## Passing globally options
+## Pass global options
 
-`renderEngines` property allows to define options for single render engine. Instead of passing a single one, pass object with `renderEngine` field (with appropriate render engine as value) and second `options` field. See example.
+The `renderEngines` property allows also you to define options for a single render engine. Instead of passing a single one, pass an object with the **renderEngine** field with the appropriate render engine as value, and add the **options** field. 
+
+See this example:
 
 ``` ts
 const RENDER_ENGINES: RenderEngines = [
@@ -25,11 +27,13 @@ const RENDER_ENGINES: RenderEngines = [
 ];
 ```
 
-> **NOTE**: For information how to pass options per group of sources or per single source read [this](./sources.md#passing-options) section.
+> **NOTE**: For information on how to pass options per group of sources or per single source, read [this](./sources.md#pass-options) section.
 
-## Passing render engines to component
+## Pass render engines to the component
 
-The `renderEngines` property is an array of render engines. For passing render engines to component you have to define array of render engines, and then pass it to the global provider of `documentation-component`. See example below.
+The `renderEngines` property is an array of render engines. To pass render engines to the component, define an array of render engines and pass it to the global provider of the Documentation Component. 
+
+See this example:
 
 ``` tsx
 const RENDER_ENGINES: RenderEngines = [
@@ -48,4 +52,4 @@ const App: React.FunctionComponent<> = () => (
 
 ## Custom render engine
 
-For information how to write custom render engine for specific types, read [Custom render engine](../guidelines/custom-render-engine.md) document.
+For information on how to write a custom render engine for specific types, read the [this](../guidelines/custom-render-engine.md) document.

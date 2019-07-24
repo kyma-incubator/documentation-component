@@ -1,26 +1,32 @@
-# `plugins` prop
+# plugins
 
 ## Overview
 
-The `plugins` property is optional and contains plugins for component.
+The `plugins` property is optional and contains plugins for the component.
 
-Plugin is a pure javascript function. At the moment available are two types of plugins: `mutation` and `extractor`. Their characteristic is described below.
+A plugin is a pure JavaScript function. There are two types of plugins available:
+- `mutation`
+- `extractor` 
+
+Read subsections to learn about their characteristics.
 
 ## Mutation plugin
 
-Task of mutation plugin is mutate content of specific type of document. 
+The purpose of the `mutation` plugin is to mutate the content of a specific type of document. 
 
 ## Extractor plugin
 
-Task of extractor plugin is extract some additional data from content, like a metadata, headers (for `.md` files), etc. to `data` field of `Source` type.
+The purpose of the `extractor` plugin is to extract additional data from the content, such as metadata or headers for `.md` files. The plugin extracts them to the **data** field of the **Source** type, based on the **sourceTypes** field defined in the plugin.
 
 ## Types
 
-For types of plugins, see [file](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/Plugin.ts).
+For types of plugins, see [this](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/Plugin.ts) file.
 
-## Passing globally options
+## Pass global options
 
-`plugins` property allows to define options for single plugin. Instead of passing a single one, pass object with `plugin` field (with appropriate plugin as value) and second `options` field. See example.
+The `plugins` property allows also you to define options for a single plugin. Instead of passing a single one, pass an object with the **plugin** field with the appropriate plugin as value, and add the **options** field. 
+
+See this example:
 
 ``` ts
 const PLUGINS: Plugins = [
@@ -33,11 +39,13 @@ const PLUGINS: Plugins = [
 ];
 ```
 
-> **NOTE**: For information how to pass options per group of sources or per single source read [this](./sources.md#passing-options) section.
+> **NOTE**: For information on how to pass options per group of sources or per single source, read [this](./sources.md#pass-options) section.
 
-## Passing plugins to component
+## Pass plugins to the component
 
-The `plugins` property is an array of plugins. For passing plugins to component you have to define array of plugins, and then pass it to the global provider of `documentation-component`. See example below.
+The `plugins` property is an array of plugins. To pass plugins to the component, define an array of plugins and pass it to the global provider of the Documentation Component. 
+
+See this example:
 
 ``` tsx
 const PLUGINS: Plugins = [
@@ -56,4 +64,4 @@ const App: React.FunctionComponent<> = () => (
 
 ## Custom plugin
 
-For information how to write custom plugin for specific types, read [Custom plugin](../guidelines/custom-plugin.md) document.
+For information on how to write a custom plugin for specific types, read the [this](../guidelines/custom-plugin.md) document.

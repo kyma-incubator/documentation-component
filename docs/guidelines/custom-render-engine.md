@@ -2,12 +2,12 @@
 
 ## Overview
 
-Read the document to find out how to write custom render engine for `documentation-component`.
+Read the document to find out how to write a custom render engine for the Documentation Component.
 
 ## Project structure
 
-You can use exemplary project/code structure for custom render-engine [here](../templates/project-structure-templates/render-engine).
+You can use an exemplary project structure for a custom render engine. See [this](../templates/project-structure-templates/render-engine) directory to find the template.
 
 ## Example
 
-See exemplary render engine written in TypeScript for [AsyncApi](https://www.asyncapi.com/) specification [here](../../packages/async-api-render-engine/src).
+To see an example of the custom render engine written in TypeScript for the [AsyncApi](https://www.asyncapi.com/) specification, go to [this](../../packages/async-api-render-engine/src) directory.

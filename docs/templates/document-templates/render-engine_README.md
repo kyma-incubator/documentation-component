@@ -1,44 +1,42 @@
-# {Name} {#required}
+> NOTE: Sections with the asterisk sign (*) are optional.
 
-> **NOTE**: Modify the `{Name}` and insert the name of your render engine. Use Heading 1 (H1).
+# Render Engine Name
 
-## Overview {#required}
+Modify the engine name and insert the name of your render engine. Use Heading 1 (H1).
 
-Provide a description of the render engine's functionality - what kind of resources the described render engine are adapted and (if it is) on what it is based, and what it uses (what packages).
+## Overview
 
-## Prerequisites {#required}
+Provide a description of the render engine's functionality. For example, describe resources adapted by the render engine, resources on which the render engine is based, or which packages it uses.
 
-> **NOTE**: This section is optional if only required dependency is `@kyma-project/documentation-component`.
+## Prerequisites
 
-List the required packages to use the render engine. 
+> **NOTE**: Don't consider`@kyma-project/documentation-component` a prerequisite. 
 
-> **Example**: 
-> - styled-components: ^4.3.0
+List the packages required to use the render engine. 
 
-## Installation {#required}
+> **NOTE**: See example in [this](../../../packages/async-api-render-engine/README.md) file.
+
+## Configuration
 
 Explain the steps to install your render engine.
 
-> **Example**: 
-> ```bash
-> npm i @kyma-project/dc-async-api-render-engine
-> ```
+> **NOTE**: See example in [this](../../../packages/async-api-render-engine/README.md) file.
 
 ## Options {#required - if config exists}
 
-List in the table available options of the render engine. Please use the table's structure as in example below.
+Create a table listing the available options of your render engine. Use the following table structure:
 
 > **NOTE**: If the options are complex, you can use a subsections. If not, please use table's structure in below example.
 
 > **Example**: 
 > | Name | Required | Type | Default value | Description |
 > |---|---|---|---|---|
-> | `schema` | YES | `string` | `""` | Defines the input schema for rendering |
+> | `schema` | Yes | `string` | `""` | Defines the input schema for rendering. |
 
-## Plugins {#optional}
+## Plugins*
 
-List provided with the package available plugins (if they exist).
+List plugins available for your render engine.
 
-## Development {#optional}
+## Development*
 
 Add instructions on how to develop the render engine. It must be clear what to do and how to trigger the tests.
