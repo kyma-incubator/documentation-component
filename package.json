@@ -1,6 +1,7 @@
 {
   "name": "@kyma-project/documentation-component",
   "description": "Reusable React component compatible with markdown and most know specifications",
+  "version": "0.0.1-alpha.0",
   "license": "Apache-2.0",
   "private": false,
   "repository": {
@@ -28,18 +29,44 @@
     "specification"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap && cd ./packages/documentation-component && npm run build",
-    "clean": "lerna clean",
-    "start": "lerna exec --parallel -- npm run start",
-    "lint-check": "lerna exec --parallel -- npm run lint-check",
-    "lint-fix": "lerna exec --parallel -- npm run lint-fix",
+    "install:packages": "gulp install:packages",
+    "lint-check": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose && prettier --config ./.prettierrc --ignore-path ./.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
+    "lint-fix": "tslint -c ./tslint.json --project tsconfig.json --format verbose --fix; prettier --config ./.prettierrc --ignore-path ./.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
     "conflict-check": "tslint-config-prettier-check ./tslint.json",
-    "type-check": "tsc --noEmit",
     "markdownlint": "markdownlint **/*.md",
-    "prettier": "prettier --config .prettierrc --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "lint-staged": "lint-staged"
+    "type-check": "tsc --noEmit",
+    "lint-staged": "lint-staged",
+    "watch": "gulp watch",
+    "clean": "gulp clean:bundle",
+    "build": "npm run clean && gulp build",
+    "build:dev": "gulp build --dist node_modules/@kyma-project",
+    "prerelease": "gulp copy-misc && gulp build --dist node_modules/@kyma-project",
+    "publish": "npm run prerelease && npm run build && lerna publish --force-publish --exact -m \"Publish %s release\"",
+    "publish:rc": "npm run prerelease && npm run build && lerna publish --dist-tag=rc -m \"Publish %s release\"",
+    "publish:next": "npm run prerelease && npm run build && lerna publish --dist-tag=next --skip-git -m \"Publish %s release\"",
+    "publish:beta": "npm run prerelease && npm run build && lerna publish --dist-tag=beta -m \"Publish %s release\"",
+    "publish:test": "npm run prerelease && npm run build && lerna publish --force-publish --dist-tag=test --skip-git -m \"Publish %s release\""
+  },
+  "dependencies": {
+    "@kyma-project/documentation-component": "./packages/documentation-component",
+    "@kyma-project/odata-react": "./packages/odata-react",
+    "@kyma-project/dc-markdown-render-engine": "./packages/markdown-render-engine",
+    "@kyma-project/dc-open-api-render-engine": "./packages/open-api-render-engine",
+    "@kyma-project/dc-async-api-render-engine": "./packages/async-api-render-engine",
+    "@kyma-project/dc-odata-render-engine": "./packages/odata-render-engine"
   },
   "devDependencies": {
+    "@types/react": "16.8.23",
+    "react": "16.8.6",
+    "gulp": "4.0.1",
+    "gulp-clang-format": "1.0.27",
+    "gulp-clean": "0.4.0",
+    "gulp-sourcemaps": "2.6.5",
+    "gulp-typescript": "5.0.1",
+    "gulp-watch": "5.0.1",
+    "delete-empty": "3.0.0",
+    "fancy-log": "1.3.3",
+    "cli-color": "1.4.0",
     "husky": "^2.4.1",
     "lerna": "^3.15.0",
     "lint-staged": "^8.2.1",
@@ -61,7 +88,7 @@
         "git add"
       ],
       "**/*.{ts,tsx}": [
-        "npm run lint-check",
+        "tslint -c ./tslint.json --project tsconfig.json --format verbose --fix; prettier --config ./.prettierrc --ignore-path ./.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
         "git add"
       ],
       "**/*.md": [

@@ -74,3 +74,6 @@ temp-*/
 **/bundle_analyzer
 stats.html
 .rpt2_cache
+
+/packages/**/.npmignore
+/packages/**/LICENSE
