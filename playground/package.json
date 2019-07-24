@@ -13,11 +13,11 @@
     "url": "http://kyma-project.io"
   },
   "dependencies": {
-    "@kyma-project/documentation-component": "0.1.0",
-    "@kyma-project/dc-markdown-render-engine": "0.1.0",
-    "@kyma-project/dc-open-api-render-engine": "0.1.0",
-    "@kyma-project/dc-async-api-render-engine": "0.1.0",
-    "@kyma-project/dc-odata-render-engine": "0.1.0",
+    "@kyma-project/documentation-component": "0.0.1-alpha.0",
+    "@kyma-project/dc-markdown-render-engine": "0.0.1-alpha.0",
+    "@kyma-project/dc-open-api-render-engine": "0.0.1-alpha.0",
+    "@kyma-project/dc-async-api-render-engine": "0.0.1-alpha.0",
+    "@kyma-project/dc-odata-render-engine": "0.0.1-alpha.0",
     "styled-components": "4.3.2",
     "react-sticky": "^6.0.3",
     "react": "^16.8.6",
@@ -47,7 +47,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "test": "echo \"No tests here!\"; exit 0;",
     "eject": "react-app-rewired eject",
     "lint-check": "tslint -c ../tslint.json --project tsconfig.json --format verbose && prettier --config ../.prettierrc --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
     "lint-fix": "tslint -c ../tslint.json --project tsconfig.json --format verbose --fix; prettier --config ../.prettierrc  --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'"

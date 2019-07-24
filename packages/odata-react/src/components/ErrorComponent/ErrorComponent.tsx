@@ -1,10 +1,10 @@
 import React from "react";
-import { Node } from "../../types";
+import { ErrorNode } from "../../types";
 import { StyledCode, PageWrapper } from "../styled/styled";
 import { Alert } from "fundamental-react";
 
 interface Props {
-  error?: Node;
+  error?: ErrorNode;
 }
 
 const ErrorComponent: React.FunctionComponent<Props> = ({ error }) => {
@@ -18,7 +18,8 @@ const ErrorComponent: React.FunctionComponent<Props> = ({ error }) => {
     );
   }
 
-  const data = error.children.map((elem: Node) => elem.value);
+  const data = error.children.map((elem: ErrorNode) => elem.children[0].text);
+
   const [header, code, p] = data;
   return (
     <PageWrapper>

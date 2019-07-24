@@ -9,6 +9,7 @@ import pkg from "./package.json";
 
 import ts from "@wessberg/rollup-plugin-ts";
 
+import chalk from "chalk";
 const tsconfig = "tsconfig.prod.json";
 
 const extensions = [".ts", ".tsx"];
@@ -19,10 +20,29 @@ const globals = {
   react: "React",
   "react-dom": "ReactDOM",
   "styled-components": "styled",
+  stream: "stream",
+  string_decoder: "string_decoder",
+};
+
+const onwarn = warning => {
+  const message =
+    "Creating a browser bundle that depends on Node.js built-in modules ('stream' and 'string_decoder')." +
+    " You might need to include https://www.npmjs.com/package/rollup-plugin-node-builtins";
+  /* we are suppersing this message, because even though
+   * xml-js has dep on sax.js which has dep on those two above,
+   * sax.js can work without them; other workaround would be to
+   * install rollup-plugin-builtins, but this would hurt bundlesize
+   */
+  if (warning.code === "MISSING_NODE_BUILTINS" && warning.message === message) {
+    return;
+  }
+
+  console.warn(chalk.yellowBright(`(!) ${warning.message}`));
 };
 
 export default {
   input: "./src/ODataReact.tsx",
+  onwarn,
   output: [
     {
       file: pkg.browser,
@@ -47,10 +67,12 @@ export default {
         "process.env.NODE_ENV": JSON.stringify("production"),
       },
     }),
+
     resolve({
       extensions: [...DEFAULT_EXTENSIONS, ...extensions],
       browser: true,
-      mainFields: ["module", "main", "browser", "types"],
+      mainFields: ["module", "main", "browser"],
+      preferBuiltins: true,
     }),
     commonjs({
       include: "node_modules/**",

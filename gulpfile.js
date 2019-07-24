@@ -12,12 +12,24 @@ const { promisify } = require("util");
 
 const sources = "packages";
 
-const documentationComponent = removeKymaPrefixFromPackage(require("./packages/documentation-component/package.json").name);
-const odataReact = removeKymaPrefixFromPackage(require("./packages/odata-react/package.json").name);
-const markdownRenderEngine = removeKymaPrefixFromPackage(require("./packages/markdown-render-engine/package.json").name);
-const openApiRenderEngine = removeKymaPrefixFromPackage(require("./packages/open-api-render-engine/package.json").name);
-const asyncApiRenderEngine = removeKymaPrefixFromPackage(require("./packages/async-api-render-engine/package.json").name);
-const odataRenderEngine = removeKymaPrefixFromPackage(require("./packages/odata-render-engine/package.json").name);
+const documentationComponent = removeKymaPrefixFromPackage(
+  require("./packages/documentation-component/package.json").name,
+);
+const odataReact = removeKymaPrefixFromPackage(
+  require("./packages/odata-react/package.json").name,
+);
+const markdownRenderEngine = removeKymaPrefixFromPackage(
+  require("./packages/markdown-render-engine/package.json").name,
+);
+const openApiRenderEngine = removeKymaPrefixFromPackage(
+  require("./packages/open-api-render-engine/package.json").name,
+);
+const asyncApiRenderEngine = removeKymaPrefixFromPackage(
+  require("./packages/async-api-render-engine/package.json").name,
+);
+const odataRenderEngine = removeKymaPrefixFromPackage(
+  require("./packages/odata-render-engine/package.json").name,
+);
 
 const packageNames = {
   [documentationComponent]: documentationComponent,
