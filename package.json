@@ -92,7 +92,7 @@
         "git add"
       ],
       "**/*.md": [
-        "npm run markdownlint"
+        "markdownlint"
       ]
     },
     "ignore": [
