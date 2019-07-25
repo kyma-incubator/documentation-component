@@ -31,13 +31,22 @@
   "dependencies": {
     "constate": "^1.1.1",
     "deepmerge": "^3.3.0",
-    "uuid": "3.3.2"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@types/uuid": "^3.4.5"
+    "@types/uuid": "^3.4.5",
+    "rollup": "^1.17.0"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "scripts": {
+    "build": "rollup -c --compact"
+  },
+  "main": "lib/index.umd.js",
+  "browser": "lib/index.umd.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.umd.d.ts",
   "files": [
     "/lib",
     "./README.md",

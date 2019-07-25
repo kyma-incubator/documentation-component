@@ -1,7 +1,7 @@
 import React from "react";
 import { useDCContext } from "../../common";
 import { GroupProvider } from "./groupProvider";
-import { RenderedContent } from "./RenderedContent";
+
 import {
   Sources,
   SourceWithOptions,
@@ -118,5 +118,5 @@ const Content: React.FunctionComponent<ContentProps> = ({ renderers = {} }) => {
   return <>{render(sources, renderers)}</>;
 };
 
-export { Content, RenderedContent };
+export { Content };
 export * from "./types";

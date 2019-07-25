@@ -10,6 +10,10 @@ const log = require("fancy-log");
 const clc = require("cli-color");
 const { promisify } = require("util");
 
+process.on("unhandledRejection", err => {
+  throw err;
+});
+
 const sources = "packages";
 
 const documentationComponent = removeKymaPrefixFromPackage(
@@ -150,14 +154,16 @@ gulp.task("clean:bundle", gulp.series("clean:output", "clean:dirs"));
 
 const install = async folder => {
   const directories = getDirs(folder);
-  const exec = promisify(childProcess.exec);
+  const execFile = promisify(childProcess.execFile);
 
   const promises = directories.map(async dir => {
     log.info(
       `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
     );
     try {
-      await exec(`npm install --no-shrinkwrap --prefix ${dir}`);
+      await execFile(`yarn`, ["install"], {
+        cwd: dir,
+      });
     } catch (err) {
       log.error(`Failed installing dependencies of ${dir}`);
       throw err;
