@@ -1,9 +1,9 @@
 import React from "react";
 import { parse } from "./tools/Parser";
 import { Node, ErrorNode, isErrorNode } from "./types";
-import { ErrorBoundary } from "./components/ErrorComponent/ErrorBoundary";
+import { ErrorBoundary } from "./components/ErrorComponents/ErrorBoundary";
 import TableContainer from "./components/Table/TableContainer";
-import { ErrorComponent } from "./components/ErrorComponent/ErrorComponent";
+import { ErrorComponent } from "./components/ErrorComponents/ErrorComponent";
 
 export interface ODataProps {
   schema: string;
