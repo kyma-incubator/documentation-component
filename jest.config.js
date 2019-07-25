@@ -3,7 +3,9 @@ module.exports = {
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },
-
+  globals: {
+    "ts-jest": { tsConfig: "tsconfig.base.json" },
+  },
   verbose: true,
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   testMatch: [
