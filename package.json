@@ -29,10 +29,11 @@
     "specification"
   ],
   "scripts": {
+    "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('Use yarn for installing: https://yarnpkg.com/en/docs/install')\"",
+    "bootstrap": "yarn install && gulp install:packages && yarn build:dev",
     "install:packages": "gulp install:packages",
     "lint-check": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose && prettier --config ./.prettierrc --ignore-path ./.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
     "lint-fix": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose --fix; prettier --config ./.prettierrc --ignore-path ./.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
-    "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('Use yarn for installing: https://yarnpkg.com/en/docs/install')\"",
     "test": "jest --detectOpenHandles",
     "testWatch": "jest --detectOpenHandles --watch",
     "conflict-check": "tslint-config-prettier-check ./tslint.json",

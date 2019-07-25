@@ -44,10 +44,6 @@ const packageNames = {
   [odataRenderEngine]: `dc-${odataRenderEngine}`,
 };
 const packages = {
-  [documentationComponent]: ts.createProject(
-    `${sources}/${documentationComponent}/tsconfig.json`,
-  ),
-  [odataReact]: ts.createProject(`${sources}/${odataReact}/tsconfig.prod.json`),
   [markdownRenderEngine]: ts.createProject(
     `${sources}/${markdownRenderEngine}/tsconfig.json`,
   ),
@@ -61,33 +57,19 @@ const packages = {
     `${sources}/${odataRenderEngine}/tsconfig.json`,
   ),
 };
+const rollupPackages = {
+  [documentationComponent]: documentationComponent,
+  [odataReact]: odataReact,
+};
 
 const modules = Object.keys(packages);
+const rollupModules = Object.keys(rollupPackages);
 const distId = process.argv.indexOf("--dist");
 const dist = distId < 0 ? sources : process.argv[distId + 1];
-
-function removeKymaPrefixFromPackage(packageName) {
-  const name = packageName.replace("@kyma-project/", "");
-  return name.replace("dc-", "");
-}
 
 gulp.task("install:packages", async () => {
   const packagesFolder = path.join(__dirname, sources);
   await install(packagesFolder);
-});
-
-gulp.task("watch", () => {
-  modules.forEach(mod => {
-    gulp.watch(
-      [
-        `${sources}/${mod}/**/*.ts`,
-        `${sources}/${mod}/*.ts`,
-        `${sources}/${mod}/**/*.tsx`,
-        `${sources}/${mod}/*.tsx`,
-      ],
-      [mod],
-    );
-  });
 });
 
 modules.forEach(mod => {
@@ -100,7 +82,17 @@ modules.forEach(mod => {
       );
   });
 });
-gulp.task("build", gulp.series(modules));
+rollupModules.forEach(mod => {
+  gulp.task(`${mod}:rollup`, async () => {
+    const packageName = path.resolve(__dirname, `${sources}/${mod}`);
+
+    await buildByRollup(packageName);
+    gulp.src(`${packageName}/lib/**`)
+      .pipe(
+        gulp.dest(`${dist}/${packageNames[mod]}/lib`),
+      );
+  });
+});
 
 modules.forEach(mod => {
   gulp.task(`${mod}:dev`, () => {
@@ -117,12 +109,42 @@ modules.forEach(mod => {
       );
   });
 });
-gulp.task("build:dev", gulp.series(modules.map(mod => `${mod}:dev`)));
+
+gulp.task("build:normal", gulp.series(modules));
+gulp.task("build:rollup", gulp.series(rollupModules.map(mod => `${mod}:rollup`)));
+gulp.task("build", gulp.series("build:rollup", "build:normal"));
+gulp.task("build:dev", gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)));
+
+gulp.task("watch", () => {
+  modules.forEach(mod => {
+    gulp.watch(
+      [
+        `${sources}/${mod}/src/**/*.ts`,
+        `${sources}/${mod}/src/*.ts`,
+        `${sources}/${mod}/src/**/*.tsx`,
+        `${sources}/${mod}/src/*.tsx`,
+      ],
+      gulp.series(mod),
+    );
+  });
+  rollupModules.forEach(mod => {
+    gulp.watch(
+      [
+        `${sources}/${mod}/src/**/*.ts`,
+        `${sources}/${mod}/src/*.ts`,
+        `${sources}/${mod}/src/**/*.tsx`,
+        `${sources}/${mod}/src/*.tsx`,
+      ],
+      gulp.series(`${mod}:rollup`),
+    );
+  });
+});
 
 gulp.task("copy-misc", () => {
   return gulp
     .src(["LICENSE", ".npmignore"])
     .pipe(gulp.dest(`${sources}/${documentationComponent}`))
+    .pipe(gulp.dest(`${sources}/${odataReact}`))
     .pipe(gulp.dest(`${sources}/${markdownRenderEngine}`))
     .pipe(gulp.dest(`${sources}/${openApiRenderEngine}`))
     .pipe(gulp.dest(`${sources}/${asyncApiRenderEngine}`))
@@ -144,12 +166,10 @@ gulp.task("clean:output", () => {
     )
     .pipe(clean());
 });
-
 gulp.task("clean:dirs", done => {
   deleteEmpty.sync(`${sources}/`);
   done();
 });
-
 gulp.task("clean:bundle", gulp.series("clean:output", "clean:dirs"));
 
 const install = async folder => {
@@ -172,9 +192,30 @@ const install = async folder => {
   await Promise.all(promises);
 };
 
+const buildByRollup = async dir => {
+  const execFile = promisify(childProcess.execFile);
+
+  log.info(
+    `Building package ${clc.magenta(dir.replace(__dirname, ""))}`,
+  );
+  try {
+    await execFile(`yarn`, ["build"], {
+      cwd: dir,
+    });
+  } catch (err) {
+    log.error(`Failed building dependencies of ${dir}`);
+    throw err;
+  }
+};
+
 const filterFolders = dir => {
   return fs.readdirSync(dir).filter(file => {
     return fs.statSync(path.join(dir, file)).isDirectory();
   });
 };
 const getDirs = base => filterFolders(base).map(path => `${base}/${path}`);
+
+function removeKymaPrefixFromPackage(packageName) {
+  const name = packageName.replace("@kyma-project/", "");
+  return name.replace("dc-", "");
+}
