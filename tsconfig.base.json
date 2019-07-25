@@ -3,7 +3,7 @@
   "exclude": ["**/node_modules/**/*", "**/lib/**/*"],
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["dom", "esnext"],
     "jsx": "react",
     "strict": true,

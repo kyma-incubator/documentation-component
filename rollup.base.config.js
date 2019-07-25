@@ -4,10 +4,11 @@ import visualizer from "rollup-plugin-visualizer";
 import cleanup from "rollup-plugin-cleanup";
 import cleaner from "rollup-plugin-cleaner";
 import replace from "rollup-plugin-replace";
+import sourcemaps from "rollup-plugin-sourcemaps";
 import { terser } from "rollup-plugin-terser";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 
-import ts from "@wessberg/rollup-plugin-ts";
+import ts from "rollup-plugin-typescript2";
 
 const extensions = [".ts", ".tsx"];
 
@@ -49,10 +50,11 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
     }),
     ts({
       tsconfig: tsconfigPath,
-      transpiler: "babel",
-      include: "src/**/*",
-      exclude: "node_modules/**",
+      typescript: require("typescript"),
+      clean: true,
+      objectHashIgnoreUnknownHack: true,
     }),
+    sourcemaps(),
     terser(),
     cleanup({ extensions: ["ts", "tsx", "js", "jsx"], comments: "none" }), // this has to be last
     visualizer(),

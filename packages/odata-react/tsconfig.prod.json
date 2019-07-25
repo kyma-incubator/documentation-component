@@ -3,9 +3,9 @@
   "compilerOptions": {
     "outDir": "./lib",
     "baseUrl": "./src",
-    "module": "esnext",
     "target": "es5",
-    "importHelpers": true
+    "importHelpers": true,
+    "declaration": true
   },
   "include": ["src/*.ts", "src/**/*.ts", "src/*.tsx", "src/**/*.tsx"]
 }
