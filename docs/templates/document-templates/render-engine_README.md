@@ -1,4 +1,4 @@
-> NOTE: Sections with the asterisk sign (*) are optional.
+> **NOTE**: Sections with the asterisk sign (*) are optional.
 
 # Render Engine Name
 
@@ -14,26 +14,19 @@ Provide a description of the render engine's functionality. For example, describ
 
 List the packages required to use the render engine. 
 
-> **NOTE**: See example in [this](../../../packages/async-api-render-engine/README.md) file.
-
-## Configuration
+## Installation
 
 Explain the steps to install your render engine.
 
-> **NOTE**: See example in [this](../../../packages/async-api-render-engine/README.md) file.
-
-## Options {#required - if config exists}
+## Configuration*
 
 Create a table listing the available options of your render engine. Use the following table structure:
 
-> **NOTE**: If the options are complex, you can use a subsections. If not, please use table's structure in below example.
+| Name | Required | Type | Default value | Description |
+|---|---|---|---|---|
+| `schema` | Yes | `string` | `""` | Defines the input schema for rendering. |
 
-> **Example**: 
-> | Name | Required | Type | Default value | Description |
-> |---|---|---|---|---|
-> | `schema` | Yes | `string` | `""` | Defines the input schema for rendering. |
-
-## Plugins*
+### Plugins*
 
 List plugins available for your render engine.
 

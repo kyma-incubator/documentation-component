@@ -1,40 +1,33 @@
-# {Name} {#required}
+> **NOTE**: Sections with the asterisk sign (*) are optional.
 
-> **NOTE**: Modify the `{Name}` and insert the name of your plugin. Use Heading 1 (H1).
+# Plugin Name
 
-## Overview {#required}
+Modify the plugin name and insert the name of your plugin. Use Heading 1 (H1).
 
-Provide a description of the plugin(s) functionality and on what types of resources is/are adapted.
+## Overview
 
-## Prerequisites {#optional}
+Provide a description of the plugin functionality. For example, describe the resources types on which it is adapted.
 
-> **NOTE**: This section is optional if only required dependency is `@kyma-project/documentation-component`.
+## Prerequisites*
 
-List the required packages (especially appropriate render engine) to use the plugin(s).
+> **NOTE**: Don't consider`@kyma-project/documentation-component` a prerequisite. 
 
-> **Example**: 
-> - @kyma-project/dc-markdown-render-engine: 0.1.0
+List the packages, including render engines, required to use the plugin. 
 
-## Installation {#required}
+## Installation
 
-Explain the steps to install your plugin(s).
+Explain the steps to install your plugin.
 
-> **Example**: 
-> ```bash
-> npm i @kyma-project/dc-frontmatter-plugins
-> ```
+## Usage 
 
-## Options {#required - if config exists}
+### Configuration*
 
-List in the table available options of the plugin. Please use the table's structure as in example below.
+Create a table listing the available options for your plugin. Use the following table structure:
 
-> **NOTE**: If the options are complex or in package are several plugins, you can use a subsections. If not, please use table's structure in below example.
+| Name | Required | Type | Default value | Description |
+|---|---|---|---|---|
+| `disableRelativeLinks` | No | `boolean` | `false` | Disable relative links in markdown files |
 
-> **Example**: 
-> | Name | Required | Type | Default value | Description |
-> |---|---|---|---|---|
-> | `disableRelativeLinks` | NO | `boolean` | `false` | Disable relative links in markdown files |
+## Development*
 
-## Development {#optional}
-
-Add instructions on how to develop the plugin(s). It must be clear what to do and how to trigger the tests.
+Add instructions on how to develop the plugin. It must be clear what to do and how to trigger the tests.
