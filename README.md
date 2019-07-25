@@ -39,6 +39,14 @@ The list of properties for the Documentation Component includes:
 
     The `plugins` property is optional and contains plugins for the component. For more information on what plugin is, read the [`plugin.md`](./docs/props/plugin.md) document.
 
+### Custom render engine
+
+For information on how to write a custom render engine for specific document types, read the [`custom-render-engine.md`](./docs/guidelines/custom-render-engine.md) document.
+
+### Custom plugin
+
+For information on how to write a custom plugin for specific document types, read the [`custom-plugin.md`](./docs/guidelines/custom-plugin.md) document.
+
 ### Example
 
 See an exemplary component code that renders the `.md` document source:
@@ -85,14 +93,6 @@ const App: React.FunctionComponent<> = () => (
 render(<App />, document.getElementById("root"));
 ```
 
-### Custom render engine
-
-For information on how to write a custom render engine for specific document types, read the [`custom-render-engine.md`](./docs/guidelines/custom-render-engine.md) document.
-
-### Custom plugin
-
-For information on how to write a custom plugin for specific document types, read the [`custom-plugin.md`](./docs/guidelines/custom-plugin.md) document.
-
 ## Development
 
 > **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and better development experience.
@@ -101,7 +101,7 @@ For information on how to write a custom plugin for specific document types, rea
 
 Use the following tools to set up the project:
 
-* Node.js
+- Node.js
 
 ### Installation
 
