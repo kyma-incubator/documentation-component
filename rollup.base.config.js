@@ -59,6 +59,7 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
       typescript: typescript,
       clean: true,
       objectHashIgnoreUnknownHack: true,
+      tsconfigOverride: { target: "esnext" }, //babel plugin takes care of transpiling from esnext to browserlisted es
     }),
     babel({
       exclude: "node_modules/**",
