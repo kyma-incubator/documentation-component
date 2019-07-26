@@ -78,7 +78,9 @@ const getHeaders = (
       lastIndexes[occurrence].children = [h];
     }
   }
+  console.log(headers);
   const decrementedHeaders = decrementLevels(headers);
+  console.log(decrementedHeaders);
 
   if (!customFirstNode) {
     return decrementedHeaders;
