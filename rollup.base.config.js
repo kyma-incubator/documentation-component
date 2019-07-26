@@ -5,6 +5,8 @@ import cleanup from "rollup-plugin-cleanup";
 import cleaner from "rollup-plugin-cleaner";
 import replace from "rollup-plugin-replace";
 import sourcemaps from "rollup-plugin-sourcemaps";
+import babel from "rollup-plugin-babel";
+import autoExternal from "rollup-plugin-auto-external";
 import { terser } from "rollup-plugin-terser";
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 
@@ -33,6 +35,8 @@ export const outputs = ({ projectName, browserName, moduleName, globals }) => [
 export const plugins = ({ commonjsOpts, tsconfigPath }) => {
   return [
     cleaner({ targets: ["lib"] }),
+    sourcemaps(),
+    autoExternal(),
     replace({
       values: {
         "process.env.ENVIRONMENT": JSON.stringify("production"),
@@ -45,7 +49,7 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
       mainFields: ["module", "main", "browser"],
     }),
     commonjs({
-      include: "node_modules/**",
+      include: /node_modules/,
       ...commonjsOpts,
     }),
     ts({
@@ -54,7 +58,38 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
       clean: true,
       objectHashIgnoreUnknownHack: true,
     }),
-    sourcemaps(),
+    babel({
+      exclude: "node_modules/**",
+      extensions: [...DEFAULT_EXTENSIONS, "ts", "tsx"],
+      runtimeHelpers: true,
+      babelrc: false,
+      presets: [
+        [
+          "@babel/env",
+          {
+            modules: false,
+            targets: {
+              browsers: [">0.25%", "not dead"],
+            },
+          },
+        ],
+        "@babel/preset-react",
+        "@babel/typescript",
+      ],
+      plugins: [
+        [
+          "babel-plugin-styled-components",
+          {
+            displayName: true,
+          },
+        ],
+        "@babel/plugin-transform-runtime",
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread",
+        "@babel/plugin-proposal-async-generator-functions",
+      ],
+    }),
+
     terser(),
     cleanup({ extensions: ["ts", "tsx", "js", "jsx"], comments: "none" }), // this has to be last
     visualizer(),

@@ -23,5 +23,5 @@ export default {
       namedExports: {},
     },
   }),
-  external: [...Object.keys(globals), ...Object.keys(pkg.dependencies || {})],
+  external: [...Object.keys(globals)],
 };

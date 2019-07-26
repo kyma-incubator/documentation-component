@@ -1,6 +1,6 @@
 import { plugins, outputs } from "../../rollup.base.config";
 import pkg from "./package.json";
-
+import chalk from "chalk";
 const tsconfig = "tsconfig.prod.json";
 
 const projectName = "ODataReact";
@@ -11,6 +11,10 @@ const globals = {
   "styled-components": "styled",
   stream: "stream",
   string_decoder: "string_decoder",
+  "xml-js": "xmlJs",
+  constate: "createUseContext",
+  xslt: "xslt",
+  "fundamental-react": "fundamental-react",
 };
 
 const onwarn = warning => {
