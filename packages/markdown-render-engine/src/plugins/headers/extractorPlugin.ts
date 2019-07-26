@@ -34,12 +34,14 @@ const getHeaders = (
 
   const headers: Header[] = [];
   if (!content) {
-    return headers;
+    return customFirstNode ? [customFirstNode] : headers;
   }
 
   const lastIndexes = new Array(6).fill(null); // array of references
   const matchedHeaders = content.match(HEADING_PREFIX);
-  if (!matchedHeaders || !matchedHeaders.length) return headers;
+  if (!matchedHeaders || !matchedHeaders.length) {
+    return headers;
+  }
 
   for (const header of matchedHeaders) {
     const level: number = (header.match(/#/g) || []).length;
@@ -76,9 +78,7 @@ const getHeaders = (
       lastIndexes[occurrence].children = [h];
     }
   }
-  console.log(headers)
   const decrementedHeaders = decrementLevels(headers);
-  console.log(decrementedHeaders)
 
   if (!customFirstNode) {
     return decrementedHeaders;
