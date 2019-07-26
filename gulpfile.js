@@ -204,7 +204,7 @@ const buildByRollup = async dir => {
       cwd: dir,
     });
   } catch (err) {
-    log.error(`Failed building dependencies of ${dir}`);
+    log.error(`Failed building package ${dir}`);
     throw err;
   }
 };
