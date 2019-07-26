@@ -34,13 +34,13 @@ const getHeaders = (
 
   const headers: Header[] = [];
   if (!content) {
-    return customFirstNode ? [customFirstNode] : headers;
+    return headers;
   }
 
   const lastIndexes = new Array(6).fill(null); // array of references
   const matchedHeaders = content.match(HEADING_PREFIX);
   if (!matchedHeaders || !matchedHeaders.length) {
-    return headers;
+    return customFirstNode ? [customFirstNode] : headers;
   }
 
   for (const header of matchedHeaders) {
