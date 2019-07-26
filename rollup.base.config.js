@@ -72,7 +72,7 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
           {
             modules: false,
             targets: {
-              browsers: [">0.25%", "not dead"],
+              browsers: [">0.25%", "not dead"], // same as in gatsby
             },
           },
         ],
