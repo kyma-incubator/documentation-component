@@ -22,6 +22,24 @@ export interface HeadersNavigationProps {
   postProcessing?: (sources: Source[], headers: Header[]) => Header[];
 }
 
+function chooseSources(
+  sourcesFromContext: PureSources,
+  sourcesFromArg?: PureSources,
+): Source[] {
+  let srcs: PureSources | undefined = sourcesFromArg;
+
+  if (!srcs || !srcs.length) {
+    srcs = sourcesFromContext;
+  }
+  if (!srcs || !srcs.length) {
+    return [];
+  }
+  if (srcs.length === 1) {
+    srcs = [srcs[0]];
+  }
+  return srcs as Source[];
+}
+
 function flatHeaders(headers?: Header[]): Header[] {
   if (!headers) {
     return [];
@@ -111,18 +129,8 @@ const HeadersProvider = ({
 
   const getActiveAnchors = () => activeAnchors;
 
-  let srcs = sources;
   const { pureSources } = useDCContext();
-  if (!srcs || !srcs.length) {
-    srcs = pureSources;
-  }
-  if (!srcs || !srcs.length) {
-    return;
-  }
-  if (srcs.length === 1) {
-    srcs = [srcs[0]] as Source[];
-  }
-  const arrOfSources = srcs as Source[];
+  const arrOfSources = chooseSources(pureSources, sources);
 
   const filteredSources = arrOfSources.filter(source =>
     sourceTypes.includes(source.type),
@@ -130,6 +138,7 @@ const HeadersProvider = ({
   if (!filteredSources || !filteredSources.length) {
     return;
   }
+
   let headers = extractHeaders(filteredSources);
   if (postProcessing) {
     headers = postProcessing(filteredSources, headers);
