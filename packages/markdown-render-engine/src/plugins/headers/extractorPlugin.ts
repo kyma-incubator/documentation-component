@@ -12,7 +12,7 @@ const TABS_BLOCKS_REGEX = /<div\s+tabs\s*?(name=('|").+('|"))?\s*?>(.|\n)*?<\/di
 
 function decrementLevels(headers: Header[], level: number = 1): Header[] {
   for (const header of headers) {
-    const l = level === 1 ? Number(header.level) : level;
+    const l = level === 1 ? Number(header.level) - 1 : level;
     header.level = String(Number(header.level) - l);
     if (l && header.children && header.children.length) {
       header.children = decrementLevels(header.children, l);
