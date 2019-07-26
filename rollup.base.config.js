@@ -7,10 +7,12 @@ import replace from "rollup-plugin-replace";
 import sourcemaps from "rollup-plugin-sourcemaps";
 import babel from "rollup-plugin-babel";
 import autoExternal from "rollup-plugin-auto-external";
+import ts from "rollup-plugin-typescript2";
 import { terser } from "rollup-plugin-terser";
+
 import { DEFAULT_EXTENSIONS } from "@babel/core";
 
-import ts from "rollup-plugin-typescript2";
+import typescript from "typescript";
 
 const extensions = [".ts", ".tsx"];
 
@@ -54,7 +56,7 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
     }),
     ts({
       tsconfig: tsconfigPath,
-      typescript: require("typescript"),
+      typescript: typescript,
       clean: true,
       objectHashIgnoreUnknownHack: true,
     }),
@@ -89,7 +91,6 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
         "@babel/plugin-proposal-async-generator-functions",
       ],
     }),
-
     terser(),
     cleanup({ extensions: ["ts", "tsx", "js", "jsx"], comments: "none" }), // this has to be last
     visualizer(),

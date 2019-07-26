@@ -61,11 +61,11 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.15",
     "@types/react": "^16.8.23",
-    "@wessberg/rollup-plugin-ts": "^1.1.62",
     "babel-plugin-styled-components": "^1.10.6",
     "cli-color": "^1.4.0",
     "delete-empty": "^3.0.0",
