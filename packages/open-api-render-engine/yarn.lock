@@ -3,9 +3,9 @@
 
 
 "@types/swagger-ui-dist@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/swagger-ui-dist/-/swagger-ui-dist-3.0.0.tgz#9caf0e064ad7cf2e8fd5bdff0a2005f50a90d68d"
-  integrity sha512-b0U4mJ01hpzfqCGOJJu9nPfwE9d/dwqdsrEXNKE5+GkvcMViaSPlAIfD/Hb8oGive4zq7KtTqpE5FD8RhxQ8TA==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/swagger-ui-dist/-/swagger-ui-dist-3.0.1.tgz#bd413cdb4872b647b1feb87eb1c6774bf5ba5d9a"
+  integrity sha512-pxGx4q2RVAWvtOs5OJN+Vu1z6t+ez0h0fYPVt9pO86Ghs1dAlxaPkwa2vsdL0fSTbagn4S0Es1zpMbz2OBP2vw==
 
 swagger-ui-dist@^3.22.3:
   version "3.23.1"

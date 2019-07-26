@@ -6,7 +6,8 @@ function createSwagger(schema: any, plugins: any) {
   return import("swagger-ui-dist").then(swagger => {
     const presets = [swagger.SwaggerUIBundle.presets.apis, plugins];
 
-    const ui = swagger.SwaggerUIBundle({
+    // temporary any type, because some fucking idiot added not correct types to @types/swagger-ui-dist package
+    const ui = (swagger.SwaggerUIBundle as any)({
       dom_id: "#swagger",
       spec: schema,
       presets,

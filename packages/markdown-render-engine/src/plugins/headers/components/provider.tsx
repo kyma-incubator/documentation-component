@@ -120,7 +120,7 @@ const HeadersProvider = ({
     return;
   }
   if (srcs.length === 1) {
-    srcs = srcs[0] as Source[];
+    srcs = [srcs[0]] as Source[];
   }
   const arrOfSources = srcs as Source[];
 

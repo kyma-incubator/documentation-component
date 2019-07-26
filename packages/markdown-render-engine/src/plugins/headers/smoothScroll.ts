@@ -37,7 +37,7 @@ export function smoothScroll({
 
       pushStateBehavior
         ? pushStateBehavior(hashValue)
-        : history.pushState(null, "", hashValue);
+        : window.history.pushState(null, "", hashValue);
     });
   }
 }
