@@ -10,6 +10,8 @@ const log = require("fancy-log");
 const clc = require("cli-color");
 const { promisify } = require("util");
 
+const execFile = promisify(childProcess.execFile);
+
 process.on("unhandledRejection", err => {
   throw err;
 });
@@ -66,10 +68,16 @@ const rollupModules = Object.keys(rollupPackages);
 const distId = process.argv.indexOf("--dist");
 const dist = distId < 0 ? sources : process.argv[distId + 1];
 
-gulp.task("install:packages", async () => {
-  const packagesFolder = path.join(__dirname, sources);
-  await install(packagesFolder);
+rollupModules.concat(modules).forEach(mod => {
+  gulp.task(`${mod}:install`, async () => {
+    const packageName = path.resolve(__dirname, `${sources}/${mod}`);
+    await install(packageName);
+  });
 });
+gulp.task(
+  "install:packages",
+  gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`))
+);
 
 modules.forEach(mod => {
   gulp.task(mod, () => {
@@ -109,13 +117,13 @@ modules.forEach(mod => {
 
 gulp.task(
   "build:rollup",
-  gulp.series(rollupModules.map(mod => `${mod}:rollup`)),
+  gulp.parallel(rollupModules.map(mod => `${mod}:rollup`)),
 );
-gulp.task("build:normal", gulp.series(modules));
+gulp.task("build:normal", gulp.parallel(modules));
 gulp.task("build", gulp.series("build:rollup", "build:normal"));
 gulp.task(
   "build:dev",
-  gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)),
+  gulp.series("build:rollup", gulp.parallel(modules.map(mod => `${mod}:dev`))),
 );
 
 gulp.task("watch", () => {
@@ -175,29 +183,21 @@ gulp.task("clean:dirs", done => {
 });
 gulp.task("clean:bundle", gulp.series("clean:output", "clean:dirs"));
 
-const install = async folder => {
-  const directories = getDirs(folder);
-  const execFile = promisify(childProcess.execFile);
-
-  const promises = directories.map(async dir => {
-    log.info(
-      `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
-    );
-    try {
-      await execFile(`yarn`, ["install"], {
-        cwd: dir,
-      });
-    } catch (err) {
-      log.error(`Failed installing dependencies of ${dir}`);
-      throw err;
-    }
-  });
-  await Promise.all(promises);
+const install = async dir => {
+  log.info(
+    `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
+  );
+  try {
+    await execFile(`yarn`, ["install"], {
+      cwd: dir,
+    });
+  } catch (err) {
+    log.error(`Failed installing dependencies of ${dir}`);
+    throw err;
+  }
 };
 
 const buildByRollup = async dir => {
-  const execFile = promisify(childProcess.execFile);
-
   log.info(`Building package ${clc.magenta(dir.replace(__dirname, ""))}`);
   try {
     await execFile(`yarn`, ["build"], {
