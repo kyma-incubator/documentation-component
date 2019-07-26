@@ -46,7 +46,7 @@
   "main": "lib/index.umd.js",
   "browser": "lib/index.umd.js",
   "module": "lib/index.esm.js",
-  "types": "lib/index.umd.d.ts",
+  "types": "lib/index.d.ts",
   "files": [
     "/lib",
     "./README.md",
