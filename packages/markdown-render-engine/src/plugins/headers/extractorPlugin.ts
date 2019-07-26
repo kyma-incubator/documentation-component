@@ -11,7 +11,6 @@ const CODE_BLOCKS_REGEX = /^(([ \t]*`{3,4})([^\n]*)([\s\S]+?)(^[ \t]*\2))/gm;
 const TABS_BLOCKS_REGEX = /<div\s+tabs\s*?(name=('|").+('|"))?\s*?>(.|\n)*?<\/div>/g;
 
 function decrementLevels(headers: Header[], level: number = 1): Header[] {
-  console.log(JSON.parse(JSON.stringify(headers)))
   for (const header of headers) {
     const l = level === 1 ? Number(header.level) - 1 : level;
     header.level = String(Number(header.level) - l);
@@ -77,6 +76,7 @@ const getHeaders = (
       lastIndexes[occurrence].children = [h];
     }
   }
+  console.log(headers)
   const decrementedHeaders = decrementLevels(headers);
   console.log(decrementedHeaders)
 
@@ -88,7 +88,6 @@ const getHeaders = (
   for (const h of decrementedHeaders) {
     h.parent = customFirstNode;
   }
-  console.log(customFirstNode)
   return [customFirstNode];
 };
 
