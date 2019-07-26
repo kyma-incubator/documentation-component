@@ -13,6 +13,7 @@ const TABS_BLOCKS_REGEX = /<div\s+tabs\s*?(name=('|").+('|"))?\s*?>(.|\n)*?<\/di
 function decrementLevels(headers: Header[], level: number = 1): Header[] {
   for (const header of headers) {
     const l = level === 1 ? Number(header.level) - 1 : level;
+    console.log(l)
     header.level = String(Number(header.level) - l);
     if (l && header.children && header.children.length) {
       header.children = decrementLevels(header.children, l);
@@ -63,7 +64,6 @@ const getHeaders = (
       id: toKebabCase(id),
       source,
     };
-    console.log(h)
     lastIndexes[level - 1] = h;
     const occurrence = level - 2;
 
