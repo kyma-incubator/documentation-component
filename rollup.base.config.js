@@ -68,7 +68,7 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
       babelrc: false,
       presets: [
         [
-          "@babel/env",
+          "@babel/preset-env",
           {
             modules: false,
             targets: {
@@ -87,8 +87,8 @@ export const plugins = ({ commonjsOpts, tsconfigPath }) => {
           },
         ],
         "@babel/plugin-transform-runtime",
-        "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-object-rest-spread",
         "@babel/plugin-proposal-async-generator-functions",
       ],
     }),

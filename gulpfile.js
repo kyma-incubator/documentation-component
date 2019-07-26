@@ -14,8 +14,6 @@ process.on("unhandledRejection", err => {
   throw err;
 });
 
-const sources = "packages";
-
 const documentationComponent = removeKymaPrefixFromPackage(
   require("./packages/documentation-component/package.json").name,
 );
@@ -35,6 +33,7 @@ const odataRenderEngine = removeKymaPrefixFromPackage(
   require("./packages/odata-render-engine/package.json").name,
 );
 
+const sources = "packages";
 const packageNames = {
   [documentationComponent]: documentationComponent,
   [odataReact]: odataReact,
@@ -87,13 +86,11 @@ rollupModules.forEach(mod => {
     const packageName = path.resolve(__dirname, `${sources}/${mod}`);
 
     await buildByRollup(packageName);
-    gulp.src(`${packageName}/lib/**`)
-      .pipe(
-        gulp.dest(`${dist}/${packageNames[mod]}/lib`),
-      );
+    gulp
+      .src(`${packageName}/lib/**`)
+      .pipe(gulp.dest(`${dist}/${packageNames[mod]}/lib`));
   });
 });
-
 modules.forEach(mod => {
   gulp.task(`${mod}:dev`, () => {
     return packages[mod]
@@ -110,10 +107,16 @@ modules.forEach(mod => {
   });
 });
 
+gulp.task(
+  "build:rollup",
+  gulp.series(rollupModules.map(mod => `${mod}:rollup`)),
+);
 gulp.task("build:normal", gulp.series(modules));
-gulp.task("build:rollup", gulp.series(rollupModules.map(mod => `${mod}:rollup`)));
 gulp.task("build", gulp.series("build:rollup", "build:normal"));
-gulp.task("build:dev", gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)));
+gulp.task(
+  "build:dev",
+  gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)),
+);
 
 gulp.task("watch", () => {
   modules.forEach(mod => {
@@ -195,9 +198,7 @@ const install = async folder => {
 const buildByRollup = async dir => {
   const execFile = promisify(childProcess.execFile);
 
-  log.info(
-    `Building package ${clc.magenta(dir.replace(__dirname, ""))}`,
-  );
+  log.info(`Building package ${clc.magenta(dir.replace(__dirname, ""))}`);
   try {
     await execFile(`yarn`, ["build"], {
       cwd: dir,
