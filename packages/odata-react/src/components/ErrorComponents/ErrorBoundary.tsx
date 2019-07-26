@@ -6,7 +6,6 @@ interface StateShape {
 
 export class ErrorBoundary extends React.Component<{}, StateShape> {
   static getDerivedStateFromError(err: Error) {
-    // Update state so the next render will show the fallback UI.
     return { error: err };
   }
   state: StateShape = { error: null };
