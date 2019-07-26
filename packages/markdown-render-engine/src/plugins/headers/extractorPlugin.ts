@@ -77,6 +77,7 @@ const getHeaders = (
     }
   }
   const decrementedHeaders = decrementLevels(headers);
+  console.log(decrementedHeaders)
 
   if (!customFirstNode) {
     return decrementedHeaders;
@@ -86,6 +87,7 @@ const getHeaders = (
   for (const h of decrementedHeaders) {
     h.parent = customFirstNode;
   }
+  console.log(customFirstNode)
   return [customFirstNode];
 };
 
