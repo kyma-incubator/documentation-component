@@ -63,6 +63,7 @@ const getHeaders = (
       id: toKebabCase(id),
       source,
     };
+    console.log(h)
     lastIndexes[level - 1] = h;
     const occurrence = level - 2;
 
@@ -78,9 +79,9 @@ const getHeaders = (
       lastIndexes[occurrence].children = [h];
     }
   }
-  console.log(headers);
+  // console.log(headers);
   const decrementedHeaders = decrementLevels(headers);
-  console.log(decrementedHeaders);
+  // console.log(decrementedHeaders);
 
   if (!customFirstNode) {
     return decrementedHeaders;
