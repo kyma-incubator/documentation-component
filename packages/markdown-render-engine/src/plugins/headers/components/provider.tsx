@@ -20,6 +20,7 @@ export interface HeadersNavigationProps {
   enableSmoothScroll?: boolean;
   pushStateBehavior?: (hash: string) => void;
   postProcessing?: (sources: Source[], headers: Header[]) => Header[];
+  callback?: (element: HTMLAnchorElement) => void;
 }
 
 function chooseSources(
@@ -73,6 +74,7 @@ const HeadersProvider = ({
   enableSmoothScroll = false,
   pushStateBehavior,
   postProcessing,
+  callback,
 }: HeadersNavigationProps) => {
   const emptyAnchors: ActiveAnchors = {
     "1": "",
@@ -94,7 +96,9 @@ const HeadersProvider = ({
       cachingHeadings,
       enableSmoothScroll,
       pushStateBehavior,
-      callback: (hash: string) => {
+      callback: (element: HTMLAnchorElement) => {
+        callback && callback(element);
+        const hash = element.hash.slice(1);
         setActiveAnchor(hash);
       },
     };
