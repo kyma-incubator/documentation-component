@@ -80,6 +80,16 @@ export const MarkdownComponent: React.FunctionComponent<
     parsedHtml: Components.ParsedHTML,
   };
 
+  // temporary solution for passing custom props
+  const Renderers = { ...defaultRenderers, ...customRenderers };
+  Renderers.heading = (props: any) => (
+    <Renderers.heading
+      {...props}
+      headingPrefix={headingPrefix}
+      headings={headings}
+    />
+  )
+
   const astPlugins = [
     parser({
       parsers,
@@ -95,7 +105,7 @@ export const MarkdownComponent: React.FunctionComponent<
       source={source}
       escapeHtml={escapeHtml}
       skipHtml={skipHtml}
-      renderers={{ ...defaultRenderers, ...customRenderers }}
+      renderers={Renderers}
       astPlugins={astPlugins}
     />
   );
