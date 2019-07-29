@@ -133,4 +133,4 @@ function runPlugins(sources: Sources, plugins?: Plugins): Sources {
   return processedSources;
 }
 
-export { runPlugins };
+export { runPlugins, runPlugin, runPluginForGroup, runMutation, runExtractor };

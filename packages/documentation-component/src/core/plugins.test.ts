@@ -54,12 +54,12 @@ describe("Plugins tests", () => {
           source: { type: "testType", rawContent: testMarkdown },
         },
         testExtractorPlugin,
-        { useOtherMock: true },
+        { testOption: true },
       );
 
       const correct = {
         source: {
-          data: { testData: "testData" },
+          data: { testData: "testDataWithOptions" },
           type: "testType",
           rawContent: testMarkdown,
         },
@@ -114,9 +114,11 @@ export const testExtractorPlugin = ({
   options = {},
 }: ExtractorPluginArgs<
   TestExtractorPluginOptionsShape
->): ExtractorPluginReturnType<string> => {
+>): ExtractorPluginReturnType => {
   if (options.testOption) {
-    return "asd";
+    return {
+      testData: "testDataWithOptions",
+    };
   }
-  return "asd";
+  return { testData: "testData" };
 };
