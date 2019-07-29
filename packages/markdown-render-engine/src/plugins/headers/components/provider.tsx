@@ -36,7 +36,11 @@ function chooseSources(
     return [];
   }
   if (srcs.length === 1) {
-    srcs = [srcs[0]];
+    if (Array.isArray(srcs[0])) {
+      srcs = srcs[0] as Source[];
+    } else {
+      srcs = [srcs[0]];
+    }
   }
   return srcs as Source[];
 }
