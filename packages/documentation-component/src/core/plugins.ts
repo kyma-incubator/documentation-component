@@ -126,6 +126,7 @@ function runPlugins(sources: Sources, plugins?: Plugins): Sources {
       if (isSourceGroupWithOptions(source)) {
         return runPluginForGroup(source, plugin);
       }
+
       return runPlugin(source, plugin);
     });
   });
