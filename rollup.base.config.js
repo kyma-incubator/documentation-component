@@ -34,11 +34,15 @@ export const outputs = ({ projectName, browserName, moduleName, globals }) => [
   },
 ];
 
-export const plugins = ({ commonjsOpts, tsconfigPath }) => {
+export const plugins = ({
+  commonjsOpts,
+  tsconfigPath = "tsconfig.json",
+  autoExternalBuiltins,
+}) => {
   return [
     cleaner({ targets: ["lib"] }),
     sourcemaps(),
-    autoExternal(),
+    autoExternal({ builtins: autoExternalBuiltins }),
     replace({
       values: {
         "process.env.ENVIRONMENT": JSON.stringify("production"),

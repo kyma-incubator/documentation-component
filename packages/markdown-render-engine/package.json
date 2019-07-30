@@ -39,12 +39,21 @@
     "@types/lodash.has": "^4.5.6",
     "@types/lodash.isdate": "^4.0.6",
     "@types/lodash.mapvalues": "^4.6.6",
-    "@types/react-copy-to-clipboard": "^4.2.6"
+    "@types/react-copy-to-clipboard": "^4.2.6",
+    "rollup": "^1.17.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0"
   },
   "peerDependencies": {
     "@kyma-project/documentation-component": "^0.0.1"
   },
+  "scripts": {
+    "build": "rollup -c --compact"
+  },
   "main": "lib/index.js",
+  "browser": "lib/index.umd.js",
+  "module": "lib/index.esm.js",
   "types": "lib/index.d.ts",
   "files": [
     "/lib",
