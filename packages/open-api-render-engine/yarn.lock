@@ -3,11 +3,11 @@
 
 
 "@types/swagger-ui-dist@^3.0.0":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@types/swagger-ui-dist/-/swagger-ui-dist-3.0.1.tgz#bd413cdb4872b647b1feb87eb1c6774bf5ba5d9a"
-  integrity sha512-pxGx4q2RVAWvtOs5OJN+Vu1z6t+ez0h0fYPVt9pO86Ghs1dAlxaPkwa2vsdL0fSTbagn4S0Es1zpMbz2OBP2vw==
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/swagger-ui-dist/-/swagger-ui-dist-3.0.2.tgz#39cf11718c8d76c65f9eacdf071e4042d695c449"
+  integrity sha512-AXiFiZNJxFXhMw/uX0x91UlvREXibeg8Wf6LrQ941MGOzc8TPNkQ3XXNe9989uDL6epdxoTPcq9IanKF+qLfjw==
 
 swagger-ui-dist@^3.22.3:
-  version "3.23.1"
-  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.23.1.tgz#0f548d269dd959ba4f92a9b9df0376d32e8456f6"
-  integrity sha512-chMAB3JY3tJGLtswyBJGWa5L0nghbImUtFpy2CupswVVC1UsSmVwOI69oOQ1sCxEzQfC2DCu0jUD/x5SjNs+zw==
+  version "3.23.2"
+  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.23.2.tgz#3202e9cdb301881182d10177f10afb6fb88f25ff"
+  integrity sha512-VzFzAReBABxhOkp1wQh+haxfzVbltxmfr5rff/gFseXx9b0l13AdLxmUHADYEKbDQEyg4GdZ6d7Blz0og8RooQ==
