@@ -18,13 +18,11 @@ export const Heading: React.FunctionComponent<HeadingProps> = ({
   headingPrefix = "",
   children,
 }) => {
-  let heading = (children as any[]).find(child => {
-    if (child.key && child.key.startsWith("text")) {
-      return true;
-    }
-    return false;
-  });
+  if (!children) {
+    return null;
+  }
 
+  let heading = (children as any[]).find(child => child.key && child.key.startsWith("text"));
   if (!heading) {
     return null;
   }
