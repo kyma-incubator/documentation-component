@@ -120,9 +120,9 @@ function runPlugins(sources: Sources, plugins?: Plugins): Sources {
     return sources;
   }
 
-  let processedSources: Sources = [];
+  let processedSources: Sources = sources;
   plugins.map(plugin => {
-    processedSources = sources.map(source => {
+    processedSources = processedSources.map(source => {
       if (isSourceGroupWithOptions(source)) {
         return runPluginForGroup(source, plugin);
       }

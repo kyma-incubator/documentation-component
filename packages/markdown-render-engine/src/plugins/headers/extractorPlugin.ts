@@ -4,6 +4,7 @@ import {
   ExtractorPluginArgs,
 } from "@kyma-project/documentation-component";
 import { toKebabCase } from "../../helpers";
+import { removeMarkdownSyntax } from "../../external";
 import { Header, ExtractHeadersPluginOptions } from "./types";
 
 const HEADING_PREFIX = /\n(#+\s*)(.*)/g;
@@ -45,7 +46,8 @@ const getHeaders = (
 
   for (const header of matchedHeaders) {
     const level: number = (header.match(/#/g) || []).length;
-    const title = header.replace(/#/g, "").trim();
+    let title = header.replace(/#/g, "");
+    title = removeMarkdownSyntax(title).trim();
 
     let id = headerPrefix ? `${headerPrefix}-${title}` : title;
     if (headings.has(id)) {
