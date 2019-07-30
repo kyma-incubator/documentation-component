@@ -22,7 +22,9 @@ export const Heading: React.FunctionComponent<HeadingProps> = ({
     return null;
   }
 
-  let heading = (children as any[]).find(child => child.key && child.key.startsWith("text"));
+  let heading = (children as any[]).find(
+    child => child.key && child.key.startsWith("text"),
+  );
   if (!heading) {
     return null;
   }
