@@ -10,3 +10,4 @@ validate:
 	yarn lint-check
 	yarn markdownlint
 	yarn type-check
+	yarn test
