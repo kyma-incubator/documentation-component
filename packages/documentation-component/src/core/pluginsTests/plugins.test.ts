@@ -156,10 +156,13 @@ describe("Plugins tests", () => {
       expect(testData).toEqual(correct);
     });
     test("should return work without references", () => {
-      const length = 1;
+      const length = 10;
       const pluginData = Array(length).fill(pluginSource());
 
-      const plugins = [testPluginNoOptions(pluginType)];
+      const plugins = [
+        testPluginNoOptions(pluginType),
+        testPluginNoOptions(pluginType),
+      ];
       const testData = runPlugins(pluginData, plugins);
 
       const correctItem = {
