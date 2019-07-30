@@ -51,12 +51,12 @@ export const testMarkdown = `
 export const pluginType = "testType";
 export const trimSourceToThisChars = 20;
 export const testDataWithOptionsString = "testDataWithOptions";
-export const pluginSource: SourceWithOptions = {
+export const pluginSource: () => SourceWithOptions = () => ({
   source: {
     rawContent: testMarkdown,
     type: pluginType,
   },
-};
+});
 
 export interface TestPluginOptionsShape {
   testOption?: boolean;

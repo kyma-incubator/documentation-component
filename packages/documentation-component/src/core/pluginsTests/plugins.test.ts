@@ -24,23 +24,28 @@ import {
 describe("Plugins tests", () => {
   describe("runPlugin", () => {
     test("should run plugin with NO config", () => {
-      const testData = runPlugin(pluginSource, testPluginNoOptions(pluginType));
+      const testPluginData = pluginSource();
+
+      const testData = runPlugin(
+        testPluginData,
+        testPluginNoOptions(pluginType),
+      );
       const correct = {
         source: {
           data: {
             data: testMarkdown,
             testData: returnObjectInExtractorPlugin,
           },
-          rawContent: testMarkdown,
-          type: pluginType,
+          ...pluginSource().source,
         },
       };
       expect(testData).toEqual(correct);
     });
 
     test("should run plugin with config", () => {
+      const testPluginData = pluginSource();
       const testData = runPlugin(
-        pluginSource,
+        testPluginData,
         testPluginWithOptions(pluginType),
       );
 
@@ -50,7 +55,7 @@ describe("Plugins tests", () => {
             src: testMarkdown.slice(0, trimSourceToThisChars),
             testDataWithOptions: testDataWithOptionsString,
           },
-          ...pluginSource.source,
+          ...pluginSource().source,
         },
       };
 
@@ -58,6 +63,7 @@ describe("Plugins tests", () => {
     });
 
     test("should return source if source-plugin sourceTypes do not match", () => {
+      const testPluginData = pluginSource();
       const typeThatDiffersBetweenSourceAndPlugin =
         pluginType
           .split("")
@@ -65,28 +71,30 @@ describe("Plugins tests", () => {
           .join("") + "randomString";
 
       const testData = runPlugin(
-        pluginSource,
+        testPluginData,
         blankPlugin(typeThatDiffersBetweenSourceAndPlugin),
       );
 
-      expect(testData).toEqual(pluginSource);
+      expect(testData).toEqual(pluginSource());
     });
   });
   describe("runMutation", () => {
     test("should return unmutated data when no options are specified", () => {
-      const testData = runMutation(pluginSource, testMutationPlugin);
+      const testPluginData = pluginSource();
+      const testData = runMutation(testPluginData, testMutationPlugin);
 
       const correct = {
         source: {
           content: { testData: "testData", data: testMarkdown },
-          ...pluginSource.source,
+          ...pluginSource().source,
         },
       };
 
       expect(testData).toEqual(correct);
     });
     test("should return mutated data when options are specified", () => {
-      const testData = runMutation(pluginSource, testMutationPlugin, {
+      const testPluginData = pluginSource();
+      const testData = runMutation(testPluginData, testMutationPlugin, {
         testOption: "testOption",
       });
 
@@ -96,7 +104,7 @@ describe("Plugins tests", () => {
             src: testMarkdown.slice(0, trimSourceToThisChars),
             testData: testDataWithOptionsString,
           },
-          ...pluginSource.source,
+          ...pluginSource().source,
         },
       };
 
@@ -106,12 +114,13 @@ describe("Plugins tests", () => {
 
   describe("runExtractor", () => {
     test("should return mocked data in source field", () => {
-      const testData = runExtractor(pluginSource, testExtractorPlugin);
+      const testPluginData = pluginSource();
+      const testData = runExtractor(testPluginData, testExtractorPlugin);
 
       const correct = {
         source: {
           data: { testData: returnObjectInExtractorPlugin, data: testMarkdown },
-          ...pluginSource.source,
+          ...pluginSource().source,
         },
       };
 
@@ -119,7 +128,8 @@ describe("Plugins tests", () => {
     });
 
     test("should return correct data if options are specified", () => {
-      const testData = runExtractor(pluginSource, testExtractorPlugin, {
+      const testPluginData = pluginSource();
+      const testData = runExtractor(testPluginData, testExtractorPlugin, {
         testOption: true,
       });
 
@@ -129,7 +139,7 @@ describe("Plugins tests", () => {
             [testDataWithOptionsString]: "testDataWithOptions",
             src: testMarkdown.slice(0, trimSourceToThisChars),
           },
-          ...pluginSource.source,
+          ...pluginSource().source,
         },
       };
 
@@ -139,16 +149,29 @@ describe("Plugins tests", () => {
 
   describe("runPlugins", () => {
     test("should return sources if no plugin is provided", () => {
-      const pluginData = Array(10).fill(pluginSource);
+      const pluginData = Array(10).fill(pluginSource());
       const testData = runPlugins(pluginData);
-      expect(testData).toEqual(pluginData);
+
+      const correct = Array(10).fill(pluginSource());
+      expect(testData).toEqual(correct);
     });
-    test.todo("should return work without references", () => {
-      const pluginData = Array(10).fill(pluginSource);
+    test("should return work without references", () => {
+      const length = 1;
+      const pluginData = Array(length).fill(pluginSource());
+
       const plugins = [testPluginNoOptions(pluginType)];
       const testData = runPlugins(pluginData, plugins);
 
-      expect(testData).toEqual(pluginData);
+      const correctItem = {
+        source: {
+          ...pluginSource().source,
+          data: { data: testMarkdown, testData: returnObjectInExtractorPlugin },
+        },
+      };
+
+      const correct = Array(length).fill(correctItem);
+
+      expect(testData).toEqual(correct); // we need to inline this to, because run* functions are not pure
     });
   });
 });
