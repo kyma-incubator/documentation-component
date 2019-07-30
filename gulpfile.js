@@ -1,5 +1,5 @@
 const fs = require("fs");
-const fse = require('fs-extra')
+const fse = require("fs-extra");
 const path = require("path");
 const gulp = require("gulp");
 const ts = require("gulp-typescript");
@@ -77,7 +77,7 @@ rollupModules.concat(modules).forEach(mod => {
 });
 gulp.task(
   "install:packages",
-  gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`))
+  gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`)),
 );
 
 modules.forEach(mod => {
@@ -95,7 +95,7 @@ rollupModules.forEach(mod => {
     const packageName = path.resolve(__dirname, `${sources}/${mod}`);
 
     await buildByRollup(packageName);
-    await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`)
+    await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`);
   });
 });
 modules.forEach(mod => {
