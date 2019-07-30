@@ -1,4 +1,4 @@
-ci-pr: resolve test validate 
+ci-pr: resolve test validate
 
 .PHONY: resolve
 resolve:
