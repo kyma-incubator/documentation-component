@@ -10,7 +10,3 @@ validate:
 	yarn lint-check
 	yarn markdownlint
 	yarn type-check
-
-.PHONY: test
-test:
-	npm run test
