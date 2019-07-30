@@ -7,7 +7,7 @@ export interface ScrollSpyArgs {
   cachingHeadings?: boolean;
   enableSmoothScroll?: boolean;
   pushStateBehavior?: (hash: string) => void;
-  callback?: (hash: string) => void;
+  callback?: (element: HTMLAnchorElement) => void;
 }
 
 type Headings = NodeListOf<HTMLAnchorElement & { href: string }>;
@@ -68,7 +68,7 @@ export function scrollSpy({
         if (currNavActive) {
           activeNavFound = true;
           headings[i].classList.add("active");
-          callback && callback(headings[i].hash.slice(1));
+          callback && callback(headings[i]);
         } else {
           headings[i].classList.remove("active");
         }

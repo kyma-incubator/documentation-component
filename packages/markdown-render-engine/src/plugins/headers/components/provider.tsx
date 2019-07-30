@@ -20,6 +20,29 @@ export interface HeadersNavigationProps {
   enableSmoothScroll?: boolean;
   pushStateBehavior?: (hash: string) => void;
   postProcessing?: (sources: Source[], headers: Header[]) => Header[];
+  callback?: (element: HTMLAnchorElement) => void;
+}
+
+function chooseSources(
+  sourcesFromContext: PureSources,
+  sourcesFromArg?: PureSources,
+): Source[] {
+  let srcs: PureSources | undefined = sourcesFromArg;
+
+  if (!srcs || !srcs.length) {
+    srcs = sourcesFromContext;
+  }
+  if (!srcs || !srcs.length) {
+    return [];
+  }
+  if (srcs.length === 1) {
+    if (Array.isArray(srcs[0])) {
+      srcs = srcs[0] as Source[];
+    } else {
+      srcs = [srcs[0]];
+    }
+  }
+  return srcs as Source[];
 }
 
 function flatHeaders(headers?: Header[]): Header[] {
@@ -55,6 +78,7 @@ const HeadersProvider = ({
   enableSmoothScroll = false,
   pushStateBehavior,
   postProcessing,
+  callback,
 }: HeadersNavigationProps) => {
   const emptyAnchors: ActiveAnchors = {
     "1": "",
@@ -76,7 +100,9 @@ const HeadersProvider = ({
       cachingHeadings,
       enableSmoothScroll,
       pushStateBehavior,
-      callback: (hash: string) => {
+      callback: (element: HTMLAnchorElement) => {
+        callback && callback(element);
+        const hash = element.hash.slice(1);
         setActiveAnchor(hash);
       },
     };
@@ -111,18 +137,8 @@ const HeadersProvider = ({
 
   const getActiveAnchors = () => activeAnchors;
 
-  let srcs = sources;
   const { pureSources } = useDCContext();
-  if (!srcs || !srcs.length) {
-    srcs = pureSources;
-  }
-  if (!srcs || !srcs.length) {
-    return;
-  }
-  if (srcs.length === 1) {
-    srcs = [srcs[0]] as Source[];
-  }
-  const arrOfSources = srcs as Source[];
+  const arrOfSources = chooseSources(pureSources, sources);
 
   const filteredSources = arrOfSources.filter(source =>
     sourceTypes.includes(source.type),
@@ -130,6 +146,7 @@ const HeadersProvider = ({
   if (!filteredSources || !filteredSources.length) {
     return;
   }
+
   let headers = extractHeaders(filteredSources);
   if (postProcessing) {
     headers = postProcessing(filteredSources, headers);

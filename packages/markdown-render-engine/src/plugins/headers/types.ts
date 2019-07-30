@@ -3,7 +3,7 @@ import { Source } from "@kyma-project/documentation-component";
 export interface Header {
   title: string;
   id: string;
-  level: number;
+  level: string;
   source?: Source;
   parent?: Header;
   children?: Header[];
@@ -11,8 +11,10 @@ export interface Header {
 
 export interface ExtractHeadersPluginOptions {
   headerPrefix?: ((source: Source) => string) | string;
-  customNodes?: Array<((source: Source) => string) | string>;
-  startWith?: number;
+  customFirstNode?: (
+    source: Source,
+    toKebabCase: (str: string) => string,
+  ) => Header;
 }
 
 export interface ActiveAnchors {

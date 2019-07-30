@@ -8,12 +8,18 @@ export interface LinkProps {
 export const Link: React.FunctionComponent<LinkProps> = ({
   href,
   children,
-}) => (
-  <a
-    className={createElementClass("link")}
-    href={href}
-    target={href.startsWith("http") ? "_blank" : ""}
-  >
-    {children}
-  </a>
-);
+}) => {
+  if (!href) {
+    return <>{children}</>;
+  }
+
+  return (
+    <a
+      className={createElementClass("link")}
+      href={href}
+      target={href.startsWith("http") ? "_blank" : ""}
+    >
+      {children}
+    </a>
+  );
+};
