@@ -5,20 +5,22 @@ export function removeMarkdownSyntax(markdown: string): string {
     return markdown;
   }
 
-  return markdown
-    // Remove HTML tags
-    .replace(/<[^>]*>/g, '')
-    // Remove images
-    .replace(/\!\[(.*?)\][\[\(].*?[\]\)]/g, '')
-    // Remove inline links
-    .replace(/\[(.*?)\][\[\(].*?[\]\)]/g, '$1')
-    // Remove blockquotes
-    .replace(/^\s{0,3}>\s?/g, '')
-    // Remove emphasis (repeat the line to remove double emphasis)
-    .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, '$2')
-    .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, '$2')
-    // Remove inline code
-    .replace(/`(.+?)`/g, '$1')
-    // Strikethrough
-    .replace(/~~/g, '')
+  return (
+    markdown
+      // Remove HTML tags
+      .replace(/<[^>]*>/g, "")
+      // Remove images
+      .replace(/\!\[(.*?)\][\[\(].*?[\]\)]/g, "")
+      // Remove inline links
+      .replace(/\[(.*?)\][\[\(].*?[\]\)]/g, "$1")
+      // Remove blockquotes
+      .replace(/^\s{0,3}>\s?/g, "")
+      // Remove emphasis (repeat the line to remove double emphasis)
+      .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, "$2")
+      .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, "$2")
+      // Remove inline code
+      .replace(/`(.+?)`/g, "$1")
+      // Strikethrough
+      .replace(/~~/g, "")
+  );
 }

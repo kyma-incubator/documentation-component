@@ -1,4 +1,5 @@
 import React from "react";
+import { removeMarkdownSyntax } from "../external";
 import {
   createElementClass,
   createModifierClass,
@@ -17,10 +18,22 @@ export const Heading: React.FunctionComponent<HeadingProps> = ({
   headingPrefix = "",
   children,
 }) => {
-  if (!children) {
+  let heading = (children as any[]).find(child => {
+    if (child.key && child.key.startsWith("text")) {
+      return true;
+    }
+    return false;
+  });
+
+  if (!heading) {
     return null;
   }
-  let heading = (children as any[])[0].props.value as string;
+
+  heading = heading.props && heading.props.value;
+  if (!heading) {
+    return null;
+  }
+
   heading = headingPrefix ? `${headingPrefix}-${heading}` : heading;
   if (headings.has(heading)) {
     if (/[1-9]$/.test(heading)) {
@@ -29,7 +42,9 @@ export const Heading: React.FunctionComponent<HeadingProps> = ({
       heading = `${heading}-1`;
     }
   }
+  heading = removeMarkdownSyntax(heading);
   headings.add(heading);
+  const id = toKebabCase(heading);
 
   return React.createElement(`h${level}`, {
     children,
@@ -37,6 +52,6 @@ export const Heading: React.FunctionComponent<HeadingProps> = ({
       `level-${level}`,
       "heading",
     )}`,
-    id: toKebabCase(heading),
+    id,
   });
 };

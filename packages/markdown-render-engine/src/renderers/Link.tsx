@@ -10,11 +10,7 @@ export const Link: React.FunctionComponent<LinkProps> = ({
   children,
 }) => {
   if (!href) {
-    return (
-      <>
-        {children}
-      </>
-    );
+    return <>{children}</>;
   }
 
   return (
@@ -26,4 +22,4 @@ export const Link: React.FunctionComponent<LinkProps> = ({
       {children}
     </a>
   );
-}
+};

@@ -80,21 +80,22 @@ export const MarkdownComponent: React.FunctionComponent<
     parsedHtml: Components.ParsedHTML,
   };
   const Renderers = { ...defaultRenderers, ...customRenderers };
-  
+
   // temporary solution for passing custom props to heading components
-  Renderers.heading = (props: any) => customRenderers.heading ? (
-    <customRenderers.heading
-      {...props}
-      headingPrefix={headingPrefix}
-      headings={headings}
-    />
-  ) : (
-    <Components.Heading
-      {...props}
-      headingPrefix={headingPrefix}
-      headings={headings}
-    />
-  )
+  Renderers.heading = (props: any) =>
+    customRenderers.heading ? (
+      <customRenderers.heading
+        {...props}
+        headingPrefix={headingPrefix}
+        headings={headings}
+      />
+    ) : (
+      <Components.Heading
+        {...props}
+        headingPrefix={headingPrefix}
+        headings={headings}
+      />
+    );
 
   const astPlugins = [
     parser({
