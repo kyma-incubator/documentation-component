@@ -79,10 +79,10 @@ export const MarkdownComponent: React.FunctionComponent<
     virtualHtml: Components.VirtualHTML,
     parsedHtml: Components.ParsedHTML,
   };
-  const Renderers = { ...defaultRenderers, ...customRenderers };
+  const renderers = { ...defaultRenderers, ...customRenderers };
 
   // temporary solution for passing custom props to heading components
-  Renderers.heading = (props: any) =>
+  renderers.heading = (props: any) =>
     customRenderers.heading ? (
       <customRenderers.heading
         {...props}
@@ -112,7 +112,7 @@ export const MarkdownComponent: React.FunctionComponent<
       source={source}
       escapeHtml={escapeHtml}
       skipHtml={skipHtml}
-      renderers={Renderers}
+      renderers={renderers}
       astPlugins={astPlugins}
     />
   );
