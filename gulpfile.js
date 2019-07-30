@@ -1,4 +1,5 @@
 const fs = require("fs");
+const fse = require('fs-extra')
 const path = require("path");
 const gulp = require("gulp");
 const ts = require("gulp-typescript");
@@ -94,9 +95,7 @@ rollupModules.forEach(mod => {
     const packageName = path.resolve(__dirname, `${sources}/${mod}`);
 
     await buildByRollup(packageName);
-    gulp
-      .src(`${packageName}/lib/**`)
-      .pipe(gulp.dest(`${dist}/${packageNames[mod]}/lib`));
+    await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`)
   });
 });
 modules.forEach(mod => {
@@ -117,7 +116,7 @@ modules.forEach(mod => {
 
 gulp.task(
   "build:rollup",
-  gulp.parallel(rollupModules.map(mod => `${mod}:rollup`)),
+  gulp.series(rollupModules.map(mod => `${mod}:rollup`)),
 );
 gulp.task("build:normal", gulp.parallel(modules));
 gulp.task("build", gulp.series("build:rollup", "build:normal"));
@@ -200,7 +199,7 @@ const install = async dir => {
 const buildByRollup = async dir => {
   log.info(`Building package ${clc.magenta(dir.replace(__dirname, ""))}`);
   try {
-    await execFile(`yarn`, ["build"], {
+    await await execFile(`yarn`, ["build"], {
       cwd: dir,
     });
   } catch (err) {
