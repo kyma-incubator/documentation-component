@@ -77,7 +77,7 @@ rollupModules.concat(modules).forEach(mod => {
 
 gulp.task(
   "install:packages",
-  gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`)),
+  gulp.series(rollupModules.concat(modules).map(mod => `${mod}:install`)),
 );
 
 modules.forEach(mod => {
@@ -121,14 +121,14 @@ gulp.task(
   gulp.series(rollupModules.map(mod => `${mod}:rollup`)),
 );
 
-gulp.task("build:normal", gulp.parallel(modules));
+gulp.task("build:normal", gulp.series(modules));
 gulp.task("build", gulp.series("build:rollup", "build:normal"));
 gulp.task(
   "build:dev",
   gulp.series(
     "build:rollup",
     `${odataReact}:dev`,
-    modules.map(mod => `${mod}:dev`).filter(mod => mod !== odataReact),
+    modules.filter(mod => mod !== odataReact).map(mod => `${mod}:dev`),
   ),
 );
 
