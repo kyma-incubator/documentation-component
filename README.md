@@ -121,9 +121,14 @@ const App: React.FunctionComponent<> = () => (
 render(<App />, document.getElementById("root"));
 =======
 ```sh
+<<<<<<< HEAD
   yarn
   yarn bootstrap
 >>>>>>> update config
+=======
+yarn
+yarn bootstrap
+>>>>>>> update readme.md
 ```
 
 ## Development
@@ -147,6 +152,10 @@ $ yarn install
 $ yarn bootstrap
 =======
 ```sh
+<<<<<<< HEAD
   yarn start
 >>>>>>> update config
+=======
+yarn start
+>>>>>>> update readme.md
 ```
