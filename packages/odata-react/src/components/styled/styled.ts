@@ -2,15 +2,15 @@ import styled from "styled-components";
 import { Button, Icon, Panel, PanelHeader, Table } from "fundamental-react";
 export { CollapseArrow } from "./CollapseArrow";
 
-export const AppWrapper = styled.section.attrs(() => ({
+export const AppWrapper = styled.section.attrs({
   className: "odata-root",
-}))``;
+})``;
 
 AppWrapper.displayName = "AppWrapper";
 
-export const StyledTable = styled.table.attrs(() => ({
+export const StyledTable = styled.table.attrs({
   className: "styled-table",
-}))`
+})`
   font-size: 14px;
   line-height: 1.42857;
   color: #32363a;
@@ -40,9 +40,9 @@ export const StyledTable = styled.table.attrs(() => ({
 
 StyledTable.displayName = "StyledTable";
 
-export const TableHead = styled.thead.attrs(() => ({
+export const TableHead = styled.thead.attrs({
   className: "table-head",
-}))`
+})`
   font-size: 0.85714rem;
   line-height: 1.33333;
   font-weight: 400;
@@ -57,22 +57,22 @@ export const TableHead = styled.thead.attrs(() => ({
 `;
 TableHead.displayName = "TableHead";
 
-export const PageWrapper = styled.section.attrs(() => ({
+export const PageWrapper = styled.section.attrs({
   className: "page-wrapper",
-}))`
+})`
   margin: 20px;
 `;
 PageWrapper.displayName = "PageWrapper";
 
-export const TableBody = styled.tbody.attrs(() => ({
+export const TableBody = styled.tbody.attrs({
   className: "table-body",
-}))``;
+})``;
 
 TableBody.displayName = "TableBody";
 
-export const TableHeadCell = styled.th.attrs(() => ({
+export const TableHeadCell = styled.th.attrs({
   className: "table-head-cell",
-}))`
+})`
   text-align: left;
   padding: 16px 20px;
   border: none;
@@ -81,51 +81,51 @@ export const TableHeadCell = styled.th.attrs(() => ({
 
 TableHeadCell.displayName = "TableHeadCell";
 
-export const TableRow = styled.tr.attrs(() => ({
+export const TableRow = styled.tr.attrs({
   className: "table-row",
-}))`
+})`
   transition: background-color 125ms ease-in;
 `;
 TableRow.displayName = "TableRow";
 
-export const TableCell = styled.td.attrs(() => ({
+export const TableCell = styled.td.attrs({
   className: "table-cell",
-}))`
+})`
   text-align: left;
   padding: 16px 20px;
 `;
 TableCell.displayName = "TableCell";
 
-export const LeftAlignedHeader = styled.th.attrs(() => ({
+export const LeftAlignedHeader = styled.th.attrs({
   className: "left-aligned-header",
-}))`
+})`
   text-align: left;
 `;
 LeftAlignedHeader.displayName = "LeftAlignedHeader";
 
-export const StyledCode = styled.code.attrs(() => ({
+export const StyledCode = styled.code.attrs({
   className: "styled-code",
-}))``;
+})``;
 StyledCode.displayName = "StyledCode";
 
-export const TableWrapper = styled.section.attrs(() => ({
+export const TableWrapper = styled.section.attrs({
   className: "table-wrapper",
-}))``;
+})``;
 
 TableWrapper.displayName = "TableWrapper";
 
-export const TableHeader = styled.p.attrs(() => ({
+export const TableHeader = styled.p.attrs({
   className: "table-header",
-}))`
+})`
   margin: 5px;
   font-size: 20px;
   font-weight: bold;
 `;
 TableHeader.displayName = "TableHeader";
 
-export const TableContent = styled(Table).attrs(() => ({
+export const TableContent = styled(Table).attrs({
   className: "table-content",
-}))`
+})`
   && {
     margin-bottom: 0;
     border: none;
@@ -149,9 +149,9 @@ export const TableContent = styled(Table).attrs(() => ({
 `;
 TableContent.displayName = "TableContent";
 
-export const NotFoundMessage = styled.p.attrs(() => ({
+export const NotFoundMessage = styled.p.attrs({
   className: "not-found-message",
-}))`
+})`
   width: 100%;
   font-size: 18px;
   padding: 20px 0;
@@ -168,9 +168,9 @@ Icon.defaultProps = {
   glyph: "feeder-arrow",
 };
 
-export const CollapseButton = styled(Button).attrs(() => ({
+export const CollapseButton = styled(Button).attrs({
   className: "collapse-button",
-}))`
+})`
   && {
     padding: 0;
     min-width: 110px;
@@ -183,18 +183,18 @@ Button.defaultProps = {
   option: "emphasized",
 };
 
-export const TablePanel = styled(Panel).attrs(() => ({
+export const TablePanel = styled(Panel).attrs({
   className: "table-panel",
-}))`
+})`
   && {
     box-shadow: none;
   }
 `;
 TablePanel.displayName = "TablePanel";
 
-export const TableHeaderWrapper = styled(PanelHeader).attrs(() => ({
+export const TableHeaderWrapper = styled(PanelHeader).attrs({
   className: "table-header-wrapper",
-}))`
+})`
   && {
     border-top: solid 1px #eeeeef;
     border-bottom: none;
@@ -209,9 +209,9 @@ export const TableHeaderWrapper = styled(PanelHeader).attrs(() => ({
 `;
 TableHeaderWrapper.displayName = "TableHeaderWrapper";
 
-export const TextOverflowWrapper = styled.div.attrs(() => ({
+export const TextOverflowWrapper = styled.div.attrs({
   className: "text-overflow-wrapper",
-}))`
+})`
   display: block;
   white-space: nowrap;
   overflow: hidden;
