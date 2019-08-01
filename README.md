@@ -1,4 +1,4 @@
-# Documentation component
+# Documentation Component
 
 ## Overview
 
