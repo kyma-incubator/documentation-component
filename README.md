@@ -3,10 +3,10 @@
 ## Overview
 
 Documentation component is a generic, reusable React component that allows you to render:
-- Markdown
-- OpenAPI
-- AsyncAPI
-- OData
+- [Markdown](https://daringfireball.net/projects/markdown/)
+- [OpenAPI](https://www.openapis.org/)
+- [AsyncAPI](https://www.asyncapi.org/)
+- [OData](https://www.odata.org/)
 
 It supports:
 - Hooking custom functions that customize components rendering
