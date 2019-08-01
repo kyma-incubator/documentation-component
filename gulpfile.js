@@ -1,4 +1,3 @@
-const fs = require("fs");
 const fse = require("fs-extra");
 const path = require("path");
 const gulp = require("gulp");
@@ -165,7 +164,7 @@ gulp.task("clean:output", () => {
   return gulp
     .src(
       [
-        `${sources}/*/lib/**/*.js`,
+        `${sources}/*/lib/**/*.js`, // why don't we just delete all /lib folders TODO: discuss
         `${sources}/*/lib/**/*.jsx`,
         `${sources}/*/lib/**/*.d.ts`,
         `${sources}/*/lib/**/*.js.map`,
@@ -207,13 +206,6 @@ const buildByRollup = async dir => {
     throw err;
   }
 };
-
-const filterFolders = dir => {
-  return fs.readdirSync(dir).filter(file => {
-    return fs.statSync(path.join(dir, file)).isDirectory();
-  });
-};
-const getDirs = base => filterFolders(base).map(path => `${base}/${path}`);
 
 function removeKymaPrefixFromPackage(packageName) {
   const name = packageName.replace("@kyma-project/", "");

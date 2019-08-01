@@ -126,6 +126,7 @@ function runPlugins(sources: Sources, plugins?: Plugins): Sources {
       if (isSourceGroupWithOptions(source)) {
         return runPluginForGroup(source, plugin);
       }
+
       return runPlugin(source, plugin);
     });
   });
@@ -133,4 +134,4 @@ function runPlugins(sources: Sources, plugins?: Plugins): Sources {
   return processedSources;
 }
 
-export { runPlugins };
+export { runPlugins, runPlugin, runPluginForGroup, runMutation, runExtractor };

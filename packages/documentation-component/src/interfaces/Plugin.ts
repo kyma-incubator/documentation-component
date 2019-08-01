@@ -31,9 +31,9 @@ export type ExtractorPlugin = (
 ) => ExtractorPluginReturnType;
 
 export type MutationPluginReturnType = string | any;
-export interface MutationPluginArgs<C = string> {
+export interface MutationPluginArgs<T = Record<string, any>, C = string> {
   source: Source<C>;
-  options?: PluginOptions;
+  options?: PluginOptions<T>;
 }
 export type MutationPlugin = (
   args: MutationPluginArgs,
