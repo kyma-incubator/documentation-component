@@ -125,7 +125,11 @@ gulp.task("build:normal", gulp.parallel(modules));
 gulp.task("build", gulp.series("build:rollup", "build:normal"));
 gulp.task(
   "build:dev",
-  gulp.series("build:rollup", gulp.parallel(modules.map(mod => `${mod}:dev`))),
+  gulp.series(
+    "build:rollup",
+    `${odataReact}:dev`,
+    modules.map(mod => `${mod}:dev`).filter(mod => mod !== odataReact),
+  ),
 );
 
 gulp.task("watch", () => {
