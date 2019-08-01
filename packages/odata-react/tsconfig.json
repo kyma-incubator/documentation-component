@@ -2,7 +2,13 @@
   "extends": "./../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./lib",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "declaration": false
   },
   "include": ["src/*.ts", "src/**/*.ts", "src/*.tsx", "src/**/*.tsx"],
   "exclude": ["lib/**/*"]

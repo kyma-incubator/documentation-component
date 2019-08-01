@@ -3,14 +3,12 @@ import ReactDOM from "react-dom";
 import ODataReact from "./ODataReact";
 import { PageWrapper } from "./components/styled/styled";
 import { mocks } from "./example/ODataFiles/index";
-import { StyledOData } from "./CustomStyles";
+// import { StyledOData } from "./CustomStyles";
 import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
 
 ReactDOM.render(
   <PageWrapper>
-    <StyledOData>
-      <ODataReact schema={mocks.ODataProductV4} />
-    </StyledOData>
+    <ODataReact schema={mocks.ODataProductV4} />
   </PageWrapper>,
   document.getElementById("root"),
 );
