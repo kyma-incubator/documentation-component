@@ -57,10 +57,10 @@ const packages = {
   [odataRenderEngine]: ts.createProject(
     `${sources}/${odataRenderEngine}/tsconfig.json`,
   ),
+  [odataReact]: ts.createProject(`${sources}/${odataReact}/tsconfig.prod.json`),
 };
 const rollupPackages = {
   [documentationComponent]: documentationComponent,
-  [odataReact]: odataReact,
 };
 
 const modules = Object.keys(packages);
