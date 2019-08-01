@@ -36,7 +36,7 @@
     "typescript": "^3.5.2"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_HECK=true react-app-rewired start",
+    "start": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "echo \"No tests here!\"; exit 0;",
     "eject": "react-app-rewired eject",
