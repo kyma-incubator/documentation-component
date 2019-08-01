@@ -2,7 +2,7 @@
 
 ## Overview
 
-Documentation component is a generic, reusable React component that allows you to render:
+The Documentation component is a generic, reusable React component that allows you to render:
 - [Markdown](https://daringfireball.net/projects/markdown/)
 - [OpenAPI](https://www.openapis.org/)
 - [AsyncAPI](https://www.asyncapi.org/)
