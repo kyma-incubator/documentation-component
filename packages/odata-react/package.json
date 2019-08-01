@@ -48,8 +48,6 @@
     "styled-components": ">= 4.2.0"
   },
   "main": "lib/ODataReact.js",
-  "module": "lib/ODataReact.esm.js",
-  "browser": "lib/ODataReact.umd.js",
   "types": "lib/ODataReact.d.ts",
   "files": [
     "/lib",
