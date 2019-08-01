@@ -1,11 +1,5 @@
 "use strict";
-import {
-  runPlugins,
-  runPlugin,
-  // runPluginForGroup,
-  runMutation,
-  runExtractor,
-} from "../plugins";
+import { runPlugins, runPlugin, runMutation, runExtractor } from "../plugins";
 
 import {
   pluginSource,

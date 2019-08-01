@@ -1,9 +1,6 @@
 import {
-  // Source,
-  // PluginOptions,
   PluginType,
   MutationPluginReturnType,
-  // MutationPlugin,
   SourceWithOptions,
   MutationPluginArgs,
   ExtractorPluginArgs,
