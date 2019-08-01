@@ -2,21 +2,42 @@
 
 ## Overview
 
+<<<<<<< HEAD
 The Documentation component is a generic, reusable React component that allows you to render any available specification formats.
 
 It supports:
 - Passing custom functions that use system plugins to customize content rendering.
 - Passing custom render engines to render specific types of documents.
 - Setting custom architecture.
+=======
+The Documentation component is a generic, reusable React component that allows you to render:
+
+- [Markdown](https://daringfireball.net/projects/markdown/)
+- [OpenAPI](https://www.openapis.org/)
+- [AsyncAPI](https://www.asyncapi.org/)
+- [OData](https://www.odata.org/)
+
+It supports:
+
+- Hooking custom functions that customize components rendering
+- Passing custom styling
+- Rendering of custom architecture
+>>>>>>> update config
 
 ## Installation
 
 Run this command to install the component:
 
+<<<<<<< HEAD
 - using [`npm`](https://www.npmjs.com/)
   ``` bash
   npm i @kyma-project/documentation-component
   ```
+=======
+- Node.js
+- React (version 16.8.0 or higher)
+- TypeScript (version 3.0.0 or higher)
+>>>>>>> update config
 
 - using [`yarn`](https://yarnpkg.com/en/)
   ``` bash
@@ -29,6 +50,7 @@ Learn what the component consists of and see the exemplary code.
 
 ### Properties (props)
 
+<<<<<<< HEAD
 The list of properties for the Documentation component includes:
 
   - **sources: (SourceWithOptions | SourceGroupWithOptions)[]**
@@ -97,6 +119,11 @@ const App: React.FunctionComponent<> = () => (
 );
 
 render(<App />, document.getElementById("root"));
+=======
+```sh
+  yarn
+  yarn bootstrap
+>>>>>>> update config
 ```
 
 ## Development
@@ -114,7 +141,12 @@ Use the following tools to set up the project:
 
 To install all dependencies for the [Documentation component](./packages/documentation-component) package and other packages in the [`packages`](./packages) directory, run these commands:
 
+<<<<<<< HEAD
 ``` sh
 $ yarn install
 $ yarn bootstrap
+=======
+```sh
+  yarn start
+>>>>>>> update config
 ```

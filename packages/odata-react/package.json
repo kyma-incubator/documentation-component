@@ -56,7 +56,7 @@
   ],
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "build": "rollup -c --compact --file dist/out.js",
+    "build": "rollup -c --compact --file lib/ODAT.js",
     "test": "echo \"Run tests from root\"",
     "lint-check": "tslint -c ../../tslint.json --project tsconfig.prod.json --format verbose && prettier --config ../../.prettierrc --ignore-path ../../.prettierignore  --check 'src/**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
     "lint-fix": "tslint -c ../../tslint.json --project tsconfig.prod.json --format verbose --fix; prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --write 'src/**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
