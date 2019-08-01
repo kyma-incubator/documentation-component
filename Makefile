@@ -9,7 +9,7 @@ validate:
 	yarn conflict-check
 	yarn lint-check
 	yarn markdownlint
-	yarn type-check
+
 
 .PHONY: test
 test: 
