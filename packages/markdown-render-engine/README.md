@@ -23,12 +23,12 @@ This render engine is based on [react-markdown](https://github.com/rexxars/react
 | Name | Required | Type | Default value | Description |
 |---|---|---|---|---|
 | `parsers` | No | [`MarkdownParserPlugin[]`](./src/types.ts#L24) | `[]` | Custom parsers for custom content in markdown files. More information about write parsers [here](https://github.com/aknuds1/html-to-react#with-custom-processing-instructions). |
-| `customRenderers` | No | [`Renderers`](./src/types.ts#L16) | `{}` | An object where the keys represent the node type and the value is a React component. The object is merged with the default renderers. The props passed to the component varies based on the type of node. See [default](./src/renderers) implementations of renderers. |
+| `customRenderers` | No | [`Renderers`](./src/types.ts) | `{}` | An object where the keys represent the node type and the value is a React component. The object is merged with the default renderers. The props passed to the component varies based on the type of node. See [default](./src/renderers) implementations of renderers. |
 | `highlightTheme` | No | `any` | `{}` | Custom styles for highlight of code block. Component use for highlight [`PrismJS`](https://github.com/PrismJS/prism). See example [themes](https://github.com/PrismJS/prism-themes/tree/master/themes). |
-| `headingPrefix` | No | `string | ((source: Source) => string)`, where [`Source`](./src/interfaces/Source.ts#L14) is type | `""` | Prefix for any heading appearing in markdown file. |
+| `headingPrefix` | No | `string or ((source: Source) => string)`, where [`Source`](../documentation-component/src/interfaces/Source.ts) is type | `""` | Prefix for any heading appearing in markdown file. |
 | `copyButton` | No | `ReactNode` | `null` | Custom copy button in code blocks. Component accept only `code` as `string` to copy as prop.  |
 
-> **NOTE**: For information how to pass options of render engine, read [this](../../docs/props/render-engines.md#passing-globally-options) document.
+> **NOTE**: For information how to pass options of render engine, read [this](../../docs/props/render-engines.md#pass-global-options) document.
 
 ## Plugins
 
@@ -46,7 +46,7 @@ import { plugins as markdownPlugins } from "@kyma-project/dc-markdown-render-eng
 | `replaceAllLessThanChars` | Extractor | `["markdown", "md"]` | A mutation plugin for replace all `<` chars to appropriate unicode code for properly rendering these chars. |
 | `tabs` | Mutation | `["markdown", "md"]` | A mutation plugin for extract `details` html tag to fully interactive tabs. **NOTE**: For fully integration with `documentation-component` you also must use [`tabsParserPlugin`](./src/plugins/tabs/parserPlugin.tsx). |
 
-> **NOTE**: For information how to pass options of plugins, read [this](../../docs/props/plugins.md#passing-globally-options) document.
+> **NOTE**: For information how to pass options of plugins, read [this](../../docs/props/plugins.md#pass-global-options) document.
 
 ## TypeScript types
 

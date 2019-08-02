@@ -37,13 +37,13 @@ The list of properties for the Documentation component includes:
 
   - **renderEngines: RenderEngines**
 
-    The `renderEngines` property is required and contains render engines for the component. For more information on what render engine is, read the [`render-engines.md`](./docs/props/render-engine.md) document.
+    The `renderEngines` property is required and contains render engines for the component. For more information on what render engine is, read the [`render-engines.md`](./docs/props/render-engines.md) document.
     
     > **NOTE:**  The array must contain at least one value.
 
   - **plugins?: Plugins**
 
-    The `plugins` property is optional and contains plugins for the component. For more information on what plugin is, read the [`plugin.md`](./docs/props/plugin.md) document.
+    The `plugins` property is optional and contains plugins for the component. For more information on what plugin is, read the [`plugin.md`](./docs/props/plugins.md) document.
 
 ### Custom render engine
 

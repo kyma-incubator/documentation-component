@@ -6,7 +6,7 @@ Read the document to find out how to write a custom plugin for the Documentation
 
 ## Project structure
 
-You can use an exemplary project structure for a custom plugin. See [this]((../templates/project-structure-templates/plugin) directory to find the template.
+You can use an exemplary project structure for a custom plugin. See [this](../templates/project-structure-templates/plugin) directory to find the template.
 
 ## Example
 

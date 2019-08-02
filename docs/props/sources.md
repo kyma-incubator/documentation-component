@@ -56,8 +56,8 @@ The core of the Documentation component automatically concatenates options passe
 3. Options passed globally
 
 > **NOTE**: For information on how to pass options globally:
->  - for plugins, read [this](./plugins#pass-global-options) section.
->  - for render engines, read [this](./render-engines#pass-global-options) section.
+>  - for plugins, read [this](./plugins.md#pass-global-options) section.
+>  - for render engines, read [this](./render-engines.md#pass-global-options) section.
 
 ### Example
 
