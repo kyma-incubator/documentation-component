@@ -1,26 +1,26 @@
-# Open-api render engine
+# OpenApi Render Engine
 
 ## Overview
 
-This render engine is based on [swagger-ui-dist](https://github.com/swagger-api/swagger-ui) component.
+The OpenAPI render engine is based on the [Swagger UI](https://github.com/swagger-api/swagger-ui) component.
 
 ## Installation
 
-- by [`npm`](https://www.npmjs.com/)
+- using [`npm`](https://www.npmjs.com/)
   ``` bash
   npm i @kyma-project/dc-open-api-render-engine
   ```
 
-- by [`yarn`](https://yarnpkg.com/en/)
+- using [`yarn`](https://yarnpkg.com/en/)
   ``` bash
   yarn add @kyma-project/dc-open-api-render-engine
   ```
   
-## Options
+## Configuration
 
 | Name | Required | Type | Default value | Description |
 |---|---|---|---|---|
-| `plugins` | NO | `any` | `[]` | Custom plugins for [swagger-ui-dist](https://github.com/swagger-api/swagger-ui) component. More info [here](https://github.com/swagger-api/swagger-ui/blob/master/docs/customization/plugin-api.md) |
-| `schemaUrl` | NO | `any` | `{}` | Custom schema for [swagger-ui-dist](https://github.com/swagger-api/swagger-ui) |
+| `plugins` | No | `any` | `[]` | Defines custom plugins for the [Swagger UI](https://github.com/swagger-api/swagger-ui) component. Read [this](https://github.com/swagger-api/swagger-ui/blob/master/docs/customization/plugin-api.md) document for more details. |
+| `schemaUrl` | No | `any` | `{}` | Defines the custom schema for the [SwaggerUI](https://github.com/swagger-api/swagger-ui) component. |
 
-> **NOTE**: For information how to pass options of render engine, read [this](../../docs/props/render-engines.md#pass-global-options) document.
+> **NOTE**: To learn how to pass options of a render engine, read [this](../../docs/props/render-engines.md#pass-global-options) document.

@@ -1,12 +1,12 @@
-# Custom render engine
+# Custom Render Engine
 
 ## Overview
 
 Read the document to find out how to write a custom render engine for the Documentation component.
 
-## Project structure
+## Create a custom render engine
 
-You can use an exemplary project structure for a custom render engine. See [this](../templates/project-structure-templates/render-engine) directory to find the template.
+To create a custom render engine, follow the exemplary project structure. See [this](../templates/project-structure-templates/render-engine) directory to find the template.
 
 ## Example
 

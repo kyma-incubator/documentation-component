@@ -13,6 +13,6 @@ This directory contains the following documents and files that relate to the pro
     - [`custom-render-engine.md`](./guidelines/custom-render-engine.md) describes how to write a custom render engine.
 - templates:
     - [`plugin_README.md`](./templates/document-templates/plugin_README.md) is a `README.md` document template for plugins.
-    - [`plugin`](./templates/project-structure-templates/plugin) shows example files structure for plugins.
+    - [`plugin`](./templates/project-structure-templates/plugin) shows an exemplary files structure for plugins.
     - [`render-engine_README.md`](./templates/document-templates/render-engine_README.md) is a `README.md` document template for render engines.
-    - [`render-engine`](./templates/project-structure-templates/render-engine) shows example files structure for render engines.
+    - [`render-engine`](./templates/project-structure-templates/render-engine) shows an exemplary files structure for render engines.

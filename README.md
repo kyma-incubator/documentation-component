@@ -13,12 +13,12 @@ It supports:
 
 Run this command to install the component:
 
-- by [`npm`](https://www.npmjs.com/)
+- using [`npm`](https://www.npmjs.com/)
   ``` bash
   npm i @kyma-project/documentation-component
   ```
 
-- by [`yarn`](https://yarnpkg.com/en/)
+- using [`yarn`](https://yarnpkg.com/en/)
   ``` bash
   yarn add @kyma-project/documentation-component
   ```
@@ -33,17 +33,17 @@ The list of properties for the Documentation component includes:
 
   - **sources: (SourceWithOptions | SourceGroupWithOptions)[]**
 
-    The `sources` property is required and contains source files for the component. For more information on what render engine is, read the [`sources.md`](./docs/props/sources.md) document.
+    The `sources` property is required and contains source files for the component. For more information on what a render engine is, read the [`sources.md`](./docs/props/sources.md) document.
 
   - **renderEngines: RenderEngines**
 
-    The `renderEngines` property is required and contains render engines for the component. For more information on what render engine is, read the [`render-engines.md`](./docs/props/render-engines.md) document.
+    The `renderEngines` property is required and contains render engines for the component. For more information on what a render engine is, read the [`render-engines.md`](./docs/props/render-engines.md) document.
     
     > **NOTE:**  The array must contain at least one value.
 
   - **plugins?: Plugins**
 
-    The `plugins` property is optional and contains plugins for the component. For more information on what plugin is, read the [`plugin.md`](./docs/props/plugins.md) document.
+    The `plugins` property is optional and contains plugins for the component. For more information on what a plugin is, read the [`plugin.md`](./docs/props/plugins.md) document.
 
 ### Custom render engine
 
@@ -111,8 +111,6 @@ Use the following tools to set up the project:
 - Yarn
 
 ### Installation
-
-#### Install dependencies
 
 To install all dependencies for the [Documentation component](./packages/documentation-component) package and other packages in the [`packages`](./packages) directory, run these commands:
 

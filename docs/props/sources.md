@@ -6,20 +6,20 @@ The `sources` property is required and contains the source files that the compon
 
 ## Usage
 
-Read how use `sources` property in the Documentation component. 
+Read how to use the `sources` property in the Documentation component.
 
 ### Types
 
 The `sources` property is an array type that contains `SourceWithOptions` and/or `SourceGroupWithOptions`. 
 
-See this example for details of these structures:
+See the example of the `SourceWithOptions` and `SourceGroupWithOptions` structures details:
 
 ``` ts
 interface SourceWithOptions<C = string> {
   source: {
-    type: string;                 // type of document, e.g.: "md"
-    rawContent: C;                // content of document
-    data?: Record<string, any>;   // additional data - extracted or using by plugin or render engine
+    type: string;                 // a document type, e.g.: "md"
+    rawContent: C;                // document content
+    data?: Record<string, any>;   // additional data - extracted or used by a plugin or a render engine
   };
   pluginsOptions?: {
     name: string;
@@ -46,7 +46,7 @@ interface SourceGroupWithOptions<C = string> {
 
 ### Pass options
 
-`pluginsOptions` and `renderEngineOptions` are objects with **name** (`string` type) and **options** (`object` type) fields. To pass `pluginsOptions` and/or `renderEngineOptions`, define the plugin or render engine for which you want to provide options. To do this, use the name of the plugin or render engine as the **name** field, and then provide options. 
+`pluginsOptions` and `renderEngineOptions` are objects with the **name** (the `string` type) and **options** (the `object` type) fields. To pass `pluginsOptions` and/or `renderEngineOptions`, define the plugin or render engine for which you want to provide the options. Use the name of the plugin or render engine as the **name** field, and then provide the options.
 
 #### Concate options
 

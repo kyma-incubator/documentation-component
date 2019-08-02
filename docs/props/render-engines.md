@@ -8,7 +8,7 @@ A render engine is a pure React component. Its purpose is to render the content 
 
 ## Usage
 
-Read how use `renderEngines` property in the Documentation component. 
+Read how to use the `renderEngines` property in the Documentation component.
 
 ### Types
 
@@ -16,7 +16,7 @@ For types of render engines, see [this](https://github.com/kyma-incubator/docume
 
 ### Pass global options
 
-The `renderEngines` property allows also you to define options for a single render engine. Instead of passing a single one, pass an object with the **renderEngine** field with the appropriate render engine as value, and add the **options** field. 
+The `renderEngines` property allows also you to define options for a single render engine. Instead of passing a single one, pass an object with the **renderEngine** field with the appropriate render engine as a value, and add the **options** field.
 
 See this example:
 
@@ -31,11 +31,11 @@ const RENDER_ENGINES: RenderEngines = [
 ];
 ```
 
-> **NOTE**: For information on how to pass options per group of sources or per single source, read [this](./sources.md#pass-options) section.
+> **NOTE**: For information on how to pass options per group of sources or per a single source, read [this](./sources.md#pass-options) section.
 
 ### Pass render engines to the component
 
-The `renderEngines` property is an array of render engines. To pass render engines to the component, define an array of render engines and pass it to the global provider of the Documentation component. 
+The `renderEngines` property is an array of render engines. To pass render engines to the component, define an array of render engines and pass it to the global provider of the Documentation component.
 
 See this example:
 
@@ -56,4 +56,4 @@ const App: React.FunctionComponent<> = () => (
 
 ### Custom render engine
 
-For information on how to write a custom render engine for specific types, read the [this](../guidelines/custom-render-engine.md) document.
+For information on how to write a custom render engine for specific types, read [this](../guidelines/custom-render-engine.md) document.

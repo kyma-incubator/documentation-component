@@ -8,7 +8,7 @@ A plugin is a pure JavaScript function. There are two types of plugins available
 - `mutation`
 - `extractor` 
 
-Read subsections to learn about their characteristics.
+Read the following subsections to learn about the plugins characteristics.
 
 ## Mutation plugin
 
@@ -20,7 +20,7 @@ The purpose of the `extractor` plugin is to extract additional data from the con
 
 ## Usage
 
-Read how use `plugins` property in the Documentation component. 
+Read how to use the `plugins` property in the Documentation component. 
 
 ### Types
 
@@ -28,7 +28,7 @@ For types of plugins, see [this](https://github.com/kyma-incubator/documentation
 
 ### Pass global options
 
-The `plugins` property allows also you to define options for a single plugin. Instead of passing a single one, pass an object with the **plugin** field with the appropriate plugin as value, and add the **options** field. 
+The `plugins` property allows also you to define options for a single plugin. Instead of passing a single one, pass an object with the **plugin** field with the appropriate plugin as a value, and add the **options** field. 
 
 See this example:
 
@@ -43,7 +43,7 @@ const PLUGINS: Plugins = [
 ];
 ```
 
-> **NOTE**: For information on how to pass options per group of sources or per single source, read [this](./sources.md#pass-options) section.
+> **NOTE**: For information on how to pass options per group of sources or per a single source, read [this](./sources.md#pass-options) section.
 
 ### Pass plugins to the component
 

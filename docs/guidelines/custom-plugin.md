@@ -1,12 +1,12 @@
-# Custom plugin
+# Custom Plugin
 
 ## Overview
 
 Read the document to find out how to write a custom plugin for the Documentation component.
 
-## Project structure
+## Create a custom plugin
 
-You can use an exemplary project structure for a custom plugin. See [this](../templates/project-structure-templates/plugin) directory to find the template.
+To create a custom plugin, follow the exemplary project structure. See [this](../templates/project-structure-templates/plugin) directory to find the template.
 
 ## Example
 
