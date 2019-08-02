@@ -39,6 +39,6 @@
   },
   "jsRules": {},
   "linterOptions": {
-    "exclude": ["node_modules/**/*"]
+    "exclude": ["node_modules/**/*", "docs/**/*"]
   }
 }
