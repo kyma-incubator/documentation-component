@@ -77,3 +77,4 @@ stats.html
 
 /packages/**/.npmignore
 /packages/**/LICENSE
+/docs/**

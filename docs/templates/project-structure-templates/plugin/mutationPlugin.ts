@@ -1,12 +1,16 @@
-import { PluginOptions, MutationPluginArgs } from "@kyma-project/documentation-component";
+import {
+  PluginOptions,
+  MutationPluginArgs,
+} from "@kyma-project/documentation-component";
 
 function fn(source: string, options: PluginOptions): string {
   // logic
+
+  return "";
 }
 
 export const mutationPlugin = ({
   source,
-  options = {}
+  options = {},
 }: MutationPluginArgs): string =>
   fn((source.content || source.rawContent) as string, options);
-  

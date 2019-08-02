@@ -1,4 +1,9 @@
-import { Source, PluginOptions, ExtractorPluginArgs, ExtractorPluginReturnType } from "@kyma-project/documentation-component";
+import {
+  Source,
+  PluginOptions,
+  ExtractorPluginArgs,
+  ExtractorPluginReturnType,
+} from "@kyma-project/documentation-component";
 
 function fn(source: Source, options: PluginOptions): ExtractorPluginReturnType {
   // logic
@@ -7,6 +12,4 @@ function fn(source: Source, options: PluginOptions): ExtractorPluginReturnType {
 export const extractorPlugin = ({
   source,
   options = {},
-}: ExtractorPluginArgs): ExtractorPluginReturnType =>
-  fn(source, options);
-  
+}: ExtractorPluginArgs): ExtractorPluginReturnType => fn(source, options);

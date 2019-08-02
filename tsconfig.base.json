@@ -1,6 +1,6 @@
 {
   "include": ["./packages/**/*", "./playground"],
-  "exclude": ["**/node_modules/**/*", "**/lib/**/*"],
+  "exclude": ["**/node_modules/**/*", "**/lib/**/*", "**/docs/**/*"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",

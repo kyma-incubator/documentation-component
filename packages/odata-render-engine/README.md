@@ -6,9 +6,15 @@ This render engine is based on [odata-react](https://github.com/kyma-incubator/d
 
 ## Installation
 
-```bash
-npm i @kyma-project/dc-odata-render-engine
-```
+- by [`npm`](https://www.npmjs.com/)
+  ``` bash
+  npm i @kyma-project/dc-odata-render-engine
+  ```
+
+- by [`yarn`](https://yarnpkg.com/en/)
+  ``` bash
+  yarn add @kyma-project/dc-odata-render-engine
+  ```
 
 ## Prerequisites
 

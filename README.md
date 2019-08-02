@@ -2,7 +2,7 @@
 
 ## Overview
 
-Documentation Component, also known as DC, is a generic, reusable React component that allows you to render any available specification formats.
+The Documentation component is a generic, reusable React component that allows you to render any available specification formats.
 
 It supports:
 - Passing custom functions that use system plugins to customize content rendering.
@@ -13,9 +13,15 @@ It supports:
 
 Run this command to install the component:
 
-``` bash
-npm i @kyma-project/documentation-component
-```
+- by [`npm`](https://www.npmjs.com/)
+  ``` bash
+  npm i @kyma-project/documentation-component
+  ```
+
+- by [`yarn`](https://yarnpkg.com/en/)
+  ``` bash
+  yarn add @kyma-project/documentation-component
+  ```
 
 ## Usage
 
@@ -23,7 +29,7 @@ Learn what the component consists of and see the exemplary code.
 
 ### Properties (props)
 
-The list of properties for the Documentation Component includes:
+The list of properties for the Documentation component includes:
 
   - **sources: (SourceWithOptions | SourceGroupWithOptions)[]**
 
@@ -95,31 +101,22 @@ render(<App />, document.getElementById("root"));
 
 ## Development
 
-> **NOTE:** This repository uses [Lerna](https://github.com/lerna/lerna) for managing local dependencies and better development experience.
+> **NOTE:** This repository uses [Yarn](https://yarnpkg.com/en/) and [Gulp](https://gulpjs.com/) for managing local dependencies and better development experience.
 
 ### Prerequisites
 
 Use the following tools to set up the project:
 
-- Node.js
+- Node.js >= 10
+- Yarn
 
 ### Installation
 
 #### Install dependencies
 
-To install all dependencies for the [Playground](./playground) application and prepare a symlink for the [`documentation-component`](./packages/documentation-component) package and other packages in the [`packages`](./packages) directory, run these commands:
+To install all dependencies for the [Documentation component](./packages/documentation-component) package and other packages in the [`packages`](./packages) directory, run these commands:
 
 ``` sh
-$ npm install
-$ npm run bootstrap
+$ yarn install
+$ yarn bootstrap
 ```
-
-#### Launch a development environment
-
-Launch the development server with the hot reloading functionality that allows you to immediately see any changes made in files in `playground/src` and any package in the `packages` folder in the browser. Use this command:
-
-``` sh
-$ npm start
-```
-
-You can access the live development server at [localhost:3000](http://localhost:3000/).

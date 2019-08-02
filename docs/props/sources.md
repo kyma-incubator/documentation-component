@@ -6,7 +6,7 @@ The `sources` property is required and contains the source files that the compon
 
 ## Usage
 
-Read how use `sources` property in Documentation Component. 
+Read how use `sources` property in the Documentation component. 
 
 ### Types
 
@@ -50,7 +50,7 @@ interface SourceGroupWithOptions<C = string> {
 
 #### Concate options
 
-The core of the Documentation Component automatically concatenates options passed globally, for a group of sources, and for a single source, in this order of priorities: 
+The core of the Documentation component automatically concatenates options passed globally, for a group of sources, and for a single source, in this order of priorities: 
 1. Single source
 2. Group of sources
 3. Options passed globally

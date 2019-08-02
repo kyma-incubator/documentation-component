@@ -6,9 +6,15 @@ This render engine is based on [asyncapi-react](https://github.com/asyncapi/asyn
 
 ## Installation
 
-```bash
-npm i @kyma-project/dc-async-api-render-engine
-```
+- by [`npm`](https://www.npmjs.com/)
+  ``` bash
+  npm i @kyma-project/dc-async-api-render-engine
+  ```
+
+- by [`yarn`](https://yarnpkg.com/en/)
+  ``` bash
+  yarn add @kyma-project/dc-async-api-render-engine
+  ```
 
 ## Prerequisites
 

@@ -8,7 +8,7 @@ A render engine is a pure React component. Its purpose is to render the content 
 
 ## Usage
 
-Read how use `renderEngines` property in Documentation Component. 
+Read how use `renderEngines` property in the Documentation component. 
 
 ### Types
 
@@ -35,7 +35,7 @@ const RENDER_ENGINES: RenderEngines = [
 
 ### Pass render engines to the component
 
-The `renderEngines` property is an array of render engines. To pass render engines to the component, define an array of render engines and pass it to the global provider of the Documentation Component. 
+The `renderEngines` property is an array of render engines. To pass render engines to the component, define an array of render engines and pass it to the global provider of the Documentation component. 
 
 See this example:
 

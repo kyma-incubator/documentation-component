@@ -20,7 +20,7 @@ The purpose of the `extractor` plugin is to extract additional data from the con
 
 ## Usage
 
-Read how use `plugins` property in Documentation Component. 
+Read how use `plugins` property in the Documentation component. 
 
 ### Types
 
@@ -47,7 +47,7 @@ const PLUGINS: Plugins = [
 
 ### Pass plugins to the component
 
-The `plugins` property is an array of plugins. To pass plugins to the component, define an array of plugins and pass it to the global provider of the Documentation Component. 
+The `plugins` property is an array of plugins. To pass plugins to the component, define an array of plugins and pass it to the global provider of the Documentation component. 
 
 See this example:
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Read the document to find out how to write a custom render engine for the Documentation Component.
+Read the document to find out how to write a custom render engine for the Documentation component.
 
 ## Project structure
 

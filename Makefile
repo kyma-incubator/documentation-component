@@ -1,12 +1,8 @@
-ci-pr: resolve test validate
+ci-pr: resolve validate test
 
 .PHONY: resolve
 resolve:
 	yarn bootstrap
-
-.PHONY: test
-test: 
-	yarn test
 
 .PHONY: validate
 validate:
@@ -15,4 +11,6 @@ validate:
 	yarn markdownlint
 	yarn type-check
 
-
+.PHONY: test
+test: 
+	yarn test

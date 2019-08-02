@@ -6,10 +6,16 @@ This render engine is based on [swagger-ui-dist](https://github.com/swagger-api/
 
 ## Installation
 
-```bash
-npm i @kyma-project/dc-open-api-render-engine
-```
+- by [`npm`](https://www.npmjs.com/)
+  ``` bash
+  npm i @kyma-project/dc-open-api-render-engine
+  ```
 
+- by [`yarn`](https://yarnpkg.com/en/)
+  ``` bash
+  yarn add @kyma-project/dc-open-api-render-engine
+  ```
+  
 ## Options
 
 | Name | Required | Type | Default value | Description |
