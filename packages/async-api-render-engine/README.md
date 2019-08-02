@@ -18,7 +18,6 @@ This render engine is based on [asyncapi-react](https://github.com/asyncapi/asyn
 
 ## Prerequisites
 
-- [`documentation-component`](https://github.com/kyma-incubator/documentation-component/tree/master/packages/documentation-component): ^0.1.0
 - [`styled-components`](https://github.com/styled-components/styled-components): >= 3.4.0
 
 ## Options

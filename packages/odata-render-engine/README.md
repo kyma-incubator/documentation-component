@@ -18,5 +18,5 @@ This render engine is based on [odata-react](https://github.com/kyma-incubator/d
 
 ## Prerequisites
 
-- [`documentation-component`](https://github.com/kyma-incubator/documentation-component/tree/master/packages/documentation-component): ^0.1.0
+- [`odata-react`](https://github.com/kyma-incubator/documentation-component/tree/master/packages/odata-react): ^0.0.1
 - [`styled-components`](https://github.com/styled-components/styled-components): >= 3.4.10
