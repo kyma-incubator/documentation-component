@@ -77,7 +77,7 @@ rollupModules.concat(modules).forEach(mod => {
 
 gulp.task(
   "install:packages",
-  gulp.series(rollupModules.concat(modules).map(mod => `${mod}:install`)),
+  gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`)),
 );
 
 modules.forEach(mod => {
