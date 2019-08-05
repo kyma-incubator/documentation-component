@@ -2,10 +2,7 @@
   "extends": "./../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./lib",
-    "baseUrl": "./src",
-    "importHelpers": true,
-    "declaration": true,
-    "target": "es5"
+    "baseUrl": "./src"
   },
   "include": ["src/*.ts", "src/**/*.ts", "src/*.tsx", "src/**/*.tsx"],
   "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/index.tsx"]
