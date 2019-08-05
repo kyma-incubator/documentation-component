@@ -1,161 +1,29 @@
 # Documentation Component
 
-## Overview
+It is a reusable React.js component that supports rendering of:
+- Markdown
+- OpenAPI
+- AsyncAPI
+- OData
 
-<<<<<<< HEAD
-The Documentation component is a generic, reusable React component that allows you to render any available specification formats.
+Must have:
+- npm package. New GitHub package feature?
+- sample app that proves it works and can be used for demos. If https://codesandbox.io/ is sufficient as start, let us not over do it
+
+
+It can be used in any context, like:
+- Existing Kyma Console UI
+  - Context of a specific service in the Service Catalog views
+  - Overal docs view
+  - Context help/docs in any Console UI view, like Application
+- Website docs - https://kyma-project.io/docs
+- Future presentation layer, reusable application for Headless CMS component
 
 It supports:
-- Passing custom functions that use system plugins to customize content rendering.
-- Passing custom render engines to render specific types of documents.
-- Setting custom architecture.
-=======
-The Documentation component is a generic, reusable React component that allows you to render:
-
-- [Markdown](https://daringfireball.net/projects/markdown/)
-- [OpenAPI](https://www.openapis.org/)
-- [AsyncAPI](https://www.asyncapi.org/)
-- [OData](https://www.odata.org/)
-
-It supports:
-
-- Hooking custom functions that customize components rendering
+- Hooking in with custom functions that customize components rendering
 - Passing custom styling
-- Rendering of custom architecture
->>>>>>> update config
+- Props that allow you to configure basic display from tab oriented to different views, like clickable tiles that expand with content once you click them
 
-## Installation
-
-Run this command to install the component:
-
-<<<<<<< HEAD
-- using [`npm`](https://www.npmjs.com/)
-  ``` bash
-  npm i @kyma-project/documentation-component
-  ```
-=======
-- Node.js
-- React (version 16.8.0 or higher)
-- TypeScript (version 3.0.0 or higher)
->>>>>>> update config
-
-- using [`yarn`](https://yarnpkg.com/en/)
-  ``` bash
-  yarn add @kyma-project/documentation-component
-  ```
-
-## Usage
-
-Learn what the component consists of and see the exemplary code.
-
-### Properties (props)
-
-<<<<<<< HEAD
-The list of properties for the Documentation component includes:
-
-  - **sources: (SourceWithOptions | SourceGroupWithOptions)[]**
-
-    The `sources` property is required and contains source files for the component. For more information on what a render engine is, read the [`sources.md`](./docs/props/sources.md) document.
-
-  - **renderEngines: RenderEngines**
-
-    The `renderEngines` property is required and contains render engines for the component. For more information on what a render engine is, read the [`render-engines.md`](./docs/props/render-engines.md) document.
-    
-    > **NOTE:**  The array must contain at least one value.
-
-  - **plugins?: Plugins**
-
-    The `plugins` property is optional and contains plugins for the component. For more information on what a plugin is, read the [`plugin.md`](./docs/props/plugins.md) document.
-
-### Custom render engine
-
-For information on how to write a custom render engine for specific document types, read the [`custom-render-engine.md`](./docs/guidelines/custom-render-engine.md) document.
-
-### Custom plugin
-
-For information on how to write a custom plugin for specific document types, read the [`custom-plugin.md`](./docs/guidelines/custom-plugin.md) document.
-
-### Example
-
-See an exemplary component code that renders the `.md` document source:
-
-``` tsx
-import React from "react";
-import { render } from "react-dom";
-import {
-  DC,
-  Content,
-  Sources,
-  RenderEngines,
-  Plugins,
-} from '@kyma-project/documentation-component';
-import { markdownRenderEngine, plugins as markdownPlugins } from '@kyma-project/dc-markdown-render-engine';
-
-const SOURCES: Sources = [
-  {
-    source: {
-      type: "md",
-      rawContent: "Example content",
-    }
-  }
-]
-
-const RENDER_ENGINES: RenderEngines = [
-  markdownRenderEngine,
-];
-
-const PLUGINS: Plugins = [
-  markdownPlugins.frontmatterMutationPlugin,
-];
-
-const App: React.FunctionComponent<> = () => (
-  <DC.Provider
-    sources={SOURCES}
-    renderEngines={RENDER_ENGINES}
-    plugins={PLUGINS}
-  >
-    <Content />
-  </DC.Provider>
-);
-
-render(<App />, document.getElementById("root"));
-=======
-```sh
-<<<<<<< HEAD
-  yarn
-  yarn bootstrap
->>>>>>> update config
-=======
-yarn
-yarn bootstrap
->>>>>>> update readme.md
-```
-
-## Development
-
-> **NOTE:** This repository uses [Yarn](https://yarnpkg.com/en/) and [Gulp](https://gulpjs.com/) for managing local dependencies and better development experience.
-
-### Prerequisites
-
-Use the following tools to set up the project:
-
-- Node.js >= 10
-- Yarn
-
-### Installation
-
-To install all dependencies for the [Documentation component](./packages/documentation-component) package and other packages in the [`packages`](./packages) directory, run these commands:
-
-<<<<<<< HEAD
-``` sh
-$ yarn install
-$ yarn bootstrap
-=======
-```sh
-<<<<<<< HEAD
-  yarn start
->>>>>>> update config
-=======
-yarn start
->>>>>>> update readme.md
-```
+What we solve:
+- Doing the same thing several times. We simply make an investment that pays back later
+- We have one npm package to help everywhere in any application with slight configuration
