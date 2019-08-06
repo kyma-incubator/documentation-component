@@ -41,7 +41,7 @@
     "lint-staged": "lint-staged",
     "watch": "gulp watch",
     "clean": "gulp clean:bundle",
-    "build": "npm run clean && gulp build && cd ./packages/documentation-component && yarn build",
+    "build": "npm run clean && gulp build",
     "build:dev": "gulp build --dist node_modules/@kyma-project",
     "prerelease": "gulp copy-misc && gulp build --dist node_modules/@kyma-project",
     "publish:latest": "npm run prerelease && npm run build && lerna publish --dist-tag=latest -m \"Publish %s release\"",
