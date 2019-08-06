@@ -8,7 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kyma-incubator/documentation-component/blob/master/packages/open-api-render-engine"
+    "url": "https://github.com/kyma-incubator/documentation-component.git",
+    "directory": "packages/markdown-render-engine"
   },
   "author": {
     "name": "Kyma Core & Supporting Team",
