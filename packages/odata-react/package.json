@@ -72,7 +72,7 @@
         "git add"
       ],
       "**/*.{ts,tsx}": [
-        "tslint -c ../../tslint.json --project tsconfig.json --format verbose --fix",
+        "tslint -c ../../tslint.json --project tsconfig.base.json --format verbose --fix",
         "prettier --config ../../.prettierrc --ignore-path ../../.prettierignore --write"
       ]
     },
