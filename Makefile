@@ -10,7 +10,6 @@ validate:
 	yarn lint-check
 	yarn markdownlint
 
-
 .PHONY: test
 test: 
 	yarn test
