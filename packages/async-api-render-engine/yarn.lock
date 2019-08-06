@@ -23,9 +23,9 @@ argparse@^1.0.7:
     sprintf-js "~1.0.2"
 
 asyncapi@^2.1.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/asyncapi/-/asyncapi-2.2.0.tgz#2dec20780c622c3d6c85e53015a2f86e20f57ed7"
-  integrity sha512-uls5XnojBmSW/njBilMWP3PUfQkfk6PLmJ2omNDDG+3rozlDNQYvOeiMuKJlfrRz/Dtlg9dgEEkx4AJP20Gshw==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/asyncapi/-/asyncapi-2.3.1.tgz#57d4b0a2781dfbd083bea3181ba73487d3d96096"
+  integrity sha512-p+8fiyYwe+MEITzdnVIl5RAH9duGAItKI8dRG3QDyzSvv/0AhOIiH2B5aWFBCs8Xsi4hyJZGqqw3/kVkYO2Oqg==
 
 call-me-maybe@^1.0.1:
   version "1.0.1"

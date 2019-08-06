@@ -122,7 +122,7 @@ gulp.task(
 );
 
 gulp.task("build:normal", gulp.series(modules));
-gulp.task("build", gulp.series("build:normal"));
+gulp.task("build", gulp.series("build:rollup", "build:normal"));
 gulp.task(
   "build:dev",
   gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)),
