@@ -1,7 +1,7 @@
 {
   "name": "@kyma-project/dc",
   "description": "Reusable React component compatible with markdown and most know specifications",
-  "version": "0.0.1-alpha.0",
+  "version": "0.2.0-alpha.1",
   "license": "Apache-2.0",
   "private": false,
   "repository": {
@@ -41,10 +41,10 @@
     "lint-staged": "lint-staged",
     "watch": "gulp watch",
     "clean": "gulp clean:bundle",
-    "build": "npm run clean && gulp build",
+    "build": "npm run clean && gulp build && cd ./packages/documentation-component && yarn build",
     "build:dev": "gulp build --dist node_modules/@kyma-project",
     "prerelease": "gulp copy-misc && gulp build --dist node_modules/@kyma-project",
-    "publish": "npm run prerelease && npm run build && lerna publish --force-publish --exact -m \"Publish %s release\"",
+    "publish:latest": "npm run prerelease && npm run build && lerna publish --dist-tag=latest -m \"Publish %s release\"",
     "publish:rc": "npm run prerelease && npm run build && lerna publish --dist-tag=rc -m \"Publish %s release\"",
     "publish:next": "npm run prerelease && npm run build && lerna publish --dist-tag=next --skip-git -m \"Publish %s release\"",
     "publish:beta": "npm run prerelease && npm run build && lerna publish --dist-tag=beta -m \"Publish %s release\"",
