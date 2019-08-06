@@ -8,7 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kyma-incubator/documentation-component/blob/master/packages/odata-react"
+    "url": "https://github.com/kyma-incubator/documentation-component.git",
+    "directory": "packages/odata-react"
   },
   "author": {
     "name": "Kyma Core & Supporting Team",
