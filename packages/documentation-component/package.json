@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kyma-incubator/documentation-component.git"
+    "url": "git+https://github.com/kyma-incubator/documentation-component.git"
   },
   "author": {
     "name": "Kyma Core & Supporting Team",
