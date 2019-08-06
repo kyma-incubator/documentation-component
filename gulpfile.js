@@ -45,6 +45,7 @@ const packageNames = {
   [odataRenderEngine]: `dc-${odataRenderEngine}`,
 };
 const packages = {
+  [odataReact]: ts.createProject(`${sources}/${odataReact}/tsconfig.prod.json`),
   [markdownRenderEngine]: ts.createProject(
     `${sources}/${markdownRenderEngine}/tsconfig.json`,
   ),
@@ -60,7 +61,6 @@ const packages = {
 };
 const rollupPackages = {
   [documentationComponent]: documentationComponent,
-  [odataReact]: odataReact,
 };
 
 const modules = Object.keys(packages);
@@ -74,6 +74,7 @@ rollupModules.concat(modules).forEach(mod => {
     await install(packageName);
   });
 });
+
 gulp.task(
   "install:packages",
   gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`)),
@@ -89,6 +90,7 @@ modules.forEach(mod => {
       );
   });
 });
+
 rollupModules.forEach(mod => {
   gulp.task(`${mod}:rollup`, async () => {
     const packageName = path.resolve(__dirname, `${sources}/${mod}`);
@@ -97,6 +99,7 @@ rollupModules.forEach(mod => {
     await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`);
   });
 });
+
 modules.forEach(mod => {
   gulp.task(`${mod}:dev`, () => {
     return packages[mod]
@@ -117,11 +120,12 @@ gulp.task(
   "build:rollup",
   gulp.series(rollupModules.map(mod => `${mod}:rollup`)),
 );
-gulp.task("build:normal", gulp.parallel(modules));
+
+gulp.task("build:normal", gulp.series(modules));
 gulp.task("build", gulp.series("build:rollup", "build:normal"));
 gulp.task(
   "build:dev",
-  gulp.series("build:rollup", gulp.parallel(modules.map(mod => `${mod}:dev`))),
+  gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)),
 );
 
 gulp.task("watch", () => {

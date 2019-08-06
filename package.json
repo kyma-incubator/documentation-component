@@ -38,7 +38,6 @@
     "testWatch": "jest --detectOpenHandles --watch",
     "conflict-check": "tslint-config-prettier-check ./tslint.json",
     "markdownlint": "markdownlint **/*.md",
-    "type-check": "tsc --noEmit",
     "lint-staged": "lint-staged",
     "watch": "gulp watch",
     "clean": "gulp clean:bundle",

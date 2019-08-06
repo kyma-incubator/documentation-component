@@ -1,5 +1,6 @@
 import React from "react";
 import { parse } from "./tools/Parser";
+
 import { Node, ErrorNode, isErrorNode } from "./types";
 import { ErrorBoundary } from "./components/ErrorComponents/ErrorBoundary";
 import TableContainer from "./components/Table/TableContainer";
@@ -9,7 +10,7 @@ export interface ODataProps {
   schema: string;
 }
 
-const ODataReact: React.FunctionComponent<ODataProps> = ({ schema }) => {
+const ODataReactRaw: React.FunctionComponent<ODataProps> = ({ schema }) => {
   if (!schema || typeof schema !== "string") {
     return <ErrorComponent />;
   }
@@ -37,10 +38,10 @@ const ODataReact: React.FunctionComponent<ODataProps> = ({ schema }) => {
   );
 };
 
-const ODataErrBoundary: React.FunctionComponent<ODataProps> = ({ schema }) => (
+const ODataReact: React.FunctionComponent<ODataProps> = ({ schema }) => (
   <ErrorBoundary>
-    <ODataReact schema={schema} />
+    <ODataReactRaw schema={schema} />
   </ErrorBoundary>
 );
 
-export default ODataErrBoundary;
+export default ODataReact;
