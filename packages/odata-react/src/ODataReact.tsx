@@ -1,6 +1,6 @@
 import React from "react";
 import { parse } from "./tools/Parser";
-import { StyledOData } from "./CustomStyles";
+
 import { Node, ErrorNode, isErrorNode } from "./types";
 import { ErrorBoundary } from "./components/ErrorComponents/ErrorBoundary";
 import TableContainer from "./components/Table/TableContainer";
@@ -40,9 +40,7 @@ const ODataReactRaw: React.FunctionComponent<ODataProps> = ({ schema }) => {
 
 const ODataReact: React.FunctionComponent<ODataProps> = ({ schema }) => (
   <ErrorBoundary>
-    <StyledOData>
-      <ODataReactRaw schema={schema} />
-    </StyledOData>
+    <ODataReactRaw schema={schema} />
   </ErrorBoundary>
 );
 
