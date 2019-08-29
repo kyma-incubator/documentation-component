@@ -16,9 +16,7 @@ import {
   TableHeaderWrapper,
 } from "../../styled/styled";
 
-import { useCollapseContext } from "../../../store";
-
-const STORE_DOC_TABLE_NAME = "service_documentation_table";
+// const STORE_DOC_TABLE_NAME = "service_documentation_table";
 
 interface Props {
   data: Node[];
@@ -33,14 +31,8 @@ const inverseArrayValue = (arr: boolean[], index: number) => {
 const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
   data,
 }) => {
-  const { state, updatePartOfCollapseState } = useCollapseContext();
-  const show = state[STORE_DOC_TABLE_NAME];
-  const setShow = () =>
-    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: !show });
-
-  if (state[STORE_DOC_TABLE_NAME] === undefined) {
-    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: true });
-  }
+  const [show, setShow] = useState<boolean>(true);
+  const handleState = () => setShow(state => !state);
 
   const [showPart, setShowPart] = useState<boolean[]>(
     Array(data.length).fill(false),
@@ -58,7 +50,7 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
             if (show) {
               setShowPart(Array(data.length).fill(false));
             }
-            setShow();
+            handleState();
           }}
         >
           <PanelHead title={"Service Documentation / Annotations"} />
@@ -69,7 +61,7 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                 if (show) {
                   setShowPart(Array(data.length).fill(false));
                 }
-                setShow();
+                handleState();
               }}
             />
           </PanelActions>

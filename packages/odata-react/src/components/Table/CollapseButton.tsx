@@ -1,18 +1,13 @@
 import React from "react";
 import { CollapseButton as StyledButton } from "./../styled/styled";
-import { useCollapseContext } from "../../store";
+import { useExpandedContext } from "../../store";
 
 export const CollapseButton = () => {
-  const { state, updateWholeCollapseState } = useCollapseContext();
-
-  const allSectionsExpanded = !Object.values(state).some(arg => !arg);
-
-  const text = allSectionsExpanded ? "Collapse All" : "Expand All";
+  const { expanded, setExpanded } = useExpandedContext();
+  const text = expanded ? "Collapse All" : "Expand All";
 
   return (
-    <StyledButton
-      onClick={() => updateWholeCollapseState(!allSectionsExpanded)}
-    >
+    <StyledButton onClick={() => setExpanded(state => !state)}>
       {text}
     </StyledButton>
   );

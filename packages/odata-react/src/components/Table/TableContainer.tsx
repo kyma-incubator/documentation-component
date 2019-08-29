@@ -4,7 +4,7 @@ import { Node } from "../../types";
 import { makeUnique } from "./utils";
 import Table from "./MainDataTable/Table";
 import { AppWrapper } from "../styled/styled";
-import { useCollapseContext } from "../../store/index";
+import { useExpandedContext } from "../../store/index";
 import { CollapseButton } from "../Table/CollapseButton";
 interface Props {
   arg: Node[];
@@ -39,8 +39,7 @@ const TableContainer: React.FunctionComponent<Props> = ({ arg }) => {
     }
   });
 
-  const Provider = useCollapseContext.Provider;
-
+  const Provider = useExpandedContext.Provider;
   return (
     <AppWrapper>
       <Provider>
