@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import CollapsibleTable from "./CollapsibleTable";
 import { Node } from "../../../types";
+import { useExpandedContext } from "../../../store/index";
 
 import { PanelActions, PanelHead } from "fundamental-react";
 import {
@@ -16,9 +17,7 @@ import {
   TableHeaderWrapper,
 } from "../../styled/styled";
 
-import { useCollapseContext } from "../../../store";
-
-const STORE_DOC_TABLE_NAME = "service_documentation_table";
+// const STORE_DOC_TABLE_NAME = "service_documentation_table";
 
 interface Props {
   data: Node[];
@@ -33,18 +32,21 @@ const inverseArrayValue = (arr: boolean[], index: number) => {
 const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
   data,
 }) => {
-  const { state, updatePartOfCollapseState } = useCollapseContext();
-  const show = state[STORE_DOC_TABLE_NAME];
-  const setShow = () =>
-    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: !show });
-
-  if (state[STORE_DOC_TABLE_NAME] === undefined) {
-    updatePartOfCollapseState({ [STORE_DOC_TABLE_NAME]: true });
-  }
+  const [show, setShow] = useState<boolean>(true);
+  const handleState = () => setShow(state => !state);
+  const { expanded, setNumberOfExpanded } = useExpandedContext();
 
   const [showPart, setShowPart] = useState<boolean[]>(
     Array(data.length).fill(false),
   );
+
+  useEffect(() => {
+    setShow(expanded);
+  }, [expanded]);
+
+  useEffect(() => {
+    setNumberOfExpanded(state => (show ? state + 1 : state - 1));
+  }, [show, setNumberOfExpanded]);
 
   if (!Array.isArray(data)) {
     return null;
@@ -58,7 +60,7 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
             if (show) {
               setShowPart(Array(data.length).fill(false));
             }
-            setShow();
+            handleState();
           }}
         >
           <PanelHead title={"Service Documentation / Annotations"} />
@@ -69,7 +71,7 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                 if (show) {
                   setShowPart(Array(data.length).fill(false));
                 }
-                setShow();
+                handleState();
               }}
             />
           </PanelActions>

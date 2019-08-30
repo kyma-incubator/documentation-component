@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Node } from "../../../types";
 import { makeUnique } from "../utils";
 import CollapsibleRow from "./CollapsibleRow";
 import { PanelActions, PanelHead } from "fundamental-react";
+import { useExpandedContext } from "../../../store/index";
 
 import {
   StyledTable,
@@ -17,8 +18,6 @@ import {
   TableBody,
 } from "../../styled/styled";
 
-import { useCollapseContext } from "../../../store";
-
 interface Props {
   columnData: string[];
   title: string;
@@ -32,16 +31,17 @@ const Table: React.FunctionComponent<Props> = ({
   filteredData,
   id,
 }) => {
-  const {
-    state: collapseState,
-    updatePartOfCollapseState: updateState,
-  } = useCollapseContext();
-  const show = collapseState[id];
-  const setShow = () => updateState({ [id]: !show });
-  if (collapseState[id] === undefined) {
-    // setting initial state
-    updateState({ [id]: true });
-  }
+  const [show, setShow] = useState<boolean>(true);
+  const handleState = () => setShow(state => !state);
+  const { expanded, setNumberOfExpanded } = useExpandedContext();
+
+  useEffect(() => {
+    setShow(expanded);
+  }, [expanded]);
+
+  useEffect(() => {
+    setNumberOfExpanded(state => (show ? state + 1 : state - 1));
+  }, [show, setNumberOfExpanded]);
 
   const annotationsData: string[] = filteredData
     .map(
@@ -63,7 +63,7 @@ const Table: React.FunctionComponent<Props> = ({
       <TablePanel>
         <TableHeaderWrapper
           onClick={() => {
-            setShow();
+            handleState();
           }}
         >
           <PanelHead title={title} />
@@ -71,7 +71,7 @@ const Table: React.FunctionComponent<Props> = ({
             <CollapseArrow
               open={show}
               clickHandler={() => {
-                setShow();
+                handleState();
               }}
             />
           </PanelActions>

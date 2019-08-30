@@ -15,7 +15,12 @@ export const CollapseArrow: React.FunctionComponent<
   StyledProps & IconProps
 > = ({ open, blueArrow, clickHandler }) => (
   <Wrapper open={open} blueArrow={blueArrow}>
-    <Icon clickHandler={clickHandler} />
+    <Icon
+      clickHandler={(e: any) => {
+        e.stopPropagation();
+        clickHandler();
+      }}
+    />
   </Wrapper>
 );
 

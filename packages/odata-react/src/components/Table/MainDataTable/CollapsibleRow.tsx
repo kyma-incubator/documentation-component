@@ -13,6 +13,7 @@ const CollapsibleRow: React.FunctionComponent<Props> = ({
   data,
 }) => {
   const [show, setShow] = useState<boolean>(false);
+
   return (
     <>
       <TableRow>

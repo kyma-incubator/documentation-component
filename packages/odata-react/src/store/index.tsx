@@ -1,22 +1,21 @@
 import { useState } from "react";
 import createUseContext from "constate";
 
-interface StoreShape {
-  [key: string]: boolean;
+interface Props {
+  numberOfElements: number;
 }
 
-const useCollapseStateRaw = () => {
-  const [state, setState] = useState<StoreShape>({});
-  const updatePartOfCollapseState = (arg: StoreShape) =>
-    setState({ ...state, ...arg });
-  const updateWholeCollapseState = (arg: boolean) => {
-    const changedState = Object.fromEntries(
-      Object.entries(state).map(elem => [elem[0], arg]),
-    );
-    setState({ ...changedState });
-  };
+const useExpandedState = ({ numberOfElements }: Props) => {
+  const [expanded, setExpanded] = useState<boolean>(true);
+  const [numberOfExpanded, setNumberOfExpanded] = useState<number>(0);
 
-  return { state, updatePartOfCollapseState, updateWholeCollapseState };
+  return {
+    numberOfElements,
+    expanded,
+    setExpanded,
+    numberOfExpanded,
+    setNumberOfExpanded,
+  };
 };
 
-export const useCollapseContext = createUseContext(useCollapseStateRaw);
+export const useExpandedContext = createUseContext(useExpandedState);
