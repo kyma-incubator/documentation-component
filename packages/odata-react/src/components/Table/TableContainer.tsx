@@ -39,10 +39,13 @@ const TableContainer: React.FunctionComponent<Props> = ({ arg }) => {
     }
   });
 
+  let numberOfElements = Rest.length;
+  numberOfElements += Documentation && Documentation.length > 0 ? 1 : 0;
+
   const Provider = useExpandedContext.Provider;
   return (
     <AppWrapper>
-      <Provider>
+      <Provider numberOfElements={numberOfElements}>
         <CollapseButton />
         {Documentation && Documentation.length > 0 && (
           <ServiceDocumentationTable data={Documentation} />

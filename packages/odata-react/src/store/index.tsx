@@ -1,9 +1,21 @@
 import { useState } from "react";
 import createUseContext from "constate";
 
-const useExpandedState = () => {
+interface Props {
+  numberOfElements: number;
+}
+
+const useExpandedState = ({ numberOfElements }: Props) => {
   const [expanded, setExpanded] = useState<boolean>(true);
-  return { expanded, setExpanded };
+  const [numberOfExpanded, setNumberOfExpanded] = useState<number>(0);
+
+  return {
+    numberOfElements,
+    expanded,
+    setExpanded,
+    numberOfExpanded,
+    setNumberOfExpanded,
+  };
 };
 
 export const useExpandedContext = createUseContext(useExpandedState);

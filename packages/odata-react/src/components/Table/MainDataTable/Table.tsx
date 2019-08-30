@@ -33,11 +33,15 @@ const Table: React.FunctionComponent<Props> = ({
 }) => {
   const [show, setShow] = useState<boolean>(true);
   const handleState = () => setShow(state => !state);
-  const { expanded } = useExpandedContext();
+  const { expanded, setNumberOfExpanded } = useExpandedContext();
 
   useEffect(() => {
     setShow(expanded);
   }, [expanded]);
+
+  useEffect(() => {
+    setNumberOfExpanded(state => (show ? state + 1 : state - 1));
+  }, [show, setNumberOfExpanded]);
 
   const annotationsData: string[] = filteredData
     .map(

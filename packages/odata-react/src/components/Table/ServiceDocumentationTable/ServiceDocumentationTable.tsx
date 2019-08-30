@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import CollapsibleTable from "./CollapsibleTable";
 import { Node } from "../../../types";
+import { useExpandedContext } from "../../../store/index";
 
 import { PanelActions, PanelHead } from "fundamental-react";
 import {
@@ -33,10 +34,19 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
 }) => {
   const [show, setShow] = useState<boolean>(true);
   const handleState = () => setShow(state => !state);
+  const { expanded, setNumberOfExpanded } = useExpandedContext();
 
   const [showPart, setShowPart] = useState<boolean[]>(
     Array(data.length).fill(false),
   );
+
+  useEffect(() => {
+    setShow(expanded);
+  }, [expanded]);
+
+  useEffect(() => {
+    setNumberOfExpanded(state => (show ? state + 1 : state - 1));
+  }, [show, setNumberOfExpanded]);
 
   if (!Array.isArray(data)) {
     return null;
