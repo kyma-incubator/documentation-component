@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { CollapseButton as StyledButton } from "./../styled/styled";
 import { useExpandedContext } from "../../store";
 
@@ -9,10 +9,19 @@ export const CollapseButton = () => {
     numberOfElements,
     numberOfExpanded,
   } = useExpandedContext();
+  const [intiial, setInitial] = useState<boolean>(false);
   const text = expanded ? "Collapse All" : "Expand All";
 
   useEffect(() => {
-    if (numberOfExpanded === 0 && !expanded) {
+    setInitial(true);
+  }, []);
+
+  useEffect(() => {
+    if (!intiial) {
+      return;
+    }
+
+    if (numberOfExpanded === 0 && expanded) {
       setExpanded(false);
     }
     if (numberOfExpanded === numberOfElements && !expanded) {
