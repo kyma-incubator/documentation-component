@@ -1,6 +1,7 @@
 const fse = require("fs-extra");
 const path = require("path");
 const gulp = require("gulp");
+const sass = require("gulp-sass");
 const ts = require("gulp-typescript");
 const sourcemaps = require("gulp-sourcemaps");
 const clean = require("gulp-clean");
@@ -10,10 +11,18 @@ const log = require("fancy-log");
 const clc = require("cli-color");
 const { promisify } = require("util");
 
+sass.compiler = require("node-sass");
+
 const execFile = promisify(childProcess.execFile);
 
-process.on("unhandledRejection", err => {
-  throw err;
+process.on("unhandledRejection", function(reason, p) {
+  console.error(
+    "Possibly Unhandled Rejection at: Promise ",
+    p,
+    " reason: ",
+    reason,
+  );
+  process.exit(1);
 });
 
 const documentationComponent = removeKymaPrefixFromPackage(
@@ -44,6 +53,7 @@ const packageNames = {
   [asyncApiRenderEngine]: `dc-${asyncApiRenderEngine}`,
   [odataRenderEngine]: `dc-${odataRenderEngine}`,
 };
+
 const packages = {
   [odataReact]: ts.createProject(`${sources}/${odataReact}/tsconfig.prod.json`),
   [markdownRenderEngine]: ts.createProject(
@@ -65,20 +75,42 @@ const rollupPackages = {
 
 const modules = Object.keys(packages);
 const rollupModules = Object.keys(rollupPackages);
+const allModules = [...modules, ...rollupModules];
+
 const distId = process.argv.indexOf("--dist");
 const dist = distId < 0 ? sources : process.argv[distId + 1];
 
-rollupModules.concat(modules).forEach(mod => {
-  gulp.task(`${mod}:install`, async () => {
-    const packageName = path.resolve(__dirname, `${sources}/${mod}`);
-    await install(packageName);
-  });
-});
+const install = async () => {
+  return Promise.all(
+    allModules.map(mod => {
+      const packageName = path.resolve(__dirname, `${sources}/${mod}`);
+      return installPackage(packageName);
+    }),
+  );
+};
+const installPackage = async dir => {
+  log.info(
+    `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
+  );
+  try {
+    await execFile(`yarn`, ["install"], {
+      cwd: dir,
+    });
+  } catch (err) {
+    log.error(`Failed installing dependencies of ${dir}`);
+    throw err;
+  }
+};
 
-gulp.task(
-  "install:packages",
-  gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`)),
-);
+const scss = done => {
+  allModules.forEach(mod => {
+    gulp
+      .src(`${path.resolve(sources, mod)}/src/*.scss`)
+      .pipe(sass.sync().on("error", sass.logError))
+      .pipe(gulp.dest(`${path.resolve(sources, mod)}/lib`));
+  });
+  done();
+};
 
 modules.forEach(mod => {
   gulp.task(mod, () => {
@@ -122,7 +154,9 @@ gulp.task(
 );
 
 gulp.task("build:normal", gulp.series(modules));
-gulp.task("build", gulp.series("build:rollup", "build:normal"));
+
+gulp.task("build", gulp.series("build:rollup", "build:normal", scss));
+
 gulp.task(
   "build:dev",
   gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)),
@@ -131,23 +165,13 @@ gulp.task(
 gulp.task("watch", () => {
   modules.forEach(mod => {
     gulp.watch(
-      [
-        `${sources}/${mod}/src/**/*.ts`,
-        `${sources}/${mod}/src/*.ts`,
-        `${sources}/${mod}/src/**/*.tsx`,
-        `${sources}/${mod}/src/*.tsx`,
-      ],
+      [`${sources}/${mod}/src/**/*.ts`, `${sources}/${mod}/src/**/*.tsx`],
       gulp.series(mod),
     );
   });
   rollupModules.forEach(mod => {
     gulp.watch(
-      [
-        `${sources}/${mod}/src/**/*.ts`,
-        `${sources}/${mod}/src/*.ts`,
-        `${sources}/${mod}/src/**/*.tsx`,
-        `${sources}/${mod}/src/*.tsx`,
-      ],
+      [`${sources}/${mod}/src/**/*.ts`, `${sources}/${mod}/src/**/*.tsx`],
       gulp.series(`${mod}:rollup`),
     );
   });
@@ -166,38 +190,17 @@ gulp.task("copy-misc", () => {
 
 gulp.task("clean:output", () => {
   return gulp
-    .src(
-      [
-        `${sources}/*/lib/**/*.js`, // why don't we just delete all /lib folders TODO: discuss
-        `${sources}/*/lib/**/*.jsx`,
-        `${sources}/*/lib/**/*.d.ts`,
-        `${sources}/*/lib/**/*.js.map`,
-      ],
-      {
-        read: false,
-      },
-    )
+    .src([`${sources}/*/lib/**/*`], {
+      read: false,
+    })
     .pipe(clean());
 });
+
 gulp.task("clean:dirs", done => {
   deleteEmpty.sync(`${sources}/`);
   done();
 });
 gulp.task("clean:bundle", gulp.series("clean:output", "clean:dirs"));
-
-const install = async dir => {
-  log.info(
-    `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
-  );
-  try {
-    await execFile(`yarn`, ["install"], {
-      cwd: dir,
-    });
-  } catch (err) {
-    log.error(`Failed installing dependencies of ${dir}`);
-    throw err;
-  }
-};
 
 const buildByRollup = async dir => {
   log.info(`Building package ${clc.magenta(dir.replace(__dirname, ""))}`);
@@ -215,3 +218,5 @@ function removeKymaPrefixFromPackage(packageName) {
   const name = packageName.replace("@kyma-project/", "");
   return name.replace("dc-", "");
 }
+
+module.exports = { scss, install };
