@@ -57,7 +57,7 @@ export const Blockquote: React.FunctionComponent<BlockquoteProps> = ({
       const len = accumulator.length - 1;
 
       if (len < 0 || !accumulator[len]) {
-        return [curr];
+        return [[curr]];
       }
 
       if (!Array.isArray(accumulator[len])) {
