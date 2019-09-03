@@ -20,7 +20,7 @@ export const deepSearch = (
 
 class Parser {
   parseFromString(xmlString: string): any {
-    const outXmlString = transformer.transformToV4(xmlString);
+    const outXmlString = transformer.transformToV4(xmlString.trim());
 
     const rawObject = xml2js(outXmlString, {
       elementsKey: "children",
