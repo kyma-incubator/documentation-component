@@ -130,8 +130,9 @@ rollupModules.forEach(mod => {
     await buildByRollup(packageName);
     if (
       `${packageName}/lib` !== `${__dirname}/${dist}/${packageNames[mod]}/lib`
-    )
+    ) {
       await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`);
+    }
   });
 });
 
