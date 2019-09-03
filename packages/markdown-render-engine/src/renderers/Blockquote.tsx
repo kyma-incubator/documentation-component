@@ -17,7 +17,7 @@ export const Blockquote: React.FunctionComponent<BlockquoteProps> = ({
   const isOneOfTypes = (arg?: string) => !!arg && panelTypes.includes(arg);
 
   const getPanelType = (child: any): string => {
-    const type =
+    const type: false | string =
       has(child, "props.children[0].props.children[0].props") &&
       child.props.children[0].props.children[0].props.value;
 
