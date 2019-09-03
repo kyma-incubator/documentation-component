@@ -17,11 +17,11 @@ export const Blockquote: React.FunctionComponent<BlockquoteProps> = ({
   const isOneOfTypes = (arg?: string) => !!arg && panelTypes.includes(arg);
 
   const getPanelType = (child: any): string => {
-    const type =
+    const type: false | string =
       has(child, "props.children[0].props.children[0].props") &&
       child.props.children[0].props.children[0].props.value;
 
-    return type && type.replace(":", "").toLowerCase();
+    return (type && type.replace(":", "").toLowerCase()) || "";
   };
 
   const createPanels = (elem: any) => {
@@ -45,17 +45,25 @@ export const Blockquote: React.FunctionComponent<BlockquoteProps> = ({
   };
 
   let modifiedChildren = null;
+
   if (children && Array.isArray(children)) {
     modifiedChildren = children.reduce((accumulator: any, curr: any) => {
       const currType = getPanelType(curr);
+
       if (isOneOfTypes(currType)) {
         return [...accumulator, [curr]];
       }
 
       const len = accumulator.length - 1;
+
       if (len < 0 || !accumulator[len]) {
-        return children;
+        return [[curr]];
       }
+
+      if (!Array.isArray(accumulator[len])) {
+        return [[accumulator], curr];
+      }
+
       const newLastElement = [...accumulator[len], curr];
       return [...accumulator.slice(0, len), newLastElement];
     }, []);
