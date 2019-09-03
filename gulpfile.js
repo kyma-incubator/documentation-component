@@ -128,7 +128,10 @@ rollupModules.forEach(mod => {
     const packageName = path.resolve(__dirname, `${sources}/${mod}`);
 
     await buildByRollup(packageName);
-    await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`);
+    if (
+      `${packageName}/lib` !== `${__dirname}/${dist}/${packageNames[mod]}/lib`
+    )
+      await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`);
   });
 });
 
@@ -188,19 +191,19 @@ gulp.task("copy-misc", () => {
     .pipe(gulp.dest(`${sources}/${odataRenderEngine}`));
 });
 
-gulp.task("clean:output", () => {
-  return gulp
+const cleanOutput = () =>
+  gulp
     .src([`${sources}/*/lib/**/*`], {
       read: false,
     })
     .pipe(clean());
-});
 
-gulp.task("clean:dirs", done => {
+const cleanDirs = done => {
   deleteEmpty.sync(`${sources}/`);
   done();
-});
-gulp.task("clean:bundle", gulp.series("clean:output", "clean:dirs"));
+};
+
+const cleanBundle = gulp.series(cleanOutput, cleanDirs);
 
 const buildByRollup = async dir => {
   log.info(`Building package ${clc.magenta(dir.replace(__dirname, ""))}`);
@@ -219,4 +222,4 @@ function removeKymaPrefixFromPackage(packageName) {
   return name.replace("dc-", "");
 }
 
-module.exports = { scss, install };
+module.exports = { scss, install, cleanBundle };
