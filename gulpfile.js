@@ -162,7 +162,7 @@ gulp.task("build", gulp.series("build:rollup", "build:normal", scss));
 
 gulp.task(
   "build:dev",
-  gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)),
+  gulp.series("build:rollup", modules.map(mod => `${mod}:dev`, scss)),
 );
 
 gulp.task("watch", () => {
@@ -193,9 +193,18 @@ gulp.task("copy-misc", () => {
 
 const cleanOutput = () =>
   gulp
-    .src([`${sources}/*/lib/**/*`], {
-      read: false,
-    })
+    .src(
+      [
+        `${sources}/*/lib/**/*.js`,
+        `${sources}/*/lib/**/*.d.ts`,
+        `${sources}/*/lib/**/*.jsx`,
+        `${sources}/*/lib/**/*.js.map`,
+        `${sources}/*/lib/**/*.css`,
+      ],
+      {
+        read: false,
+      },
+    )
     .pipe(clean());
 
 const cleanDirs = done => {
