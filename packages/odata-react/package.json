@@ -43,8 +43,7 @@
     "typescript": "^3.5.3"
   },
   "peerDependencies": {
-    "styled-components": ">= 4.2.0",
-    "@kyma-project/documentation-component": "^0.2.0-alpha"
+    "styled-components": ">= 4.2.0"
   },
   "main": "lib/ODataReact.js",
   "types": "lib/ODataReact.d.ts",
