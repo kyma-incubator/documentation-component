@@ -1,5 +1,5 @@
 {
-  "include": ["./packages/**/*", "./playground"],
+  "include": ["./packages/**/*", "./playground", "./gulpfile.ts"],
   "exclude": ["**/node_modules/**/*", "**/lib/**/*", "**/docs/**/*"],
   "compilerOptions": {
     "target": "es5",

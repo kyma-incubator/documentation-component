@@ -1,3 +1,4 @@
+// tslint:disable: no-var-requires only-arrow-functions
 const fse = require("fs-extra");
 const path = require("path");
 const gulp = require("gulp");
@@ -80,14 +81,13 @@ const allModules = [...modules, ...rollupModules];
 const distId = process.argv.indexOf("--dist");
 const dist = distId < 0 ? sources : process.argv[distId + 1];
 
-const install = async () => {
-  return Promise.all(
+const install = async () =>
+  Promise.all(
     allModules.map(mod => {
       const packageName = path.resolve(__dirname, `${sources}/${mod}`);
       return installPackage(packageName);
     }),
   );
-};
 const installPackage = async dir => {
   log.info(
     `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
@@ -113,14 +113,14 @@ const scss = done => {
 };
 
 modules.forEach(mod => {
-  gulp.task(mod, () => {
-    return packages[mod]
+  gulp.task(mod, () =>
+    packages[mod]
       .src()
       .pipe(packages[mod]())
       .pipe(
         gulp.dest(`${dist}/${dist === sources ? mod : packageNames[mod]}/lib`),
-      );
-  });
+      ),
+  );
 });
 
 rollupModules.forEach(mod => {
@@ -137,8 +137,8 @@ rollupModules.forEach(mod => {
 });
 
 modules.forEach(mod => {
-  gulp.task(`${mod}:dev`, () => {
-    return packages[mod]
+  gulp.task(`${mod}:dev`, () =>
+    packages[mod]
       .src()
       .pipe(sourcemaps.init())
       .pipe(packages[mod]())
@@ -148,8 +148,8 @@ modules.forEach(mod => {
       .pipe(sourcemaps.write("."))
       .pipe(
         gulp.dest(`${dist}/${dist === sources ? mod : packageNames[mod]}/lib`),
-      );
-  });
+      ),
+  );
 });
 
 gulp.task(
@@ -194,16 +194,16 @@ gulp.task("watch", () => {
   });
 });
 
-gulp.task("copy-misc", () => {
-  return gulp
+gulp.task("copy-misc", () =>
+  gulp
     .src(["LICENSE", ".npmignore"])
     .pipe(gulp.dest(`${sources}/${documentationComponent}`))
     .pipe(gulp.dest(`${sources}/${odataReact}`))
     .pipe(gulp.dest(`${sources}/${markdownRenderEngine}`))
     .pipe(gulp.dest(`${sources}/${openApiRenderEngine}`))
     .pipe(gulp.dest(`${sources}/${asyncApiRenderEngine}`))
-    .pipe(gulp.dest(`${sources}/${odataRenderEngine}`));
-});
+    .pipe(gulp.dest(`${sources}/${odataRenderEngine}`)),
+);
 
 const cleanOutput = () =>
   gulp
