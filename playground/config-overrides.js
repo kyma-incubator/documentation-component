@@ -1,9 +1,7 @@
-const { override, addWebpackAlias } = require("customize-cra");
-
 const path = require("path");
 
-module.exports = override(
-  addWebpackAlias({
-    react: path.resolve("./node_modules/react"),
-  }),
-);
+module.exports = function override(config, env) {
+  config.resolve.modules = [path.resolve("./node_modules"), "node_modules"];
+
+  return config;
+};

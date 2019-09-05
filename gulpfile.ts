@@ -81,26 +81,26 @@ const allModules = [...modules, ...rollupModules];
 const distId = process.argv.indexOf("--dist");
 const dist = distId < 0 ? sources : process.argv[distId + 1];
 
-const install = async () =>
-  Promise.all(
-    allModules.map(mod => {
-      const packageName = path.resolve(__dirname, `${sources}/${mod}`);
-      return installPackage(packageName);
-    }),
-  );
-const installPackage = async dir => {
-  log.info(
-    `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
-  );
-  try {
-    await execFile(`yarn`, ["install"], {
-      cwd: dir,
-    });
-  } catch (err) {
-    log.error(`Failed installing dependencies of ${dir}`);
-    throw err;
-  }
-};
+// const install = async () =>
+//   Promise.all(
+//     allModules.map(mod => {
+//       const packageName = path.resolve(__dirname, `${sources}/${mod}`);
+//       return installPackage(packageName);
+//     }),
+//   );
+// const installPackage = async dir => {
+//   log.info(
+//     `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
+//   );
+//   try {
+//     await execFile(`yarn`, ["install"], {
+//       cwd: dir,
+//     });
+//   } catch (err) {
+//     log.error(`Failed installing dependencies of ${dir}`);
+//     throw err;
+//   }
+// };
 
 const scss = done => {
   allModules.forEach(mod => {
@@ -207,19 +207,9 @@ gulp.task("copy-misc", () =>
 
 const cleanOutput = () =>
   gulp
-    .src(
-      [
-        `${sources}/*/lib/**/*.js`,
-        `${sources}/*/lib/**/*.d.ts`,
-        `${sources}/*/lib/**/*.jsx`,
-        `${sources}/*/lib/**/*.js.map`,
-        `${sources}/*/lib/**/*.css`,
-        `${sources}/*/lib/**/*.png`,
-      ],
-      {
-        read: false,
-      },
-    )
+    .src([`${sources}/*/lib`], {
+      read: false,
+    })
     .pipe(clean());
 
 const cleanDirs = done => {
@@ -246,4 +236,4 @@ function removeKymaPrefixFromPackage(packageName) {
   return name.replace("dc-", "");
 }
 
-module.exports = { scss, install, cleanBundle, build };
+module.exports = { scss, cleanBundle, build };
