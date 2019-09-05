@@ -10,9 +10,9 @@ Provide a description of the render engine's functionality. For example, describ
 
 ## Prerequisites
 
-> **NOTE**: Don't consider`@kyma-project/documentation-component` a prerequisite. 
+> **NOTE**: Don't consider `@kyma-project/documentation-component` a prerequisite.
 
-List the packages required to use the render engine. 
+List the packages required to use the render engine.
 
 ## Installation
 
@@ -25,6 +25,10 @@ Create a table listing the available options of your render engine. Use the foll
 | Name | Required | Type | Default value | Description |
 |---|---|---|---|---|
 | `schema` | Yes | `string` | `""` | Defines the input schema for rendering. |
+
+### Styles*
+
+Inform how to import default styling.
 
 ### Plugins*
 

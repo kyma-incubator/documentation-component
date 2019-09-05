@@ -7,11 +7,13 @@ The Markdown render engine is based on the [React Markdown](https://github.com/r
 ## Installation
 
 - using [`npm`](https://www.npmjs.com/)
+
   ``` bash
   npm i @kyma-project/dc-markdown-render-engine
   ```
 
 - using [`yarn`](https://yarnpkg.com/en/)
+
   ``` bash
   yarn add @kyma-project/dc-markdown-render-engine
   ```
@@ -29,6 +31,15 @@ The Markdown render engine is based on the [React Markdown](https://github.com/r
 | `copyButton` | No | `ReactNode` | `null` | Defines a custom copy button in code blocks. The Markdown render engine accepts only code blocks as a value to copy. |
 
 > **NOTE**: To learn how to pass options of a render engine, read [this](../../docs/props/render-engines.md#pass-global-options) document.
+
+### Styles
+
+To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/) import them as follows:
+
+```js
+import "@kyma-project/dc-markdown-render-engine/lib/styles.css";
+import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
+```
 
 ### Plugins
 

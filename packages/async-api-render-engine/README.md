@@ -7,11 +7,13 @@ The AsyncAPI render engine is based on the [AsyncAPI React](https://github.com/a
 ## Installation
 
 - using [`npm`](https://www.npmjs.com/)
+
   ``` bash
   npm i @kyma-project/dc-async-api-render-engine
   ```
 
 - using [`yarn`](https://yarnpkg.com/en/)
+
   ``` bash
   yarn add @kyma-project/dc-async-api-render-engine
   ```

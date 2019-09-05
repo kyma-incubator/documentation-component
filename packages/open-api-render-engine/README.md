@@ -27,10 +27,11 @@ The OpenAPI render engine is based on the [Swagger UI](https://github.com/swagge
 
 > **NOTE**: To learn how to pass options of a render engine, read [this](../../docs/props/render-engines.md#pass-global-options) document.
 
-## Styles
+### Styles
 
-To use default styles provided by [Swagger UI](https://github.com/swagger-api/swagger-ui) component import them as follows:
+To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/) import them as follows:
 
 ```js
-import "swagger-ui-dist/swagger-ui.css";
+import "@kyma-project/dc-open-api-render-engine/lib/styles.css";
+import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
 ```

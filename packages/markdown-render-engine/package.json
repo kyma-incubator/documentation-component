@@ -43,7 +43,8 @@
     "@types/react-copy-to-clipboard": "^4.2.6"
   },
   "peerDependencies": {
-    "@kyma-project/documentation-component": "^0.0.1"
+    "@kyma-project/documentation-component": "^0.0.1",
+    "fiori-fundamentals": "^1.4.3"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
