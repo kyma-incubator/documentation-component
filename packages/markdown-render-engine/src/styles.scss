@@ -302,7 +302,7 @@
 
   .cms__code-pre-wrapper {
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
-      monospace !important;
+      monospace;
     background: rgb(250, 250, 250);
     border: 1px solid rgb(229, 229, 229);
     border-radius: 5px;
@@ -315,7 +315,7 @@
 
     > pre {
       padding: 16px 16px 0 16px;
-      margin-bottom: 0 !important;
+      margin-bottom: 0;
 
       > code {
         word-break: normal;
