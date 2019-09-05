@@ -1,7 +1,12 @@
 .odata-root {
   display: flex;
   flex-direction: column;
+  padding-bottom: 5px;
+  padding-top: 5px;
 
+  div.table-header-wrapper {
+    border-top: none;
+  }
   > button {
     font-size: 14px;
     font-weight: normal;
