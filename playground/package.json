@@ -3,6 +3,14 @@
   "description": "Playground for documentation component",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kyma-incubator/documentation-component/blob/master/playground"
+  },
+  "author": {
+    "name": "Kyma Core & Supporting Team",
+    "url": "http://kyma-project.io"
+  },
   "dependencies": {
     "fiori-fundamentals": "^1.7.1",
     "node-sass": "^4.12.0",
