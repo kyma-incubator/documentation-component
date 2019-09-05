@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const markdownMock = `
 
 Kyma is built on the foundation of the best and most advanced open-source projects which make up the components readily available for customers to use.
