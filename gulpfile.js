@@ -159,7 +159,20 @@ gulp.task(
 
 gulp.task("build:normal", gulp.series(modules));
 
-const build = gulp.series("build:rollup", "build:normal", scss);
+const copyOpenApiStyleAssets = () =>
+  gulp
+    .src(`${path.resolve(sources, openApiRenderEngine)}/src/assets/*`)
+
+    .pipe(
+      gulp.dest(`${path.resolve(sources, openApiRenderEngine)}/lib/assets/`),
+    );
+
+const build = gulp.series(
+  "build:rollup",
+  "build:normal",
+  scss,
+  copyOpenApiStyleAssets,
+);
 
 gulp.task(
   "build:dev",
@@ -201,6 +214,7 @@ const cleanOutput = () =>
         `${sources}/*/lib/**/*.jsx`,
         `${sources}/*/lib/**/*.js.map`,
         `${sources}/*/lib/**/*.css`,
+        `${sources}/*/lib/**/*.png`,
       ],
       {
         read: false,
