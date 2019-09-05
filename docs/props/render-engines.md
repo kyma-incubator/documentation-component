@@ -33,6 +33,17 @@ const RENDER_ENGINES: RenderEngines = [
 
 > **NOTE**: For information on how to pass options per group of sources or per a single source, read [this](./sources.md#pass-options) section.
 
+### Styles
+
+Each render engine exports its default styles, that are compilant with and dependent on [SAP Fundamental](https://sap.github.io/fundamental/). To use them follow its [Getting Started](https://sap.github.io/fundamental/getting-started.html) guide and import revelant `CSS` files as follows:
+
+```js
+import "@kyma-project/{CHOSEN_RENDER_ENGINE}/lib/styles.css";
+import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
+```
+
+To get list of available render engines read [this]() document.
+
 ### Pass render engines to the component
 
 The `renderEngines` property is an array of render engines. To pass render engines to the component, define an array of render engines and pass it to the global provider of the Documentation component.

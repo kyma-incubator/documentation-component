@@ -7,6 +7,12 @@
   div.table-header-wrapper {
     border-top: none;
   }
+  .sap-icon--feeder-arrow.sap-icon--l {
+    &:before {
+      font-size: 16px;
+    }
+  }
+
   > button {
     font-size: 14px;
     font-weight: normal;
