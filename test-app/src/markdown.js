@@ -1,183 +1,123 @@
 export const markdownMock = `
-An h1 header
-============
 
-Paragraphs are separated by a blank line.
+Kyma is built on the foundation of the best and most advanced open-source projects which make up the components readily available for customers to use.
+This section describes the Kyma components.
 
-2nd paragraph. *Italic*, **bold**, and \`monospace\`. Itemized lists
-look like:
+## Service Catalog
 
-  * this one
-  * that one
-  * the other one
-
-Note that --- not considering the asterisk --- the actual text
-content starts at 4-columns in.
+The Service Catalog lists all of the services available to Kyma users through the registered [Service Brokers](/components/service-catalog/#service-brokers-service-brokers). Use the Service Catalog to provision new services in the
+Kyma [Kubernetes](https://kubernetes.io/) cluster and create bindings between the provisioned service and an application.
 
 
-Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
-in chapters 12--14"). Three dots ... will be converted to an ellipsis.
-Unicode is supported. ☺
+## Service Mesh
 
->**TIP** asda
-> asdas
+The Service Mesh is an infrastructure layer that handles service-to-service communication, proxying, service discovery, traceability, and security independent of the code of the services. Kyma uses the [Istio](https://istio.io/) Service Mesh that is customized for the specific needs of the implementation.
 
->**CAUTION** asdasd
+## Security
 
-> guh
-> asd
->
-> sdf
+Kyma security enforces RBAC (Role Based Access Control) in the cluster. [Dex](https://github.com/dexidp/dex) handles the identity management and identity provider integration. It allows you to integrate any [OpenID Connect](https://openid.net/connect/) or SAML2-compliant identity provider with Kyma using [connectors](https://github.com/dexidp/dex#connectors). Additionally, Dex provides a static user store which gives you more flexibility when managing access to your cluster.
 
->**TIP** asd
+## Helm Broker
 
->**TIP:** To learn more about how to use overrides in Kyma, see the following documents: 
->* [Helm overrides for Kyma installation](/root/kyma/#configuration-helm-overrides-for-kyma-installation)
->* [Sub-charts overrides](/root/kyma/#configuration-helm-overrides-for-kyma-installation-sub-chart-overrides)
+The Helm Broker is a Service Broker which runs in the Kyma cluster and deploys Kubernetes native resources using [Helm](https://github.com/kubernetes/helm) and Kyma bundles. A bundle is an abstraction layer over a Helm chart which allows you to represent it as a ClusterServiceClass in the Service Catalog. Use bundles to install the [GCP Broker](/components/service-catalog#service-brokers-gcp-broker), [Azure Service Broker](/components/service-catalog#service-brokers-azure-service-broker) and the [AWS Service Broker](/components/service-catalog#service-brokers-aws-service-broker) in Kyma.
 
+## Application Connector
 
-To configure the Application Operator sub-chart, override the default values of its values.yaml file. This document describes parameters that you can configure.
+The Application Connector is a proprietary Kyma solution. This endpoint is the Kyma side of the connection between Kyma and the external solutions. The Application Connector allows you to register the APIs and the Event Catalog, which lists all of the available events, of the connected solution. Additionally, the Application Connector proxies the calls from Kyma to external APIs in a secure way.
 
+## Event Bus
 
-## Configurable parameters
+Kyma Event Bus receives Events from external solutions and triggers the business logic created with lambda functions and services in Kyma. The Event Bus is based on the [NATS Streaming](https://nats.io/) open source messaging system for cloud-native applications.
 
-This table lists the configurable parameters, their descriptions, and default values:
+## Serverless
 
-| Parameter | Description | Default value |
-|-----------|-------------|---------------|
-| **controller.args.installationTimeout** | Specifies a period of time provided for the Application Gateway, Application Connectivity Validator and Event Service installation. The Application requires these services to be operational. The value is provided in seconds.| \`240\` |
-| **controller.args.tillerTLSSkipVerify** | Disables TLS verification in Tiller. | \`true\` 
+The Kyma Serverless component allows you to reduce the implementation and operation effort of an application to the absolute minimum. Kyma Serverless provides a platform to run lightweight functions in a cost-efficient and scalable way using JavaScript and Node.js. Kyma Serverless is built on the [Kubeless](http://kubeless.io/) framework, which allows you to deploy lambda functions,
+and uses the [NATS](https://nats.io/) messaging system that monitors business events and triggers functions accordingly.
 
+## Monitoring
 
-An h2 header
-------------
+Kyma comes bundled with tools that give you the most accurate and up-to-date monitoring data. [Prometheus](https://prometheus.io/) open source monitoring and alerting toolkit provides this data, which is consumed by different add-ons, including [Grafana](https://grafana.com/) for analytics and monitoring, and [Alertmanager](https://prometheus.io/docs/alerting/alertmanager/) for handling alerts.
 
-Here's a numbered list:
+## Tracing
 
- 1. first item
- 2. second item
- 3. third item
+The tracing in Kyma uses the [Jaeger](https://github.com/jaegertracing) distributed tracing system. Use it to analyze performance by scrutinizing the path of the requests sent to and from your service. This information helps you optimize the latency and performance of your solution.
 
-Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here's a code sample:
+## Logging
 
-    # Let me re-iterate ...
-    for i in 1 .. 10 { do-something(i) }
-
-As you probably guessed, indented 4 spaces. By the way, instead of
-indenting the block, you can use delimited blocks, if you like:
-
-~~~
-define foobar() {
-    print "Welcome to flavor country!";
-}
-~~~
-
-(which makes copying & pasting easier). You can optionally mark the
-delimited block for Pandoc to syntax highlight it:
-
-~~~python
-import time
-# Quick, count to ten!
-for i in range(10):
-    # (but not *too* quick)
-    time.sleep(0.5)
-    print(i)
-~~~
+Logging in Kyma uses [Loki](https://github.com/grafana/loki), a Prometheus-like log management system.
 
 
 
-### An h3 header ###
+Management of the Service Catalog is based on Kubernetes resources and the custom resources specifically defined for Kyma. Manage all of these resources through [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/).
 
-Now a nested list:
+## Details
 
- 1. First, get these ingredients:
+This section describes the resource names to use in the kubectl command line, the command syntax, and examples of use.
 
-      * carrots
-      * celery
-      * lentils
+### Resource types
 
- 2. Boil some water.
+Service Catalog operations use the following resources:
 
- 3. Dump everything in the pot and follow
-    this algorithm:
+| Singular name      | Plural name         |
+| ------------------ |---------------------|
+|clusterservicebroker|clusterservicebrokers|
+|clusterserviceclass |clusterserviceclasses|
+|clusterserviceplan  |clusterserviceplans  |
+|secret              |secrets              |
+|servicebinding      |servicebindings      |
+|servicebindingusage |servicebindingusages |
+|servicebroker       |servicebrokers       |
+|serviceclass        |serviceclasses       |
+|serviceinstance     |serviceinstances     |
+|serviceplan         |serviceplans         |
 
-        find wooden spoon
-        uncover pot
-        stir
-        cover pot
-        balance wooden spoon precariously on pot handle
-        wait 10 minutes
-        goto first step (or shut off burner when done)
 
-    Do not bump wooden spoon or it will fall.
+### Syntax
 
-Notice again how text always lines up on 4-space indents (including
-that last line which continues item 3 above).
+Follow the \`kubectl\` syntax, \`kubectl {command} {type} {name} {flags}\`, where:
 
-Here's a link to [a website](http://foo.bar), to a [local
-doc](local-doc.html), and to a [section heading in the current
-doc](#an-h2-header). Here's a footnote [^1].
+* {command} is any command, such as \`describe\`.
+* {type} is a resource type, such as \`clusterserviceclass\`.
+* {name} is the name of a given resource type. Use {name} to make the command return the details of a given resource.
+* {flags} specifies the scope of the information. For example, use flags to define the Namespace from which to get the information.
 
-[^1]: Some footnote text.
+### Examples
+The following examples show how to create a ServiceInstance, how to get a list of ClusterServiceClasses and a list of ClusterServiceClasses with human-readable names, a list of ClusterServicePlans, and a list of all ServiceInstances.
 
-Tables can look like this:
+* Create a ServiceInstance using the example of the Redis ServiceInstance for the 0.1.40 version of the Service Catalog:
 
-Name           Size  Material      Color
-------------- -----  ------------  ------------
-All Business      9  leather       brown
-Roundabout       10  hemp canvas   natural
-Cinderella       11  glass         transparent
+\`\`\`
+cat <<EOF | kubectl create -f -
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ServiceInstance
+metadata:
+  name: my-instance
+  namespace: stage
 
-Table: Shoes sizes, materials, and colors.
+spec:
+  clusterServiceClassExternalName: redis
+  clusterServicePlanExternalName: micro
+  parameters:
+     "imagePullPolicy": "Always"
+EOF
+\`\`\`
 
-(The above is the caption for the table.) Pandoc also supports
-multi-line tables:
+* Get the list of all ClusterServiceClasses:
+\`\`\`
+kubectl get clusterserviceclasses
+\`\`\`
+* Get the list of all ClusterServiceClasses and their human-readable names:
+\`\`\`
+kubectl get clusterserviceclasses -o=custom-columns=NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
+\`\`\`
 
---------  -----------------------
-Keyword   Text
---------  -----------------------
-red       Sunsets, apples, and
-          other red or reddish
-          things.
+* Get the list of all ClusterServicePlans and associated ClusterServiceClasses:
+\`\`\`
+kubectl get clusterserviceplans -o=custom-columns=NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName,EXTERNAL\ SERVICE\ CLASS:.spec.clusterServiceClassRef
+\`\`\`
+* Get the list of all ServiceInstances from all Namespaces:
+\`\`\`
+kubectl get serviceinstances --all-namespaces
+\`\`\`
 
-green     Leaves, grass, frogs
-          and other things it's
-          not easy being.
---------  -----------------------
-
-A horizontal rule follows.
-
-***
-
-Here's a definition list:
-
-apples
-  : Good for making applesauce.
-
-oranges
-  : Citrus!
-
-tomatoes
-  : There's no "e" in tomatoe.
-
-Again, text is indented 4 spaces. (Put a blank line between each
-term and  its definition to spread things out more.)
-
-Here's a "line block" (note how whitespace is honored):
-
-| Line one
-|   Line too
-| Line tree
-
-and images can be specified like so:
-
-![example image](example-image.jpg "An exemplary image")
-
-Inline math equation: $\omega = d\phi / dt$. Display
-math should get its own line like so:
-
-$$I = \int \rho R^{2} dV$$
-
-And note that you can backslash-escape any punctuation characters
-which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.`;
+`;
