@@ -461,6 +461,12 @@ $responsesSelect: "./assets/responsesSelect.png";
       letter-spacing: normal;
       color: #32363a;
     }
+
+    > h4 > svg {
+      height: 16px;
+      width: 16px;
+    }
+
     /* collapsed */
     div.model-container > div.model-box > section {
       justify-content: space-between;
@@ -521,6 +527,10 @@ $responsesSelect: "./assets/responsesSelect.png";
 div#swagger {
   > div.swagger-ui > div > div.wrapper {
     padding: 0;
+  }
+  button.expand-operation > svg.arrow {
+    width: 16px;
+    height: 16px;
   }
 
   .wrapper {

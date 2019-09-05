@@ -45,8 +45,6 @@ import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
 To get list of available render engines read this document.
 <!-- NOTE for reviewer: if this line stays we should fill it with appropriate link -->
 
-
-
 ### Pass render engines to the component
 
 The `renderEngines` property is an array of render engines. To pass render engines to the component, define an array of render engines and pass it to the global provider of the Documentation component.
