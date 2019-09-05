@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { RenderEngineProps } from "@kyma-project/documentation-component";
 import { OpenApiProps } from "./types";
+import "swagger-ui-dist/swagger-ui.css";
 
 function createSwagger(schema: any, plugins: any) {
   return import("swagger-ui-dist").then(swagger => {

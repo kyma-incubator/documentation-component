@@ -159,7 +159,7 @@ gulp.task(
 
 gulp.task("build:normal", gulp.series(modules));
 
-gulp.task("build", gulp.series("build:rollup", "build:normal", scss));
+const build = gulp.series("build:rollup", "build:normal", scss);
 
 gulp.task(
   "build:dev",
@@ -232,4 +232,4 @@ function removeKymaPrefixFromPackage(packageName) {
   return name.replace("dc-", "");
 }
 
-module.exports = { scss, install, cleanBundle };
+module.exports = { scss, install, cleanBundle, build };
