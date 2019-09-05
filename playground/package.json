@@ -1,5 +1,6 @@
 {
-  "name": "blockquote-fix",
+  "name": "@kyma-project/documentation-component-playground",
+  "description": "Playground for documentation component",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,7 +16,7 @@
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "echo \"No tests here!\"; exit 0;",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
