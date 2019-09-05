@@ -42,7 +42,10 @@ import "@kyma-project/{CHOSEN_RENDER_ENGINE}/lib/styles.css";
 import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
 ```
 
-To get list of available render engines read [this]() document.
+To get list of available render engines read this document.
+<!-- NOTE for reviewer: if this line stays we should fill it with appropriate link -->
+
+
 
 ### Pass render engines to the component
 
