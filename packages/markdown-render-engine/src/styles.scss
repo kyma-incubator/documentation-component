@@ -272,6 +272,22 @@
     margin-bottom: 12px;
   }
 
+  div.cms__copy-button {
+    display: inline-block;
+    border: 1px solid #0b74de;
+    color: #0b74de;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "72";
+    font-size: 14px;
+    transition: 0.125s ease-in;
+    &:hover {
+      background-color: #0b74de;
+      color: white;
+    }
+  }
+
   .cms__text {
     font-family: "72";
     font-size: 16px;
