@@ -301,7 +301,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       }
     }
 
-    td.col.parameters-col_description div.markdown {
+    td.col.parameters-col_description > div.markdown {
       font-family: "72";
       font-size: 14px;
 
