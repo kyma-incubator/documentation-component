@@ -14,7 +14,7 @@ export const StyledTable = styled.table.attrs(() => ({
   font-size: 14px;
   line-height: 1.42857;
   color: #32363a;
-  font-family: "72";
+  font-family: "72", Arial, Helvetica, sans-serif;
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;

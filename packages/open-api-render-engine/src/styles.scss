@@ -8,7 +8,7 @@ $responsesSelect: "./assets/responsesSelect.png";
     padding: 4px 16px;
     min-height: 48px;
     & > span.opblock-summary-path > a {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: bold;
       font-style: normal;
@@ -18,7 +18,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       color: #32363a;
     }
     & > div.opblock-summary-description {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: normal;
       font-style: normal;
@@ -82,7 +82,7 @@ $responsesSelect: "./assets/responsesSelect.png";
   h4.opblock-tag {
     border-bottom: none;
     a.nostyle {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: bold;
       font-style: normal;
@@ -93,7 +93,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       text-transform: capitalize;
     }
     small {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: normal;
       font-style: normal;
@@ -122,7 +122,7 @@ $responsesSelect: "./assets/responsesSelect.png";
     border-top: solid 1px rgba(151, 151, 151, 0.26);
     background-color: #fafafa;
     h4.opblock-title {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: bold;
       font-style: normal;
@@ -135,7 +135,7 @@ $responsesSelect: "./assets/responsesSelect.png";
     label {
       div.content-type-wrapper.execute-content-type > select {
         min-width: unset;
-        font-family: "72";
+        font-family: "72", Arial, Helvetica, sans-serif;
         font-size: 14px;
         line-height: 1.43;
         letter-spacing: normal;
@@ -149,7 +149,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       }
 
       span {
-        font-family: "72";
+        font-family: "72", Arial, Helvetica, sans-serif;
         font-size: 14px;
         font-weight: normal;
         font-style: normal;
@@ -168,7 +168,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       display: inline-block;
       margin-top: 8px;
       margin-bottom: 8px;
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: normal;
       font-style: normal;
@@ -181,7 +181,7 @@ $responsesSelect: "./assets/responsesSelect.png";
     }
     div.body-param-content-type > select.content-type {
       width: unset;
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: normal;
       font-style: normal;
@@ -221,7 +221,7 @@ $responsesSelect: "./assets/responsesSelect.png";
         display: none;
       }
       a {
-        font-family: "72";
+        font-family: "72", Arial, Helvetica, sans-serif;
         font-size: 14px;
 
         line-height: 1.29;
@@ -261,7 +261,7 @@ $responsesSelect: "./assets/responsesSelect.png";
           padding: 13px 16px;
           border: none;
           opacity: 0.6;
-          font-family: "72";
+          font-family: "72", Arial, Helvetica, sans-serif;
           font-size: 11px;
           line-height: 1.18;
           color: #32363a;
@@ -272,7 +272,7 @@ $responsesSelect: "./assets/responsesSelect.png";
         td {
           div.parameter__name {
             padding-left: 15px;
-            font-family: "72";
+            font-family: "72", Arial, Helvetica, sans-serif;
             font-size: 14px;
             font-weight: bold;
             font-style: normal;
@@ -283,7 +283,7 @@ $responsesSelect: "./assets/responsesSelect.png";
           }
 
           div.parameter__type {
-            font-family: "72";
+            font-family: "72", Arial, Helvetica, sans-serif;
             font-size: 14px;
             font-weight: normal;
             font-style: normal;
@@ -302,7 +302,7 @@ $responsesSelect: "./assets/responsesSelect.png";
     }
 
     td.col.parameters-col_description > div.markdown {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
 
       line-height: 1.29;
@@ -354,7 +354,7 @@ $responsesSelect: "./assets/responsesSelect.png";
             border-bottom: none;
             padding-top: 13px;
             opacity: 0.6;
-            font-family: "72";
+            font-family: "72", Arial, Helvetica, sans-serif;
             font-size: 11px;
             font-weight: normal;
             font-style: normal;
@@ -371,7 +371,7 @@ $responsesSelect: "./assets/responsesSelect.png";
               padding-left: 16px;
             }
             td.col:first-child {
-              font-family: "72";
+              font-family: "72", Arial, Helvetica, sans-serif;
               font-size: 14px;
               font-weight: bold;
               font-style: normal;
@@ -408,7 +408,7 @@ $responsesSelect: "./assets/responsesSelect.png";
             }
             table.headers {
               thead > tr.header-row > th.header-col {
-                font-family: "72";
+                font-family: "72", Arial, Helvetica, sans-serif;
                 font-size: 14px;
                 font-weight: normal;
                 font-style: normal;
@@ -418,7 +418,7 @@ $responsesSelect: "./assets/responsesSelect.png";
                 color: #32363a;
               }
               tbody > tr > td.header-col {
-                font-family: "72";
+                font-family: "72", Arial, Helvetica, sans-serif;
                 font-size: 13px;
                 font-weight: normal;
                 font-style: normal;
@@ -452,7 +452,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       border-bottom: 1px solid #eeeeef;
     }
     span.model.model-title {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
       font-weight: bold;
       font-style: normal;
@@ -486,7 +486,7 @@ $responsesSelect: "./assets/responsesSelect.png";
         width: 100%;
         padding: 0 0 10px 10px;
         span.model-title > span.model-title__text {
-          font-family: "72";
+          font-family: "72", Arial, Helvetica, sans-serif;
           font-size: 14px;
           font-weight: bold;
           font-style: normal;
