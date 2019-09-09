@@ -29,8 +29,7 @@
     "@kyma-project/asyncapi-react": "0.2.0"
   },
   "peerDependencies": {
-    "@kyma-project/documentation-component": "^0.2.0-alpha",
-    "fiori-fundamentals": "^1.4.3"
+    "@kyma-project/documentation-component": "^0.2.0-alpha"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

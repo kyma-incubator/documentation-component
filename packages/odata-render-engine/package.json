@@ -25,9 +25,8 @@
     "render-engine"
   ],
   "peerDependencies": {
-    "@kyma-project/odata-react": "^0.2.0-alpha",
     "@kyma-project/documentation-component": "^0.2.0-alpha",
-    "fiori-fundamentals": "^1.4.3"
+    "@kyma-project/odata-react": "^0.2.0-alpha"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

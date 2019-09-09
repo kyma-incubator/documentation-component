@@ -106,7 +106,7 @@ const scss = done => {
   allModules.forEach(mod => {
     gulp
       .src(`${path.resolve(sources, mod)}/src/*.scss`)
-      .pipe(sass.sync().on("error", sass.logError))
+      .pipe(sass.sync({ outputStyle: "compressed" }).on("error", sass.logError))
       .pipe(gulp.dest(`${path.resolve(sources, mod)}/lib`));
   });
   done();
