@@ -29,7 +29,7 @@ The OpenAPI render engine is based on the [Swagger UI](https://github.com/swagge
 
 ### Styles
 
-To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/) import them as follows:
+To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/), import them as follows:
 
 ```js
 import "@kyma-project/dc-markdown-render-engine/lib/styles.css";
