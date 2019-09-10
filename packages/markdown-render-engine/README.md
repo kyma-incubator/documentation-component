@@ -40,7 +40,7 @@ To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamen
 import "@kyma-project/dc-markdown-render-engine/lib/styles.css";
 ```
 
-To use the default font `72` provided by SAP Fundamentals, install [this](https://sap.github.io/fundamental/getting-started.html) npm package and import the font as follows:
+To use the default font `72` provided by SAP Fundamentals, install the npm package from [this](https://sap.github.io/fundamental/getting-started.html) Getting Started guide and import the font as follows:
 
 ```js
 import "fiori-fundamentals/dist/fonts.min.css";

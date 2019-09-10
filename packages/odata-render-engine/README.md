@@ -25,7 +25,7 @@ The OData render engine is based on the [OData React](https://github.com/kyma-in
 
 ### Styles
 
-To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/), install [this](https://sap.github.io/fundamental/getting-started.html) npm package and import the styles as follows:
+To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/), install the npm package from [this](https://sap.github.io/fundamental/getting-started.html) Getting Started guide and import the styles as follows:
 
 ```js
 import "@kyma-project/dc-odata-render-engine/lib/styles.css";
