@@ -12,8 +12,6 @@ import { openApiRenderEngine } from "@kyma-project/dc-open-api-render-engine";
 import { GroupRenderer } from "./GroupRenderer/GroupRenderer";
 import { sources as SOURCES } from "./mocks";
 
-// import "fiori-fundamentals/dist/fonts.min.css";
-
 import "fiori-fundamentals/dist/fiori-fundamentals.css";
 
 import "@kyma-project/dc-odata-render-engine/lib/styles.css";
