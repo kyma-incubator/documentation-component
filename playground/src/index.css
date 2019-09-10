@@ -15,3 +15,25 @@ code {
   background-color: white;
   padding: 20px;
 }
+
+.react-tabs__tab-list > li.tab {
+  color: white;
+  background-color: #0b74de;
+
+  margin: 5px;
+  padding: 8px;
+  font-size: 18px;
+  border-radius: 2px;
+  border: 1px solid #0b74de;
+  display: inline-block;
+  transition: 0.125s;
+}
+
+li.tab:hover {
+  background-color: white;
+  color: #0b74de;
+}
+
+.react-tabs__tab-list {
+  padding-left: 10px;
+}

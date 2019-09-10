@@ -4,14 +4,17 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import { HeadersNavigation } from "./Navigation";
 
+const renderers = ["AsyncAPI", "OData", "OpenAPI", "Markdown"];
+
 export const GroupRenderer = () => {
   return (
     <Tabs>
       <TabList>
-        <Tab>AsyncAPI</Tab>
-        <Tab>OData</Tab>
-        <Tab>OpenAPI</Tab>
-        <Tab>Markdown</Tab>
+        {renderers.map(el => (
+          <Tab key={el} className="tab">
+            {el}
+          </Tab>
+        ))}
       </TabList>
 
       <TabPanel>

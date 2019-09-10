@@ -282,6 +282,7 @@
     font-family: "72", Arial, Helvetica, sans-serif;
     font-size: 14px;
     transition: 0.125s ease-in;
+    align-self: flex-end;
     &:hover {
       background-color: #0b74de;
       color: white;
@@ -298,6 +299,8 @@
   .cms__code-wrapper {
     position: relative;
     margin: 0 0 16px 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .cms__code-pre-wrapper {
