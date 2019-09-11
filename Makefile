@@ -1,4 +1,4 @@
-ci-pr: resolve validate test
+ci-pr: resolve validate build test
 
 .PHONY: resolve
 resolve:
@@ -13,3 +13,7 @@ validate:
 .PHONY: test
 test: 
 	yarn test
+
+.PHONY: build
+build:
+	yarn build

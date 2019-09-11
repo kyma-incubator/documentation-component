@@ -1,6 +1,8 @@
+// tslint:disable: no-var-requires only-arrow-functions
 const fse = require("fs-extra");
 const path = require("path");
 const gulp = require("gulp");
+const sass = require("gulp-sass");
 const ts = require("gulp-typescript");
 const sourcemaps = require("gulp-sourcemaps");
 const clean = require("gulp-clean");
@@ -10,10 +12,18 @@ const log = require("fancy-log");
 const clc = require("cli-color");
 const { promisify } = require("util");
 
+sass.compiler = require("node-sass");
+
 const execFile = promisify(childProcess.execFile);
 
-process.on("unhandledRejection", err => {
-  throw err;
+process.on("unhandledRejection", function(reason, p) {
+  console.error(
+    "Possibly Unhandled Rejection at: Promise ",
+    p,
+    " reason: ",
+    reason,
+  );
+  process.exit(1);
 });
 
 const documentationComponent = removeKymaPrefixFromPackage(
@@ -44,6 +54,7 @@ const packageNames = {
   [asyncApiRenderEngine]: `dc-${asyncApiRenderEngine}`,
   [odataRenderEngine]: `dc-${odataRenderEngine}`,
 };
+
 const packages = {
   [odataReact]: ts.createProject(`${sources}/${odataReact}/tsconfig.prod.json`),
   [markdownRenderEngine]: ts.createProject(
@@ -65,127 +76,19 @@ const rollupPackages = {
 
 const modules = Object.keys(packages);
 const rollupModules = Object.keys(rollupPackages);
+const allModules = [...modules, ...rollupModules];
+
 const distId = process.argv.indexOf("--dist");
 const dist = distId < 0 ? sources : process.argv[distId + 1];
 
-rollupModules.concat(modules).forEach(mod => {
-  gulp.task(`${mod}:install`, async () => {
-    const packageName = path.resolve(__dirname, `${sources}/${mod}`);
-    await install(packageName);
-  });
-});
-
-gulp.task(
-  "install:packages",
-  gulp.parallel(rollupModules.concat(modules).map(mod => `${mod}:install`)),
-);
-
-modules.forEach(mod => {
-  gulp.task(mod, () => {
-    return packages[mod]
-      .src()
-      .pipe(packages[mod]())
-      .pipe(
-        gulp.dest(`${dist}/${dist === sources ? mod : packageNames[mod]}/lib`),
-      );
-  });
-});
-
-rollupModules.forEach(mod => {
-  gulp.task(`${mod}:rollup`, async () => {
-    const packageName = path.resolve(__dirname, `${sources}/${mod}`);
-
-    await buildByRollup(packageName);
-    await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`);
-  });
-});
-
-modules.forEach(mod => {
-  gulp.task(`${mod}:dev`, () => {
-    return packages[mod]
-      .src()
-      .pipe(sourcemaps.init())
-      .pipe(packages[mod]())
-      .pipe(
-        sourcemaps.mapSources(sourcePath => `./${sourcePath.split("/").pop()}`),
-      )
-      .pipe(sourcemaps.write("."))
-      .pipe(
-        gulp.dest(`${dist}/${dist === sources ? mod : packageNames[mod]}/lib`),
-      );
-  });
-});
-
-gulp.task(
-  "build:rollup",
-  gulp.series(rollupModules.map(mod => `${mod}:rollup`)),
-);
-
-gulp.task("build:normal", gulp.series(modules));
-gulp.task("build", gulp.series("build:rollup", "build:normal"));
-gulp.task(
-  "build:dev",
-  gulp.series("build:rollup", modules.map(mod => `${mod}:dev`)),
-);
-
-gulp.task("watch", () => {
-  modules.forEach(mod => {
-    gulp.watch(
-      [
-        `${sources}/${mod}/src/**/*.ts`,
-        `${sources}/${mod}/src/*.ts`,
-        `${sources}/${mod}/src/**/*.tsx`,
-        `${sources}/${mod}/src/*.tsx`,
-      ],
-      gulp.series(mod),
-    );
-  });
-  rollupModules.forEach(mod => {
-    gulp.watch(
-      [
-        `${sources}/${mod}/src/**/*.ts`,
-        `${sources}/${mod}/src/*.ts`,
-        `${sources}/${mod}/src/**/*.tsx`,
-        `${sources}/${mod}/src/*.tsx`,
-      ],
-      gulp.series(`${mod}:rollup`),
-    );
-  });
-});
-
-gulp.task("copy-misc", () => {
-  return gulp
-    .src(["LICENSE", ".npmignore"])
-    .pipe(gulp.dest(`${sources}/${documentationComponent}`))
-    .pipe(gulp.dest(`${sources}/${odataReact}`))
-    .pipe(gulp.dest(`${sources}/${markdownRenderEngine}`))
-    .pipe(gulp.dest(`${sources}/${openApiRenderEngine}`))
-    .pipe(gulp.dest(`${sources}/${asyncApiRenderEngine}`))
-    .pipe(gulp.dest(`${sources}/${odataRenderEngine}`));
-});
-
-gulp.task("clean:output", () => {
-  return gulp
-    .src(
-      [
-        `${sources}/*/lib/**/*.js`, // why don't we just delete all /lib folders TODO: discuss
-        `${sources}/*/lib/**/*.jsx`,
-        `${sources}/*/lib/**/*.d.ts`,
-        `${sources}/*/lib/**/*.js.map`,
-      ],
-      {
-        read: false,
-      },
-    )
-    .pipe(clean());
-});
-gulp.task("clean:dirs", done => {
-  deleteEmpty.sync(`${sources}/`);
-  done();
-});
-gulp.task("clean:bundle", gulp.series("clean:output", "clean:dirs"));
-
-const install = async dir => {
+const install = async () =>
+  Promise.all(
+    allModules.map(mod => {
+      const packageName = path.resolve(__dirname, `${sources}/${mod}`);
+      return installPackage(packageName);
+    }),
+  );
+const installPackage = async dir => {
   log.info(
     `Installing dependencies of ${clc.magenta(dir.replace(__dirname, ""))}`,
   );
@@ -198,6 +101,123 @@ const install = async dir => {
     throw err;
   }
 };
+
+const scss = done => {
+  allModules.forEach(mod => {
+    gulp
+      .src(`${path.resolve(sources, mod)}/src/*.scss`)
+      .pipe(sass.sync({ outputStyle: "compressed" }).on("error", sass.logError))
+      .pipe(gulp.dest(`${path.resolve(sources, mod)}/lib`));
+  });
+  done();
+};
+
+modules.forEach(mod => {
+  gulp.task(mod, () =>
+    packages[mod]
+      .src()
+      .pipe(packages[mod]())
+      .pipe(
+        gulp.dest(`${dist}/${dist === sources ? mod : packageNames[mod]}/lib`),
+      ),
+  );
+});
+
+rollupModules.forEach(mod => {
+  gulp.task(`${mod}:rollup`, async () => {
+    const packageName = path.resolve(__dirname, `${sources}/${mod}`);
+
+    await buildByRollup(packageName);
+    if (
+      `${packageName}/lib` !== `${__dirname}/${dist}/${packageNames[mod]}/lib`
+    ) {
+      await fse.copy(`${packageName}/lib`, `${dist}/${packageNames[mod]}/lib`);
+    }
+  });
+});
+
+modules.forEach(mod => {
+  gulp.task(`${mod}:dev`, () =>
+    packages[mod]
+      .src()
+      .pipe(sourcemaps.init())
+      .pipe(packages[mod]())
+      .pipe(
+        sourcemaps.mapSources(sourcePath => `./${sourcePath.split("/").pop()}`),
+      )
+      .pipe(sourcemaps.write("."))
+      .pipe(
+        gulp.dest(`${dist}/${dist === sources ? mod : packageNames[mod]}/lib`),
+      ),
+  );
+});
+
+gulp.task(
+  "build:rollup",
+  gulp.series(rollupModules.map(mod => `${mod}:rollup`)),
+);
+
+gulp.task("build:normal", gulp.series(modules));
+
+const copyOpenApiStyleAssets = () =>
+  gulp
+    .src(`${path.resolve(sources, openApiRenderEngine)}/src/assets/*`)
+
+    .pipe(
+      gulp.dest(`${path.resolve(sources, openApiRenderEngine)}/lib/assets/`),
+    );
+
+const build = gulp.series(
+  "build:rollup",
+  "build:normal",
+  scss,
+  copyOpenApiStyleAssets,
+);
+
+gulp.task(
+  "build:dev",
+  gulp.series("build:rollup", modules.map(mod => `${mod}:dev`, scss)),
+);
+
+gulp.task("watch", () => {
+  modules.forEach(mod => {
+    gulp.watch(
+      [`${sources}/${mod}/src/**/*.ts`, `${sources}/${mod}/src/**/*.tsx`],
+      gulp.series(mod),
+    );
+  });
+  rollupModules.forEach(mod => {
+    gulp.watch(
+      [`${sources}/${mod}/src/**/*.ts`, `${sources}/${mod}/src/**/*.tsx`],
+      gulp.series(`${mod}:rollup`),
+    );
+  });
+});
+
+gulp.task("copy-misc", () =>
+  gulp
+    .src(["LICENSE", ".npmignore"])
+    .pipe(gulp.dest(`${sources}/${documentationComponent}`))
+    .pipe(gulp.dest(`${sources}/${odataReact}`))
+    .pipe(gulp.dest(`${sources}/${markdownRenderEngine}`))
+    .pipe(gulp.dest(`${sources}/${openApiRenderEngine}`))
+    .pipe(gulp.dest(`${sources}/${asyncApiRenderEngine}`))
+    .pipe(gulp.dest(`${sources}/${odataRenderEngine}`)),
+);
+
+const cleanOutput = () =>
+  gulp
+    .src([`${sources}/*/lib`], {
+      read: false,
+    })
+    .pipe(clean());
+
+const cleanDirs = done => {
+  deleteEmpty.sync(`${sources}/`);
+  done();
+};
+
+const cleanBundle = gulp.series(cleanOutput, cleanDirs);
 
 const buildByRollup = async dir => {
   log.info(`Building package ${clc.magenta(dir.replace(__dirname, ""))}`);
@@ -215,3 +235,5 @@ function removeKymaPrefixFromPackage(packageName) {
   const name = packageName.replace("@kyma-project/", "");
   return name.replace("dc-", "");
 }
+
+module.exports = { scss, cleanBundle, install, build };

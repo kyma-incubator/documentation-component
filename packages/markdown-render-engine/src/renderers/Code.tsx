@@ -12,7 +12,7 @@ interface CopyButtonProps {
 
 const CopyButton: React.FunctionComponent<CopyButtonProps> = ({
   code,
-  placeholder = "Copy content",
+  placeholder = "Copy",
   onCopy,
   copyOptions,
 }) => {

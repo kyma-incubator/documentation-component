@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledOData = styled.main`
   && {
     * {
-      font-family: "72";
+      font-family: "72", Arial, Helvetica, sans-serif;
     }
 
     section.odata-root {

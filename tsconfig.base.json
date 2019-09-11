@@ -1,5 +1,5 @@
 {
-  "include": ["./packages/**/*", "./playground"],
+  "include": ["./packages/**/*", "./playground", "./gulpfile.ts"],
   "exclude": ["**/node_modules/**/*", "**/lib/**/*", "**/docs/**/*"],
   "compilerOptions": {
     "target": "es5",
@@ -8,7 +8,7 @@
     "jsx": "react",
     "strict": true,
     "alwaysStrict": true,
-    "strictFunctionTypes": false,
+    "strictFunctionTypes": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "noImplicitReturns": true,

@@ -7,12 +7,14 @@ The AsyncAPI render engine is based on the [AsyncAPI React](https://github.com/a
 ## Installation
 
 - using [`npm`](https://www.npmjs.com/)
-  ``` bash
+
+  ```bash
   npm i @kyma-project/dc-async-api-render-engine
   ```
 
 - using [`yarn`](https://yarnpkg.com/en/)
-  ``` bash
+
+  ```bash
   yarn add @kyma-project/dc-async-api-render-engine
   ```
 
@@ -22,9 +24,9 @@ The AsyncAPI render engine is based on the [AsyncAPI React](https://github.com/a
 
 ## Configuration
 
-| Name | Required | Type | Default value | Description |
-|---|---|---|---|---|
-| `config` | No | [`ConfigInterface`](https://github.com/asyncapi/asyncapi-react/blob/master/docs/configuration/config-modification.md) | See the default values [here](https://github.com/asyncapi/asyncapi-react/blob/master/library/src/config/default.ts#L3). | Defines the configuration of the [AsyncAPI React](https://github.com/asyncapi/asyncapi-react) component. |
-| `theme` | No | [`ThemeInterface`](https://github.com/asyncapi/asyncapi-react/blob/master/docs/configuration/theme-modification.md) | See the default values [here](https://github.com/asyncapi/asyncapi-react/blob/master/library/src/theme/default.ts#L4). | Defines the theme of the [AsyncAPI React](https://github.com/asyncapi/asyncapi-react) component. |
+| Name     | Required | Type                                                                                                                  | Default value                                                                                                           | Description                                                                                              |
+| -------- | -------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `config` | No       | [`ConfigInterface`](https://github.com/asyncapi/asyncapi-react/blob/master/docs/configuration/config-modification.md) | See the default values [here](https://github.com/asyncapi/asyncapi-react/blob/master/library/src/config/default.ts#L3). | Defines the configuration of the [AsyncAPI React](https://github.com/asyncapi/asyncapi-react) component. |
+| `theme`  | No       | [`ThemeInterface`](https://github.com/asyncapi/asyncapi-react/blob/master/docs/configuration/theme-modification.md)   | See the default values [here](https://github.com/asyncapi/asyncapi-react/blob/master/library/src/theme/default.ts#L4).  | Defines the theme of the [AsyncAPI React](https://github.com/asyncapi/asyncapi-react) component.         |
 
 > **NOTE**: To learn how to pass options of a render engine, read [this](../../docs/props/render-engines.md#pass-global-options) document.

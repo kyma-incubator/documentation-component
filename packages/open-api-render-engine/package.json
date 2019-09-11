@@ -33,7 +33,7 @@
     "@types/swagger-ui-dist": "^3.0.0"
   },
   "peerDependencies": {
-    "@kyma-project/documentation-component": "^0.0.1"
+    "@kyma-project/documentation-component": "^0.2.0-alpha"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
