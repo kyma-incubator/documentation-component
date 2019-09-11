@@ -274,13 +274,16 @@
 
   div.cms__copy-button {
     display: inline-block;
+    position: relative;
+    top: 22px;
+    right: 1px;
     border: 1px solid #0b74de;
     color: #0b74de;
-    padding: 4px 12px;
+    padding: 1px 4px;
     border-radius: 4px;
     cursor: pointer;
     font-family: "72", Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     transition: 0.125s ease-in;
     align-self: flex-end;
     &:hover {
@@ -309,6 +312,7 @@
     background: rgb(250, 250, 250);
     border: 1px solid rgb(229, 229, 229);
     border-radius: 5px;
+    padding-top: 10px;
     padding-bottom: 16px;
     white-space: nowrap;
     overflow-y: hidden;

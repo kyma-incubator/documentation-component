@@ -527,6 +527,7 @@ $responsesSelect: "./assets/responsesSelect.png";
 div#swagger {
   > div.swagger-ui > div > div.wrapper {
     padding: 0;
+    max-width: unset;
   }
   button.expand-operation > svg.arrow {
     width: 16px;
