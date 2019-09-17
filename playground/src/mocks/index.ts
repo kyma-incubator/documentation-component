@@ -22,7 +22,7 @@ export const sources = [
       {
         source: {
           type: "openapi",
-          rawContent: openapiMocks.YAMLV3,
+          rawContent: openapiMocks.StringifiedJSON,
         },
       },
       {
