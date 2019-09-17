@@ -3,7 +3,7 @@
   "scripts": {
     "bootstrap": "npm install && npm run bootstrap:packages",
     "bootstrap:packages": "gulp install && npm run build && npm run open-api-assets && npm run sass",
-    "bootstrap:playground": "cd ./playground && npm install && npm run start",
+    "bootstrap:playground": "cd ./playground && npm install",
     "develop": "npm run watch",
     "lint-check": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose && prettier --config ./.prettierrc --ignore-path ./.prettierignore --check '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
     "lint-fix": "tslint -c ./tslint.json --project tsconfig.base.json --format verbose --fix && prettier --config ./.prettierrc --ignore-path ./.prettierignore --write '**/*.{ts,tsx,js,jsx,json,html,css,yaml}'",
@@ -16,7 +16,6 @@
     "sass": "gulp sass",
     "watch": "gulp watch",
     "clean": "gulp clean-bundles",
-    "open-api-assets": "gulp open-api-assets",
     "pre-publish": "gulp pre-publish",
     "prerelease": "npm run clean && npm run bootstrap:packages && npm run pre-publish",
     "publish:latest": "npm run prerelease && lerna publish --dist-tag=latest -m \"Publish %s release\"",

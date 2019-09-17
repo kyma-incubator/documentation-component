@@ -22,9 +22,7 @@ export const Packages: {
   [PACKAGES.ODATA_RE]: "odata-render-engine",
   [PACKAGES.OPEN_API_RE]: "open-api-render-engine",
 };
-export const packagesDirs = Object.keys(Packages).map(
-  packageKey => Packages[packageKey],
-);
+export const packagesDirs = Object.values(Packages);
 
 export const PackageNames: {
   [p: string]: string;

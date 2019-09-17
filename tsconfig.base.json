@@ -7,7 +7,7 @@
     "lib": ["dom", "esnext"],
     "jsx": "react",
     "strict": true,
-    "strictFunctionTypes": false,
+    "strictFunctionTypes": true,
     "moduleResolution": "node",
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -19,6 +19,7 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "declaration": true
   }
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import deepmerge from "deepmerge";
-import uuidv1 from "uuid/v1";
 
 import {
   Source,
@@ -64,7 +63,7 @@ function renderEngine(
 
   return (
     <ErrorBoundary>
-      <Render source={s} options={options} key={uuidv1()} />
+      <Render source={s} options={options} />
     </ErrorBoundary>
   );
 }

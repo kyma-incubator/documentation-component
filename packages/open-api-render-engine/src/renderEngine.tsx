@@ -6,14 +6,13 @@ import { OpenApiProps } from "./types";
 
 import "swagger-ui-dist/swagger-ui.css";
 
-function createSwagger(schema: string | any, plugins: any) {
+function createSwagger(schema: any, plugins: any) {
   return import("swagger-ui-dist").then(swagger => {
-    const serializedSchema: any = serializeSchema(schema);
     const presets = [swagger.SwaggerUIBundle.presets.apis, plugins];
 
     const ui = (swagger.SwaggerUIBundle as any)({
       dom_id: "#swagger",
-      spec: serializedSchema,
+      spec: schema,
       presets,
       requestInterceptor: (req: any) => {
         const bearer = localStorage.getItem("bearer");
@@ -30,14 +29,15 @@ function createSwagger(schema: string | any, plugins: any) {
 }
 
 function prepareDataForCreate(schema: any, url: string): any {
+  let serializedSchema: any = serializeSchema(schema);
   if (url) {
-    schema = { ...schema, host: url };
+    serializedSchema = { ...serializedSchema, host: url };
   }
-  return schema;
+  return serializedSchema;
 }
 
 export const OpenApiRenderEngine: React.FunctionComponent<
-  RenderEngineProps<OpenApiProps, string | any>
+  RenderEngineProps<OpenApiProps, any>
 > = ({ source, options = {} }) => {
   useEffect(() => {
     const create = async () => {

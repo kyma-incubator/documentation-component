@@ -17,8 +17,7 @@
     "fiori-fundamentals": "^1.7.1"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true ../node_modules/.bin/react-app-rewired start",
-    "test": "../node_modules/.bin/react-app-rewired test"
+    "start": "SKIP_PREFLIGHT_CHECK=true ../node_modules/.bin/react-app-rewired start"
   },
   "browserslist": {
     "production": [
