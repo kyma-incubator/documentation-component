@@ -1,35 +1,37 @@
 import React from "react";
-import { ErrorNode } from "../../types";
-import { StyledCode, PageWrapper } from "../styled/styled";
 import { Alert } from "fundamental-react";
 
-interface Props {
+import { ErrorNode } from "../../types";
+import { ERROR_TEXT } from "../../constants";
+import { bemClasses } from "../../helpers";
+
+export interface ErrorComponentProps {
   error?: ErrorNode;
 }
 
-const ErrorComponent: React.FunctionComponent<Props> = ({ error }) => {
+export const ErrorComponent: React.FunctionComponent<ErrorComponentProps> = ({
+  error,
+}) => {
   if (!error) {
     return (
-      <PageWrapper>
+      <div className={bemClasses.element(`error`)}>
         <Alert dismissible={true} type="error">
-          {"No schema in data / format of the data is wrong"}
+          {ERROR_TEXT}
         </Alert>
-      </PageWrapper>
+      </div>
     );
   }
 
   const data = error.children.map((elem: ErrorNode) => elem.children[0].text);
-
   const [header, code, p] = data;
+
   return (
-    <PageWrapper>
+    <div className={bemClasses.element(`error`)}>
       <Alert dismissible={true} type="error">
         <h3>{header}</h3>
-        <StyledCode>{code}</StyledCode>
+        <code className={bemClasses.element(`code`)}>{code}</code>
         <p>{p}</p>
       </Alert>
-    </PageWrapper>
+    </div>
   );
 };
-
-export { ErrorComponent };

@@ -1,3 +1,7 @@
+html {
+  background: #f3f4f5;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,6 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #fff !important;
 }
 
 code {
@@ -13,15 +18,16 @@ code {
 }
 
 #root {
-  background-color: white;
+  background: #f3f4f5;
   padding: 20px;
 }
 
 .react-tabs__tab-list > li.tab {
   color: white;
   background-color: #0b74de;
+  cursor: pointer;
 
-  margin: 5px;
+  margin: 0 12px 0 0;
   padding: 8px;
   font-size: 18px;
   border-radius: 2px;
@@ -35,6 +41,6 @@ li.tab:hover {
   color: #0b74de;
 }
 
-.react-tabs__tab-list {
-  padding-left: 10px;
+.asyncapi__info-description {
+  margin-top: 16px;
 }

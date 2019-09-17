@@ -1,5 +1,6 @@
 import { createElementClass, createModifierClass } from "./createBEMClass";
 import { CLASS_NAME_PREFIX } from "../constants";
+
 describe("createElementClass", () => {
   const phrase = "test";
 

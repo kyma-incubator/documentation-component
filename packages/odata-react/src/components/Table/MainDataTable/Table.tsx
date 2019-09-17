@@ -1,35 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { PanelActions, PanelHead, Panel, PanelHeader } from "fundamental-react";
+
+import { CollapsibleRow } from "./CollapsibleRow";
+import { CollapseArrow } from "../../CollapseArrow";
+
 import { Node } from "../../../types";
-import { makeUnique } from "../utils";
-import CollapsibleRow from "./CollapsibleRow";
-import { PanelActions, PanelHead } from "fundamental-react";
-import { useExpandedContext } from "../../../store/index";
+import { bemClasses, makeUnique } from "../../../helpers";
+import { useExpandedContext } from "../../../store";
 
-import {
-  StyledTable,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-  TableCell,
-  TableWrapper,
-  CollapseArrow,
-  TableHeaderWrapper,
-  TablePanel,
-  TableBody,
-} from "../../styled/styled";
-
-interface Props {
+export interface TableProps {
   columnData: string[];
   title: string;
   filteredData: Node[];
   id: string;
 }
 
-const Table: React.FunctionComponent<Props> = ({
+export const Table: React.FunctionComponent<TableProps> = ({
   columnData,
   title,
   filteredData,
-  id,
 }) => {
   const [show, setShow] = useState<boolean>(true);
   const handleState = () => setShow(state => !state);
@@ -59,15 +48,19 @@ const Table: React.FunctionComponent<Props> = ({
   );
 
   return (
-    <TableWrapper>
-      <TablePanel>
-        <TableHeaderWrapper
+    <section className={bemClasses.element(`table-wrapper`)}>
+      <Panel className={bemClasses.element(`table-panel`)}>
+        <PanelHeader
+          className={bemClasses.element(`table-header-wrapper`)}
           onClick={() => {
             handleState();
           }}
         >
-          <PanelHead title={title} />
-          <PanelActions>
+          <PanelHead
+            title={title}
+            className={bemClasses.element(`table-header-wrapper-head`)}
+          />
+          <PanelActions className={bemClasses.element(`table-actions`)}>
             <CollapseArrow
               open={show}
               clickHandler={() => {
@@ -75,17 +68,22 @@ const Table: React.FunctionComponent<Props> = ({
               }}
             />
           </PanelActions>
-        </TableHeaderWrapper>
+        </PanelHeader>
         {show && (
-          <StyledTable>
-            <TableHead>
-              <TableRow>
+          <table className={bemClasses.element(`table`)}>
+            <thead className={bemClasses.element(`table-head`)}>
+              <tr className={bemClasses.element(`table-row`)}>
                 {columnHeaders.map((elem: string, index: number) => (
-                  <TableHeadCell key={index}>{elem}</TableHeadCell>
+                  <th
+                    className={bemClasses.element(`table-head-cell`)}
+                    key={index}
+                  >
+                    {elem}
+                  </th>
                 ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
+              </tr>
+            </thead>
+            <tbody className={bemClasses.element(`table-body`)}>
               {filteredData.map((elem: any, idx: number) =>
                 elem.children.length > 0 ? (
                   <CollapsibleRow
@@ -94,21 +92,22 @@ const Table: React.FunctionComponent<Props> = ({
                     key={idx}
                   />
                 ) : (
-                  <TableRow key={idx}>
+                  <tr className={bemClasses.element(`table-row`)} key={idx}>
                     {columnHeaders.map((row: string, index: number) => (
-                      <TableCell key={index}>
+                      <td
+                        className={bemClasses.element(`table-cell`)}
+                        key={index}
+                      >
                         {elem.attributes[row] || elem[row.toLowerCase()] || ""}
-                      </TableCell>
+                      </td>
                     ))}
-                  </TableRow>
+                  </tr>
                 ),
               )}
-            </TableBody>
-          </StyledTable>
+            </tbody>
+          </table>
         )}
-      </TablePanel>
-    </TableWrapper>
+      </Panel>
+    </section>
   );
 };
-
-export default Table;

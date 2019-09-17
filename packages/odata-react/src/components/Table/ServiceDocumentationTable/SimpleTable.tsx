@@ -1,34 +1,28 @@
 import React from "react";
 
-import {
-  StyledTable,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-  TableCell,
-  TableBody,
-} from "../../styled/styled";
+import { bemClasses } from "../../../helpers";
 
-interface Props {
+export interface SimpleTableProps {
   title: string;
   data: string[];
 }
 
-const SimpleTable: React.FunctionComponent<Props> = ({ title, data }) => (
-  <StyledTable>
-    <TableHead>
-      <TableRow>
-        <TableHeadCell>{title}</TableHeadCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
+export const SimpleTable: React.FunctionComponent<SimpleTableProps> = ({
+  title,
+  data,
+}) => (
+  <table className={bemClasses.element(`table`)}>
+    <thead className={bemClasses.element(`table-head`)}>
+      <tr className={bemClasses.element(`table-row`)}>
+        <th className={bemClasses.element(`table-head-cell`)}>{title}</th>
+      </tr>
+    </thead>
+    <tbody className={bemClasses.element(`table-body`)}>
       {data.map((elem: string) => (
-        <TableRow key={elem}>
-          <TableCell>{elem}</TableCell>
-        </TableRow>
+        <tr className={bemClasses.element(`table-row`)} key={elem}>
+          <td className={bemClasses.element(`table-cell`)}>{elem}</td>
+        </tr>
       ))}
-    </TableBody>
-  </StyledTable>
+    </tbody>
+  </table>
 );
-
-export default SimpleTable;

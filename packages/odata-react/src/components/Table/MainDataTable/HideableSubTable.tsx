@@ -1,20 +1,15 @@
 import React from "react";
-import { Node } from "../../../types";
-import { makeUnique } from "../utils";
-import {
-  StyledTable,
-  TableHead,
-  TableHeadCell,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "../../styled/styled";
 
-interface Props {
+import { Node } from "../../../types";
+import { bemClasses, makeUnique } from "../../../helpers";
+
+export interface HideableSubTableProps {
   data: Node;
 }
 
-const HideableSubTable: React.FunctionComponent<Props> = ({ data }) => {
+export const HideableSubTable: React.FunctionComponent<
+  HideableSubTableProps
+> = ({ data }) => {
   const filteredHeaders = data.children
     .flatMap((elem: any) => [
       ...Object.keys(elem.attributes),
@@ -23,28 +18,28 @@ const HideableSubTable: React.FunctionComponent<Props> = ({ data }) => {
     .filter(makeUnique);
 
   return (
-    <StyledTable>
-      <TableHead>
-        <TableRow>
+    <table className={bemClasses.element(`table`)}>
+      <thead className={bemClasses.element(`table-head`)}>
+        <tr className={bemClasses.element(`table-row`)}>
           {filteredHeaders.map((arg: string) => (
-            <TableHeadCell key={arg}>{arg}</TableHeadCell>
+            <th className={bemClasses.element(`table-head-cell`)} key={arg}>
+              {arg}
+            </th>
           ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
+        </tr>
+      </thead>
+      <tbody className={bemClasses.element(`table-body`)}>
         {data.children.map((elem: Node, index: number) => (
-          <TableRow key={index}>
+          <tr className={bemClasses.element(`table-row`)} key={index}>
             {filteredHeaders.map((el: string) => (
-              <TableCell key={el}>
+              <td className={bemClasses.element(`table-cell`)} key={el}>
                 {elem.attributes[el] ||
                   (elem.children[0] && elem.children[0].value)}
-              </TableCell>
+              </td>
             ))}
-          </TableRow>
+          </tr>
         ))}
-      </TableBody>
-    </StyledTable>
+      </tbody>
+    </table>
   );
 };
-
-export default HideableSubTable;

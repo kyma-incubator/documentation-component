@@ -1,5 +1,5 @@
 %tabsStyling {
-  .cms__tabs {
+  .dc-markdown__tabs {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -12,12 +12,12 @@
     border-image: initial;
     border-radius: 3px;
 
-    .cms__text {
+    .dc-markdown__text {
       font-size: 14px;
     }
   }
 
-  .cms__tabs-header {
+  .dc-markdown__tabs-header {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -29,14 +29,14 @@
     flex-flow: row nowrap;
   }
 
-  .cms__tabs-content {
+  .dc-markdown__tabs-content {
     font-size: 14px;
     color: rgb(81, 85, 89);
     line-height: 1.57;
     margin: 20px;
   }
 
-  .cms__tab {
+  .dc-markdown__tab {
     display: flex;
     align-items: center;
     margin: 0 16px;
@@ -77,12 +77,12 @@
       }
     }
 
-    .cms__tab-label {
+    .dc-markdown__tab-label {
       padding: 16px 0;
     }
   }
 
-  .cms__tab--active {
+  .dc-markdown__tab--active {
     color: #0a6ed1;
 
     &:after {
@@ -106,7 +106,7 @@
   }
 }
 
-.cms {
+.dc-markdown {
   @extend %tabsStyling;
   width: 100%;
 
@@ -141,21 +141,21 @@
   h1 {
     margin-bottom: 26px;
 
-    .cms__text {
+    .dc-markdown__text {
       font-size: 22px !important;
     }
   }
   h2 {
     margin-bottom: 16px;
 
-    .cms__text {
+    .dc-markdown__text {
       font-size: 16px !important;
     }
   }
   h3 {
     margin-bottom: 8px;
 
-    .cms__text {
+    .dc-markdown__text {
       font-size: 14px !important;
     }
   }
@@ -164,7 +164,7 @@
     color: #0b74de;
     text-decoration: none;
 
-    > .cms__text {
+    > .dc-markdown__text {
       color: #0b74de !important;
     }
   }
@@ -206,7 +206,7 @@
     text-transform: uppercase;
     line-height: 1.18;
 
-    .cms__text {
+    .dc-markdown__text {
       font-size: 11px;
     }
   }
@@ -227,7 +227,7 @@
     white-space: -o-pre-wrap;
     word-wrap: break-word;
 
-    .cms__text {
+    .dc-markdown__text {
       font-size: 14px;
     }
   }
@@ -272,7 +272,7 @@
     margin-bottom: 12px;
   }
 
-  div.cms__copy-button {
+  div.dc-markdown__copy-button {
     display: inline-block;
     position: relative;
     top: 22px;
@@ -292,21 +292,21 @@
     }
   }
 
-  .cms__text {
+  .dc-markdown__text {
     font-family: "72", Arial, Helvetica, sans-serif;
     font-size: 16px;
     color: rgb(81, 85, 89);
     line-height: 1.57;
   }
 
-  .cms__code-wrapper {
+  .dc-markdown__code-wrapper {
     position: relative;
     margin: 0 0 16px 0;
     display: flex;
     flex-direction: column;
   }
 
-  .cms__code-pre-wrapper {
+  .dc-markdown__code-pre-wrapper {
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
       monospace;
     background: rgb(250, 250, 250);
@@ -336,25 +336,25 @@
     }
   }
 
-  .cms__blockquote {
+  .dc-markdown__blockquote {
     margin-left: 0;
     margin-right: 0;
     padding: 16px;
   }
 
-  .cms__blockquote--note {
+  .dc-markdown__blockquote--note {
     border-left: 3px solid rgb(0, 115, 230);
   }
 
-  .cms__blockquote--tip {
+  .dc-markdown__blockquote--tip {
     border-left: 3px solid rgb(73, 199, 160);
   }
 
-  .cms__blockquote--caution {
+  .dc-markdown__blockquote--caution {
     border-left: 3px solid rgb(221, 0, 0);
   }
 
-  .cms__blockquote-content {
+  .dc-markdown__blockquote-content {
     display: inline-block;
     > p {
       margin-bottom: 5px;
@@ -364,10 +364,10 @@
     }
   }
 
-  .cms__strong {
+  .dc-markdown__strong {
     font-weight: 700;
 
-    .cms__text {
+    .dc-markdown__text {
       font-weight: 700 !important;
     }
   }

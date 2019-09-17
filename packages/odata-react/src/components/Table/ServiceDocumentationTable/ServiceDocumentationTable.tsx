@@ -1,27 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
-import CollapsibleTable from "./CollapsibleTable";
+import { PanelActions, PanelHead, Panel, PanelHeader } from "fundamental-react";
+
+import { CollapsibleTable } from "./CollapsibleTable";
+import { CollapseArrow } from "../../CollapseArrow";
+
 import { Node } from "../../../types";
-import { useExpandedContext } from "../../../store/index";
-
-import { PanelActions, PanelHead } from "fundamental-react";
-import {
-  StyledTable,
-  TableHead,
-  TableHeadCell,
-  TablePanel,
-  TableRow,
-  TableCell,
-  TableWrapper,
-  TableBody,
-  CollapseArrow,
-  TableHeaderWrapper,
-} from "../../styled/styled";
-
-// const STORE_DOC_TABLE_NAME = "service_documentation_table";
-
-interface Props {
-  data: Node[];
-}
+import { bemClasses } from "../../../helpers";
+import { useExpandedContext } from "../../../store";
 
 const inverseArrayValue = (arr: boolean[], index: number) => {
   const data: boolean[] = [...arr];
@@ -29,9 +14,13 @@ const inverseArrayValue = (arr: boolean[], index: number) => {
   return data;
 };
 
-const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
-  data,
-}) => {
+export interface ServiceDocumentationTableProps {
+  data: Node[];
+}
+
+export const ServiceDocumentationTable: React.FunctionComponent<
+  ServiceDocumentationTableProps
+> = ({ data }) => {
   const [show, setShow] = useState<boolean>(true);
   const handleState = () => setShow(state => !state);
   const { expanded, setNumberOfExpanded } = useExpandedContext();
@@ -53,9 +42,10 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
   }
 
   return (
-    <TableWrapper>
-      <TablePanel>
-        <TableHeaderWrapper
+    <section className={bemClasses.element(`table-wrapper`)}>
+      <Panel className={bemClasses.element(`table-panel`)}>
+        <PanelHeader
+          className={bemClasses.element(`table-header-wrapper`)}
           onClick={() => {
             if (show) {
               setShowPart(Array(data.length).fill(false));
@@ -63,8 +53,11 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
             handleState();
           }}
         >
-          <PanelHead title={"Service Documentation / Annotations"} />
-          <PanelActions>
+          <PanelHead
+            title={"Service Documentation / Annotations"}
+            className={bemClasses.element(`table-header-wrapper-head`)}
+          />
+          <PanelActions className={bemClasses.element(`table-actions`)}>
             <CollapseArrow
               open={show}
               clickHandler={() => {
@@ -75,23 +68,29 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
               }}
             />
           </PanelActions>
-        </TableHeaderWrapper>
+        </PanelHeader>
         {show && (
-          <StyledTable>
-            <TableHead>
-              <TableRow>
-                <TableHeadCell>{"Target"}</TableHeadCell>
-                <TableHeadCell>{"Annotation"}</TableHeadCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+          <table className={bemClasses.element(`table`)}>
+            <thead className={bemClasses.element(`table-head`)}>
+              <tr className={bemClasses.element(`table-row`)}>
+                <th className={bemClasses.element(`table-head-cell`)}>
+                  {"Target"}
+                </th>
+                <th className={bemClasses.element(`table-head-cell`)}>
+                  {"Annotation"}
+                </th>
+              </tr>
+            </thead>
+            <tbody className={bemClasses.element(`table-body`)}>
               {data.map((value: Node, index: number) => {
                 const showEl = showPart[index];
                 return (
                   <Fragment key={index}>
-                    <TableRow>
-                      <TableCell>{value.attributes.Target}</TableCell>
-                      <TableCell>
+                    <tr className={bemClasses.element(`table-row`)}>
+                      <td className={bemClasses.element(`table-cell`)}>
+                        {value.attributes.Target}
+                      </td>
+                      <td className={bemClasses.element(`table-cell`)}>
                         <CollapseArrow
                           blueArrow={true}
                           open={showEl}
@@ -99,24 +98,25 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                             setShowPart(inverseArrayValue(showPart, index))
                           }
                         />
-                      </TableCell>
-                    </TableRow>
+                      </td>
+                    </tr>
                     {showEl && (
                       <tr>
-                        <TableCell colSpan={2}>
+                        <td
+                          className={bemClasses.element(`table-cell`)}
+                          colSpan={2}
+                        >
                           <CollapsibleTable data={value} />
-                        </TableCell>
+                        </td>
                       </tr>
                     )}
                   </Fragment>
                 );
               })}
-            </TableBody>
-          </StyledTable>
+            </tbody>
+          </table>
         )}
-      </TablePanel>
-    </TableWrapper>
+      </Panel>
+    </section>
   );
 };
-
-export default ServiceDocumentationTable;

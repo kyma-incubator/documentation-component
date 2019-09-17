@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Node } from "../../../types";
-import HideableSubTable from "./HideableSubTable";
-import { CollapseArrow, TableCell, TableRow } from "../../styled/styled";
 
-interface Props {
+import { HideableSubTable } from "./HideableSubTable";
+import { CollapseArrow } from "../../CollapseArrow";
+
+import { Node } from "../../../types";
+import { bemClasses } from "../../../helpers";
+
+interface CollapsibleRowProps {
   columnHeaders: string[];
   data: Node & { [key: string]: string };
 }
 
-const CollapsibleRow: React.FunctionComponent<Props> = ({
+export const CollapsibleRow: React.FunctionComponent<CollapsibleRowProps> = ({
   columnHeaders,
   data,
 }) => {
@@ -16,9 +19,9 @@ const CollapsibleRow: React.FunctionComponent<Props> = ({
 
   return (
     <>
-      <TableRow>
+      <tr className={bemClasses.element(`table-row`)}>
         {columnHeaders.map((row: string, index: number) => (
-          <TableCell key={index}>
+          <td className={bemClasses.element(`table-cell`)} key={index}>
             {row === "Annotation" ? (
               <CollapseArrow
                 open={show}
@@ -28,18 +31,19 @@ const CollapsibleRow: React.FunctionComponent<Props> = ({
             ) : (
               data.attributes[row] || data[row.toLowerCase()] || ""
             )}
-          </TableCell>
+          </td>
         ))}
-      </TableRow>
+      </tr>
       {show && (
-        <TableRow>
-          <TableCell colSpan={columnHeaders.length}>
+        <tr className={bemClasses.element(`table-row`)}>
+          <td
+            className={bemClasses.element(`table-cell`)}
+            colSpan={columnHeaders.length}
+          >
             <HideableSubTable data={data} />
-          </TableCell>
-        </TableRow>
+          </td>
+        </tr>
       )}
     </>
   );
 };
-
-export default CollapsibleRow;

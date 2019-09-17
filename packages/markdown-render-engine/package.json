@@ -31,9 +31,9 @@
     "lodash.has": "^4.5.2",
     "lodash.isdate": "^4.0.1",
     "lodash.mapvalues": "^4.6.0",
-    "prism-react-renderer": "^0.1.6",
+    "prism-react-renderer": "^0.1.7",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-markdown": "^4.1.0",
+    "react-markdown": "^4.2.2",
     "react-player": "^1.11.1"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "@types/react-copy-to-clipboard": "^4.2.6"
   },
   "peerDependencies": {
-    "@kyma-project/documentation-component": "^0.0.1"
+    "@kyma-project/documentation-component": "^0.2.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

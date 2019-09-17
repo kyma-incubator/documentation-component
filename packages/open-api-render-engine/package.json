@@ -27,13 +27,15 @@
     "render-engine"
   ],
   "dependencies": {
-    "swagger-ui-dist": "^3.22.3"
+    "swagger-ui-dist": "^3.22.3",
+    "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@types/swagger-ui-dist": "^3.0.0"
+    "@types/swagger-ui-dist": "^3.0.0",
+    "@types/js-yaml": "^3.12.1"
   },
   "peerDependencies": {
-    "@kyma-project/documentation-component": "^0.2.0-alpha"
+    "@kyma-project/documentation-component": "^0.2.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

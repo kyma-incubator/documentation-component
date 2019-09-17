@@ -19,14 +19,14 @@ export const deepSearch = (
 };
 
 class Parser {
-  parseFromString(xmlString: string): any {
+  parseFromString(xmlString: string) {
     const outXmlString = transformer.transformToV4(xmlString.trim());
-
     const rawObject = xml2js(outXmlString, {
       elementsKey: "children",
       alwaysChildren: true,
     });
-    return deepSearch(rawObject, "name", (k, v) => v === "Schema");
+
+    return deepSearch(rawObject, "name", (_, v) => v === "Schema");
   }
 }
 
