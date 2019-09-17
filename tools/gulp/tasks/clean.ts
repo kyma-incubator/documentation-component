@@ -6,10 +6,11 @@ import clean from "gulp-clean";
 
 import { PACKAGES_DIR } from "../constants";
 
-function cleanOutputs() {
+function cleanOutputs(done: () => void) {
   src([`${PACKAGES_DIR}/*/lib`], {
     read: false,
   }).pipe(clean());
+  done();
 }
 
 function cleanDirs(done: () => void) {
