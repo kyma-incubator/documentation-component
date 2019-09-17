@@ -12,7 +12,7 @@ import { openApiRenderEngine } from "@kyma-project/dc-open-api-render-engine";
 import { GroupRenderer } from "./GroupRenderer/GroupRenderer";
 import { sources as SOURCES } from "./mocks";
 
-import "@kyma-project/asyncapi-react/lib/styles/fiori.css";
+import "@kyma-project/dc-async-api-render-engine/node_modules/@kyma-project/asyncapi-react/lib/styles/fiori.css";
 import "@kyma-project/dc-markdown-render-engine/lib/styles.css";
 import "@kyma-project/dc-open-api-render-engine/lib/styles.css";
 import "@kyma-project/odata-react/lib/styles.css";

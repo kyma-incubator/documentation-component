@@ -9,7 +9,7 @@ async function installPackage(dir: string, packageName: string) {
   log.info(`Installing dependencies of ${clc.magenta(packageName)}`);
 
   try {
-    await execFile(`yarn`, ["install"], {
+    await execFile(`npm`, ["install"], {
       cwd: dir,
     });
   } catch (err) {
