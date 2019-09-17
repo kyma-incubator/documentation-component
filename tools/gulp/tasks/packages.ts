@@ -1,4 +1,4 @@
-import { task, watch, series, dest, src } from "gulp";
+import { task, watch as watchForChanges, series, dest, src } from "gulp";
 import { createProject } from "gulp-typescript";
 import sass from "gulp-sass";
 
@@ -25,27 +25,8 @@ const packages = packagesDirs
 packagesDirs.forEach(packageName => {
   task(`${packageName}:build`, () => buildPackage(packageName));
   task(`${packageName}:sass`, () => transpileSASS(packageName));
+  task(packageName, series(`${packageName}:build`, `${packageName}:sass`));
 });
-
-function watchForChanges() {
-  packagesDirs.forEach(packageName => {
-    watch(
-      [
-        `${PACKAGES_DIR}/${packageName}/src/**/*.ts`,
-        `${PACKAGES_DIR}/${packageName}/src/**/*.tsx`,
-      ],
-      series(`${packageName}:build`),
-    );
-    watch(
-      [`${PACKAGES_DIR}/${packageName}/src/**/*.scss`],
-      series(`${packageName}:sass`),
-    );
-  });
-  watch(
-    [`${Packages[PACKAGES.OPEN_API_RE]}/src/assets/**/*`],
-    series(copyOpenApiStyleAssets),
-  );
-}
 
 function buildPackage(packageName: string) {
   return packages[packageName]
@@ -66,7 +47,23 @@ function copyOpenApiStyleAssets() {
   ).pipe(dest(`${getDestination(Packages[PACKAGES.OPEN_API_RE])}/assets`));
 }
 
-task("build", series(packagesDirs.map(packageName => `${packageName}:build`)));
-task("sass", series(packagesDirs.map(packageName => `${packageName}:sass`)));
-task("open-api-assets", copyOpenApiStyleAssets);
-task("watch", watchForChanges);
+function watch() {
+  packagesDirs.forEach(packageName => {
+    watchForChanges(
+      [
+        `${PACKAGES_DIR}/${packageName}/src/**/*.ts`,
+        `${PACKAGES_DIR}/${packageName}/src/**/*.tsx`,
+        `${PACKAGES_DIR}/${packageName}/src/**/*.scss`,
+      ],
+      series(packageName),
+    );
+    watchForChanges(
+      [`${Packages[PACKAGES.OPEN_API_RE]}/src/assets/**/*`],
+      series(copyOpenApiStyleAssets),
+    );
+  });
+}
+
+task("build", series(packagesDirs));
+task("copy-open-api-assets", copyOpenApiStyleAssets);
+task("watch", watch);

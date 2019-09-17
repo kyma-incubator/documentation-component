@@ -89,10 +89,10 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
-  transform: rotate(90deg);
+  transform: rotate(0deg);
 
   &:before {
-    transition: 0.4s ease;
+    transition: 0.3s ease;
   }
 }
 
@@ -101,7 +101,7 @@
 }
 
 .odata__collapse-arrow--open span:before {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }
 
 .odata__error {

@@ -4,7 +4,7 @@ import { HideableSubTable } from "./HideableSubTable";
 import { CollapseArrow } from "../../CollapseArrow";
 
 import { Node } from "../../../types";
-import { bemClasses } from "../../../helpers";
+import { TableRow, TableCell } from "../../shared";
 
 interface CollapsibleRowProps {
   columnHeaders: string[];
@@ -19,9 +19,9 @@ export const CollapsibleRow: React.FunctionComponent<CollapsibleRowProps> = ({
 
   return (
     <>
-      <tr className={bemClasses.element(`table-row`)}>
+      <TableRow>
         {columnHeaders.map((row: string, index: number) => (
-          <td className={bemClasses.element(`table-cell`)} key={index}>
+          <TableCell key={index}>
             {row === "Annotation" ? (
               <CollapseArrow
                 open={show}
@@ -31,18 +31,15 @@ export const CollapsibleRow: React.FunctionComponent<CollapsibleRowProps> = ({
             ) : (
               data.attributes[row] || data[row.toLowerCase()] || ""
             )}
-          </td>
+          </TableCell>
         ))}
-      </tr>
+      </TableRow>
       {show && (
-        <tr className={bemClasses.element(`table-row`)}>
-          <td
-            className={bemClasses.element(`table-cell`)}
-            colSpan={columnHeaders.length}
-          >
+        <TableRow>
+          <TableCell colSpan={columnHeaders.length}>
             <HideableSubTable data={data} />
-          </td>
-        </tr>
+          </TableCell>
+        </TableRow>
       )}
     </>
   );

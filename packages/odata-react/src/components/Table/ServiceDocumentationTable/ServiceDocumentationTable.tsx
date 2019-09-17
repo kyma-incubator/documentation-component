@@ -5,8 +5,16 @@ import { CollapsibleTable } from "./CollapsibleTable";
 import { CollapseArrow } from "../../CollapseArrow";
 
 import { Node } from "../../../types";
-import { bemClasses } from "../../../helpers";
 import { useExpandedContext } from "../../../store";
+import {
+  TableWrapper,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeadCell,
+  TableCell,
+} from "../../shared";
 
 const inverseArrayValue = (arr: boolean[], index: number) => {
   const data: boolean[] = [...arr];
@@ -42,10 +50,9 @@ export const ServiceDocumentationTable: React.FunctionComponent<
   }
 
   return (
-    <section className={bemClasses.element(`table-wrapper`)}>
-      <Panel className={bemClasses.element(`table-panel`)}>
+    <TableWrapper>
+      <Panel>
         <PanelHeader
-          className={bemClasses.element(`table-header-wrapper`)}
           onClick={() => {
             if (show) {
               setShowPart(Array(data.length).fill(false));
@@ -53,11 +60,8 @@ export const ServiceDocumentationTable: React.FunctionComponent<
             handleState();
           }}
         >
-          <PanelHead
-            title={"Service Documentation / Annotations"}
-            className={bemClasses.element(`table-header-wrapper-head`)}
-          />
-          <PanelActions className={bemClasses.element(`table-actions`)}>
+          <PanelHead title={"Service Documentation / Annotations"} />
+          <PanelActions>
             <CollapseArrow
               open={show}
               clickHandler={() => {
@@ -70,27 +74,21 @@ export const ServiceDocumentationTable: React.FunctionComponent<
           </PanelActions>
         </PanelHeader>
         {show && (
-          <table className={bemClasses.element(`table`)}>
-            <thead className={bemClasses.element(`table-head`)}>
-              <tr className={bemClasses.element(`table-row`)}>
-                <th className={bemClasses.element(`table-head-cell`)}>
-                  {"Target"}
-                </th>
-                <th className={bemClasses.element(`table-head-cell`)}>
-                  {"Annotation"}
-                </th>
-              </tr>
-            </thead>
-            <tbody className={bemClasses.element(`table-body`)}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeadCell>{"Target"}</TableHeadCell>
+                <TableHeadCell>{"Annotation"}</TableHeadCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {data.map((value: Node, index: number) => {
                 const showEl = showPart[index];
                 return (
                   <Fragment key={index}>
-                    <tr className={bemClasses.element(`table-row`)}>
-                      <td className={bemClasses.element(`table-cell`)}>
-                        {value.attributes.Target}
-                      </td>
-                      <td className={bemClasses.element(`table-cell`)}>
+                    <TableRow>
+                      <TableCell>{value.attributes.Target}</TableCell>
+                      <TableCell>
                         <CollapseArrow
                           blueArrow={true}
                           open={showEl}
@@ -98,25 +96,22 @@ export const ServiceDocumentationTable: React.FunctionComponent<
                             setShowPart(inverseArrayValue(showPart, index))
                           }
                         />
-                      </td>
-                    </tr>
+                      </TableCell>
+                    </TableRow>
                     {showEl && (
-                      <tr>
-                        <td
-                          className={bemClasses.element(`table-cell`)}
-                          colSpan={2}
-                        >
+                      <TableRow>
+                        <TableCell colSpan={2}>
                           <CollapsibleTable data={value} />
-                        </td>
-                      </tr>
+                        </TableCell>
+                      </TableRow>
                     )}
                   </Fragment>
                 );
               })}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         )}
       </Panel>
-    </section>
+    </TableWrapper>
   );
 };

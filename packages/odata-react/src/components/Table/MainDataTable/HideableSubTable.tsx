@@ -1,7 +1,15 @@
 import React from "react";
 
 import { Node } from "../../../types";
-import { bemClasses, makeUnique } from "../../../helpers";
+import { makeUnique } from "../../../helpers";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeadCell,
+  TableCell,
+} from "../../shared";
 
 export interface HideableSubTableProps {
   data: Node;
@@ -18,28 +26,26 @@ export const HideableSubTable: React.FunctionComponent<
     .filter(makeUnique);
 
   return (
-    <table className={bemClasses.element(`table`)}>
-      <thead className={bemClasses.element(`table-head`)}>
-        <tr className={bemClasses.element(`table-row`)}>
+    <Table>
+      <TableHead>
+        <TableRow>
           {filteredHeaders.map((arg: string) => (
-            <th className={bemClasses.element(`table-head-cell`)} key={arg}>
-              {arg}
-            </th>
+            <TableHeadCell key={arg}>{arg}</TableHeadCell>
           ))}
-        </tr>
-      </thead>
-      <tbody className={bemClasses.element(`table-body`)}>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {data.children.map((elem: Node, index: number) => (
-          <tr className={bemClasses.element(`table-row`)} key={index}>
+          <TableRow key={index}>
             {filteredHeaders.map((el: string) => (
-              <td className={bemClasses.element(`table-cell`)} key={el}>
+              <TableCell key={el}>
                 {elem.attributes[el] ||
                   (elem.children[0] && elem.children[0].value)}
-              </td>
+              </TableCell>
             ))}
-          </tr>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 };

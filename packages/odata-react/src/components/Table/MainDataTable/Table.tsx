@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { PanelActions, PanelHead, Panel, PanelHeader } from "fundamental-react";
 
 import { CollapsibleRow } from "./CollapsibleRow";
 import { CollapseArrow } from "../../CollapseArrow";
 
 import { Node } from "../../../types";
-import { bemClasses, makeUnique } from "../../../helpers";
+import { makeUnique } from "../../../helpers";
+import {
+  TableWrapper,
+  Table as TableComponent,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeadCell,
+  TableCell,
+  Panel,
+  PanelActions,
+  PanelHead,
+  PanelHeader,
+} from "../../shared";
 import { useExpandedContext } from "../../../store";
 
 export interface TableProps {
@@ -48,19 +60,15 @@ export const Table: React.FunctionComponent<TableProps> = ({
   );
 
   return (
-    <section className={bemClasses.element(`table-wrapper`)}>
-      <Panel className={bemClasses.element(`table-panel`)}>
+    <TableWrapper>
+      <Panel>
         <PanelHeader
-          className={bemClasses.element(`table-header-wrapper`)}
           onClick={() => {
             handleState();
           }}
         >
-          <PanelHead
-            title={title}
-            className={bemClasses.element(`table-header-wrapper-head`)}
-          />
-          <PanelActions className={bemClasses.element(`table-actions`)}>
+          <PanelHead title={title} />
+          <PanelActions>
             <CollapseArrow
               open={show}
               clickHandler={() => {
@@ -70,20 +78,15 @@ export const Table: React.FunctionComponent<TableProps> = ({
           </PanelActions>
         </PanelHeader>
         {show && (
-          <table className={bemClasses.element(`table`)}>
-            <thead className={bemClasses.element(`table-head`)}>
-              <tr className={bemClasses.element(`table-row`)}>
+          <TableComponent>
+            <TableHead>
+              <TableRow>
                 {columnHeaders.map((elem: string, index: number) => (
-                  <th
-                    className={bemClasses.element(`table-head-cell`)}
-                    key={index}
-                  >
-                    {elem}
-                  </th>
+                  <TableHeadCell key={index}>{elem}</TableHeadCell>
                 ))}
-              </tr>
-            </thead>
-            <tbody className={bemClasses.element(`table-body`)}>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {filteredData.map((elem: any, idx: number) =>
                 elem.children.length > 0 ? (
                   <CollapsibleRow
@@ -92,22 +95,19 @@ export const Table: React.FunctionComponent<TableProps> = ({
                     key={idx}
                   />
                 ) : (
-                  <tr className={bemClasses.element(`table-row`)} key={idx}>
+                  <TableRow key={idx}>
                     {columnHeaders.map((row: string, index: number) => (
-                      <td
-                        className={bemClasses.element(`table-cell`)}
-                        key={index}
-                      >
+                      <TableCell key={index}>
                         {elem.attributes[row] || elem[row.toLowerCase()] || ""}
-                      </td>
+                      </TableCell>
                     ))}
-                  </tr>
+                  </TableRow>
                 ),
               )}
-            </tbody>
-          </table>
+            </TableBody>
+          </TableComponent>
         )}
       </Panel>
-    </section>
+    </TableWrapper>
   );
 };

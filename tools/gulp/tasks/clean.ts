@@ -6,16 +6,31 @@ import clean from "gulp-clean";
 
 import { PACKAGES_DIR } from "../constants";
 
-function cleanOutputs(done: () => void) {
+function cleanLib(done: () => void) {
   src([`${PACKAGES_DIR}/*/lib`], {
     read: false,
   }).pipe(clean());
   done();
 }
 
-function cleanDirs(done: () => void) {
+function cleanNodeModules(done: () => void) {
+  src([`${PACKAGES_DIR}/*/node_modules`], {
+    read: false,
+  }).pipe(clean());
+  done();
+}
+
+function cleanEmpty(done: () => void) {
   deleteEmpty.sync(`${PACKAGES_DIR}/`);
   done();
 }
 
-task("clean-bundles", series(cleanOutputs, cleanDirs));
+function cleanPackageLocks(done: () => void) {
+  src([`${PACKAGES_DIR}/*/package-lock.json`], {
+    read: false,
+  }).pipe(clean());
+  done();
+}
+
+task("clean-bundles", series(cleanNodeModules, cleanLib, cleanEmpty));
+task("clean-package-locks", cleanPackageLocks);

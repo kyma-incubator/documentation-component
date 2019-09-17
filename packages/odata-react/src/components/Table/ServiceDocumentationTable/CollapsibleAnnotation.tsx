@@ -4,7 +4,15 @@ import { SimpleTable } from "./SimpleTable";
 import { CollapseArrow } from "../../CollapseArrow";
 
 import { Node } from "../../../types";
-import { bemClasses, makeUnique } from "../../../helpers";
+import { makeUnique } from "../../../helpers";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeadCell,
+  TableCell,
+} from "../../shared";
 
 export interface CollapsibleAnnotationProps {
   data: Node;
@@ -21,35 +29,33 @@ export const CollapsibleAnnotation: React.FunctionComponent<
   const useToggleShow = () => useShow(!show);
 
   return (
-    <table className={bemClasses.element(`table`)}>
-      <thead className={bemClasses.element(`table-head`)}>
-        <tr className={bemClasses.element(`table-row`)}>
-          <th className={bemClasses.element(`table-head-cell`)}>
-            {headers[0] || "Data"}
-          </th>
-        </tr>
-      </thead>
-      <tbody className={bemClasses.element(`table-body`)}>
-        <tr className={bemClasses.element(`table-row`)}>
-          <td className={bemClasses.element(`table-cell`)}>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableHeadCell>{headers[0] || "Data"}</TableHeadCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>
             <CollapseArrow
               open={show}
               clickHandler={useToggleShow}
               blueArrow={true}
             />
-          </td>
-        </tr>
+          </TableCell>
+        </TableRow>
         {show && (
-          <tr className={bemClasses.element(`table-row`)}>
-            <td className={bemClasses.element(`table-cell`)}>
+          <TableRow>
+            <TableCell>
               <SimpleTable
                 title="Text"
                 data={data.children.map((elem: Node) => elem.value)}
               />
-            </td>
-          </tr>
+            </TableCell>
+          </TableRow>
         )}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 };
