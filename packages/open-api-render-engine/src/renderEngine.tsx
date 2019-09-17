@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import { RenderEngineProps } from "@kyma-project/documentation-component";
+
+import { serializeSchema } from "./helpers";
 import { OpenApiProps } from "./types";
 
 import "swagger-ui-dist/swagger-ui.css";
 
 function createSwagger(schema: string | any, plugins: any) {
   return import("swagger-ui-dist").then(swagger => {
+    const serializedSchema: any = serializeSchema(schema);
     const presets = [swagger.SwaggerUIBundle.presets.apis, plugins];
 
     const ui = (swagger.SwaggerUIBundle as any)({
       dom_id: "#swagger",
-      spec: schema,
+      spec: serializedSchema,
       presets,
       requestInterceptor: (req: any) => {
         const bearer = localStorage.getItem("bearer");

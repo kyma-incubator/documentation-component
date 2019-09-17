@@ -1,7 +1,7 @@
-import { openapiMock } from "./openapi";
 import { markdownMock } from "./markdown";
 
 import odataMocks from "./odata";
+import openapiMocks from "./openapi";
 import * as asyncApiMocks from "./asyncapi";
 
 export const sources = [
@@ -22,13 +22,13 @@ export const sources = [
       {
         source: {
           type: "openapi",
-          rawContent: openapiMock,
+          rawContent: openapiMocks.YAMLV3,
         },
       },
       {
         source: {
           type: "odata",
-          rawContent: odataMocks.ODataC4C,
+          rawContent: odataMocks.ODataProductsV3,
         },
       },
     ],
