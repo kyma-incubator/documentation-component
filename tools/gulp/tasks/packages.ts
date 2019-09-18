@@ -25,7 +25,12 @@ const packages = packagesDirs
 packagesDirs.forEach(packageName => {
   task(`${packageName}:build`, () => buildPackage(packageName));
   task(`${packageName}:sass`, () => transpileSASS(packageName));
-  task(packageName, series(`${packageName}:build`, `${packageName}:sass`));
+
+  const tasks: any[] = [`${packageName}:build`, `${packageName}:sass`];
+  if (packageName === Packages[PACKAGES.OPEN_API_RE]) {
+    tasks.push(copyOpenApiStyleAssets);
+  }
+  task(packageName, series(...tasks));
 });
 
 function buildPackage(packageName: string) {
@@ -65,5 +70,4 @@ function watch() {
 }
 
 task("build", series(packagesDirs));
-task("copy-open-api-assets", copyOpenApiStyleAssets);
 task("watch", watch);
