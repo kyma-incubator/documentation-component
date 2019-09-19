@@ -25,8 +25,8 @@
     "render-engine"
   ],
   "peerDependencies": {
-    "@kyma-project/documentation-component": "^0.2.0-alpha",
-    "@kyma-project/odata-react": "^0.2.0-alpha"
+    "@kyma-project/documentation-component": "^0.2.0",
+    "@kyma-project/odata-react": "^0.2.0"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

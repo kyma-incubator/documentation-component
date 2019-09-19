@@ -1,21 +1,26 @@
 import React, { Fragment, useState } from "react";
+
 import { CollapsibleAnnotation } from "./CollapsibleAnnotation";
-import { makeUnique } from "../utils";
+import { CollapseArrow } from "../../CollapseArrow";
+
+import { makeUnique } from "../../../helpers";
 import { Node } from "../../../types";
 import {
+  Table,
   TableHead,
-  TableHeadCell,
   TableBody,
-  StyledTable,
-  CollapseArrow,
   TableRow,
+  TableHeadCell,
   TableCell,
-} from "../../styled/styled";
-interface Props {
+} from "../../shared";
+
+export interface CollapsibleTableProps {
   data: Node;
 }
 
-const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
+export const CollapsibleTable: React.FunctionComponent<
+  CollapsibleTableProps
+> = ({ data }) => {
   const [show, setShow] = useState<boolean[]>(
     Array(data.children.length).fill(false),
   );
@@ -41,7 +46,7 @@ const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
   const columnHeaders: string[] = [...attributesColumn, ...specialData];
 
   return (
-    <StyledTable>
+    <Table>
       <TableHead>
         <TableRow>
           {columnHeaders.map((elem: string, index: number) => (
@@ -94,8 +99,6 @@ const CollapsibleTable: React.FunctionComponent<Props> = ({ data }) => {
           );
         })}
       </TableBody>
-    </StyledTable>
+    </Table>
   );
 };
-
-export default CollapsibleTable;

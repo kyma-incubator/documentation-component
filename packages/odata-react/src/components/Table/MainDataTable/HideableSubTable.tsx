@@ -1,20 +1,23 @@
 import React from "react";
+
 import { Node } from "../../../types";
-import { makeUnique } from "../utils";
+import { makeUnique } from "../../../helpers";
 import {
-  StyledTable,
+  Table,
   TableHead,
-  TableHeadCell,
   TableBody,
   TableRow,
+  TableHeadCell,
   TableCell,
-} from "../../styled/styled";
+} from "../../shared";
 
-interface Props {
+export interface HideableSubTableProps {
   data: Node;
 }
 
-const HideableSubTable: React.FunctionComponent<Props> = ({ data }) => {
+export const HideableSubTable: React.FunctionComponent<
+  HideableSubTableProps
+> = ({ data }) => {
   const filteredHeaders = data.children
     .flatMap((elem: any) => [
       ...Object.keys(elem.attributes),
@@ -23,7 +26,7 @@ const HideableSubTable: React.FunctionComponent<Props> = ({ data }) => {
     .filter(makeUnique);
 
   return (
-    <StyledTable>
+    <Table>
       <TableHead>
         <TableRow>
           {filteredHeaders.map((arg: string) => (
@@ -43,8 +46,6 @@ const HideableSubTable: React.FunctionComponent<Props> = ({ data }) => {
           </TableRow>
         ))}
       </TableBody>
-    </StyledTable>
+    </Table>
   );
 };
-
-export default HideableSubTable;

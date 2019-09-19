@@ -1,4 +1,6 @@
 import React from "react";
+import deepmerge from "deepmerge";
+
 import {
   Source,
   Sources,
@@ -11,8 +13,7 @@ import {
   isSourceWithOptions,
   isRenderEngineWithOptions,
 } from "../interfaces";
-import deepmerge from "deepmerge";
-import uuidv1 from "uuid/v1";
+import { ErrorBoundary } from "./error-boundary";
 
 function renderEngine(
   source: SourceWithOptions,
@@ -60,7 +61,11 @@ function renderEngine(
     },
   };
 
-  return <Render source={s} options={options} key={uuidv1()} />;
+  return (
+    <ErrorBoundary>
+      <Render source={s} options={options} />
+    </ErrorBoundary>
+  );
 }
 
 function renderGroup(

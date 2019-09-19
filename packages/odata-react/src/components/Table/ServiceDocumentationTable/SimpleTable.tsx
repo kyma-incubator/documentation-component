@@ -1,21 +1,24 @@
 import React from "react";
 
 import {
-  StyledTable,
+  Table,
   TableHead,
-  TableHeadCell,
-  TableRow,
-  TableCell,
   TableBody,
-} from "../../styled/styled";
+  TableRow,
+  TableHeadCell,
+  TableCell,
+} from "../../shared";
 
-interface Props {
+export interface SimpleTableProps {
   title: string;
   data: string[];
 }
 
-const SimpleTable: React.FunctionComponent<Props> = ({ title, data }) => (
-  <StyledTable>
+export const SimpleTable: React.FunctionComponent<SimpleTableProps> = ({
+  title,
+  data,
+}) => (
+  <Table>
     <TableHead>
       <TableRow>
         <TableHeadCell>{title}</TableHeadCell>
@@ -28,7 +31,5 @@ const SimpleTable: React.FunctionComponent<Props> = ({ title, data }) => (
         </TableRow>
       ))}
     </TableBody>
-  </StyledTable>
+  </Table>
 );
-
-export default SimpleTable;

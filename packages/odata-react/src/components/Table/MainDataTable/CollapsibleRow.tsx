@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Node } from "../../../types";
-import HideableSubTable from "./HideableSubTable";
-import { CollapseArrow, TableCell, TableRow } from "../../styled/styled";
 
-interface Props {
+import { HideableSubTable } from "./HideableSubTable";
+import { CollapseArrow } from "../../CollapseArrow";
+
+import { Node } from "../../../types";
+import { TableRow, TableCell } from "../../shared";
+
+interface CollapsibleRowProps {
   columnHeaders: string[];
   data: Node & { [key: string]: string };
 }
 
-const CollapsibleRow: React.FunctionComponent<Props> = ({
+export const CollapsibleRow: React.FunctionComponent<CollapsibleRowProps> = ({
   columnHeaders,
   data,
 }) => {
@@ -41,5 +44,3 @@ const CollapsibleRow: React.FunctionComponent<Props> = ({
     </>
   );
 };
-
-export default CollapsibleRow;

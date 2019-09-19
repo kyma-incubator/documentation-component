@@ -12,6 +12,9 @@ import { runRender } from "./render";
 
 function serializeSource(source: SourceWithOptions): SourceWithOptions {
   source.source.data = source.source.data || {};
+  if (typeof source.source.rawContent === "string") {
+    source.source.rawContent = source.source.rawContent.trim();
+  }
   return source;
 }
 

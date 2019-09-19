@@ -1,27 +1,20 @@
 import React, { Fragment, useState, useEffect } from "react";
-import CollapsibleTable from "./CollapsibleTable";
+import { PanelActions, PanelHead, Panel, PanelHeader } from "fundamental-react";
+
+import { CollapsibleTable } from "./CollapsibleTable";
+import { CollapseArrow } from "../../CollapseArrow";
+
 import { Node } from "../../../types";
-import { useExpandedContext } from "../../../store/index";
-
-import { PanelActions, PanelHead } from "fundamental-react";
+import { useExpandedContext } from "../../../store";
 import {
-  StyledTable,
-  TableHead,
-  TableHeadCell,
-  TablePanel,
-  TableRow,
-  TableCell,
   TableWrapper,
+  Table,
+  TableHead,
   TableBody,
-  CollapseArrow,
-  TableHeaderWrapper,
-} from "../../styled/styled";
-
-// const STORE_DOC_TABLE_NAME = "service_documentation_table";
-
-interface Props {
-  data: Node[];
-}
+  TableRow,
+  TableHeadCell,
+  TableCell,
+} from "../../shared";
 
 const inverseArrayValue = (arr: boolean[], index: number) => {
   const data: boolean[] = [...arr];
@@ -29,10 +22,14 @@ const inverseArrayValue = (arr: boolean[], index: number) => {
   return data;
 };
 
-const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
-  data,
-}) => {
-  const [show, setShow] = useState<boolean>(true);
+export interface ServiceDocumentationTableProps {
+  data: Node[];
+}
+
+export const ServiceDocumentationTable: React.FunctionComponent<
+  ServiceDocumentationTableProps
+> = ({ data }) => {
+  const [show, setShow] = useState<boolean>(false);
   const handleState = () => setShow(state => !state);
   const { expanded, setNumberOfExpanded } = useExpandedContext();
 
@@ -54,8 +51,8 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
 
   return (
     <TableWrapper>
-      <TablePanel>
-        <TableHeaderWrapper
+      <Panel>
+        <PanelHeader
           onClick={() => {
             if (show) {
               setShowPart(Array(data.length).fill(false));
@@ -75,9 +72,9 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
               }}
             />
           </PanelActions>
-        </TableHeaderWrapper>
+        </PanelHeader>
         {show && (
-          <StyledTable>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableHeadCell>{"Target"}</TableHeadCell>
@@ -102,21 +99,19 @@ const ServiceDocumentationTable: React.FunctionComponent<Props> = ({
                       </TableCell>
                     </TableRow>
                     {showEl && (
-                      <tr>
+                      <TableRow>
                         <TableCell colSpan={2}>
                           <CollapsibleTable data={value} />
                         </TableCell>
-                      </tr>
+                      </TableRow>
                     )}
                   </Fragment>
                 );
               })}
             </TableBody>
-          </StyledTable>
+          </Table>
         )}
-      </TablePanel>
+      </Panel>
     </TableWrapper>
   );
 };
-
-export default ServiceDocumentationTable;

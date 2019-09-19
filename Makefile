@@ -1,19 +1,15 @@
-ci-pr: resolve validate build test
+ci-pr: resolve validate test
 
 .PHONY: resolve
 resolve:
-	yarn bootstrap
+	npm run bootstrap
 
 .PHONY: validate
 validate:
-	yarn conflict-check
-	yarn lint-check
-	yarn markdownlint
+	npm run conflict-check
+	npm run lint-check
+	npm run markdownlint
 
 .PHONY: test
 test: 
-	yarn test
-
-.PHONY: build
-build:
-	yarn build
+	npm run test

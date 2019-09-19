@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from "react";
+
+import { CollapsibleRow } from "./CollapsibleRow";
+import { CollapseArrow } from "../../CollapseArrow";
+
 import { Node } from "../../../types";
-import { makeUnique } from "../utils";
-import CollapsibleRow from "./CollapsibleRow";
-import { PanelActions, PanelHead } from "fundamental-react";
-import { useExpandedContext } from "../../../store/index";
-
+import { makeUnique } from "../../../helpers";
 import {
-  StyledTable,
-  TableHead,
-  TableHeadCell,
-  TableRow,
-  TableCell,
   TableWrapper,
-  CollapseArrow,
-  TableHeaderWrapper,
-  TablePanel,
+  Table as TableComponent,
+  TableHead,
   TableBody,
-} from "../../styled/styled";
+  TableRow,
+  TableHeadCell,
+  TableCell,
+  Panel,
+  PanelActions,
+  PanelHead,
+  PanelHeader,
+} from "../../shared";
+import { useExpandedContext } from "../../../store";
 
-interface Props {
+export interface TableProps {
   columnData: string[];
   title: string;
   filteredData: Node[];
   id: string;
 }
 
-const Table: React.FunctionComponent<Props> = ({
+export const Table: React.FunctionComponent<TableProps> = ({
   columnData,
   title,
   filteredData,
-  id,
 }) => {
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
   const handleState = () => setShow(state => !state);
   const { expanded, setNumberOfExpanded } = useExpandedContext();
 
@@ -60,8 +61,8 @@ const Table: React.FunctionComponent<Props> = ({
 
   return (
     <TableWrapper>
-      <TablePanel>
-        <TableHeaderWrapper
+      <Panel>
+        <PanelHeader
           onClick={() => {
             handleState();
           }}
@@ -75,9 +76,9 @@ const Table: React.FunctionComponent<Props> = ({
               }}
             />
           </PanelActions>
-        </TableHeaderWrapper>
+        </PanelHeader>
         {show && (
-          <StyledTable>
+          <TableComponent>
             <TableHead>
               <TableRow>
                 {columnHeaders.map((elem: string, index: number) => (
@@ -104,11 +105,9 @@ const Table: React.FunctionComponent<Props> = ({
                 ),
               )}
             </TableBody>
-          </StyledTable>
+          </TableComponent>
         )}
-      </TablePanel>
+      </Panel>
     </TableWrapper>
   );
 };
-
-export default Table;

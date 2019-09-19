@@ -1,0 +1,12 @@
+{
+  "extends": "./../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2015", "dom", "es2016.array.include"],
+    "module": "commonjs",
+    "outDir": "../../dist/tools/gulp",
+    "types": ["node"],
+    "typeRoots": ["../../node_modules/@types/"],
+    "baseUrl": "."
+  },
+  "files": ["gulpfile.ts"]
+}

@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { RenderEngineProps } from "@kyma-project/documentation-component";
+
+import { serializeSchema } from "./helpers";
 import { OpenApiProps } from "./types";
+
 import "swagger-ui-dist/swagger-ui.css";
 
 function createSwagger(schema: any, plugins: any) {
   return import("swagger-ui-dist").then(swagger => {
     const presets = [swagger.SwaggerUIBundle.presets.apis, plugins];
 
-    // temporary any type, because some fucking idiot added not correct types to @types/swagger-ui-dist package
     const ui = (swagger.SwaggerUIBundle as any)({
       dom_id: "#swagger",
       spec: schema,
@@ -27,10 +29,11 @@ function createSwagger(schema: any, plugins: any) {
 }
 
 function prepareDataForCreate(schema: any, url: string): any {
+  let serializedSchema: any = serializeSchema(schema);
   if (url) {
-    schema = { ...schema, host: url };
+    serializedSchema = { ...serializedSchema, host: url };
   }
-  return schema;
+  return serializedSchema;
 }
 
 export const OpenApiRenderEngine: React.FunctionComponent<

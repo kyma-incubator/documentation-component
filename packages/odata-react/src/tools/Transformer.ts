@@ -1,11 +1,12 @@
 import xslt from "xslt";
+
 import V2V3toV4 from "./V2V3toV4";
+
 class Transformer {
-  transformToV4(xmlString: string): any {
-    const options = {
+  transformToV4(xmlString: string) {
+    return xslt(xmlString, V2V3toV4, {
       fullDocument: true,
-    };
-    return xslt(xmlString, V2V3toV4, options);
+    });
   }
 }
 
