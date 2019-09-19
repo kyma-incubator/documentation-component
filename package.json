@@ -15,7 +15,6 @@
     "testWatch": "jest --detectOpenHandles --watch",
     "watch": "gulp watch",
     "clean-bundles": "gulp clean-bundles",
-    "clean-package-locks": "gulp clean-package-locks",
     "prePublish": "gulp pre-publish",
     "prerelease": "npm run clean && npm run bootstrap:packages && npm run pre-publish",
     "publish:latest": "npm run prerelease && lerna publish --dist-tag=latest -m \"Publish %s release\"",

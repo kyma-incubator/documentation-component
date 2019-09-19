@@ -25,12 +25,4 @@ function cleanEmpty(done: () => void) {
   done();
 }
 
-function cleanPackageLocks(done: () => void) {
-  src([`${PACKAGES_DIR}/*/package-lock.json`], {
-    read: false,
-  }).pipe(clean());
-  done();
-}
-
 task("clean-bundles", series(cleanNodeModules, cleanLib, cleanEmpty));
-task("clean-package-locks", cleanPackageLocks);
