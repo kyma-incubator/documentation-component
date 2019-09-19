@@ -1,7 +1,7 @@
 import { task, src, series } from "gulp";
-// @ts-ignore
+// @ts-ignore - old types
 import deleteEmpty from "delete-empty";
-// @ts-ignore
+// @ts-ignore - old types
 import clean from "gulp-clean";
 
 import { PACKAGES_DIR } from "../constants";
