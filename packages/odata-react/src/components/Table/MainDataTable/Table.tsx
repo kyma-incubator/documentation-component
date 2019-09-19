@@ -32,7 +32,7 @@ export const Table: React.FunctionComponent<TableProps> = ({
   title,
   filteredData,
 }) => {
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
   const handleState = () => setShow(state => !state);
   const { expanded, setNumberOfExpanded } = useExpandedContext();
 

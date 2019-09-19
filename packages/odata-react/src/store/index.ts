@@ -6,8 +6,10 @@ interface Props {
 }
 
 const useExpandedState = ({ numberOfElements }: Props) => {
-  const [expanded, setExpanded] = useState<boolean>(true);
-  const [numberOfExpanded, setNumberOfExpanded] = useState<number>(0);
+  const [expanded, setExpanded] = useState<boolean>(false);
+  const [numberOfExpanded, setNumberOfExpanded] = useState<number>(
+    numberOfElements,
+  );
 
   return {
     numberOfElements,

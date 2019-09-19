@@ -29,7 +29,7 @@ export interface ServiceDocumentationTableProps {
 export const ServiceDocumentationTable: React.FunctionComponent<
   ServiceDocumentationTableProps
 > = ({ data }) => {
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(false);
   const handleState = () => setShow(state => !state);
   const { expanded, setNumberOfExpanded } = useExpandedContext();
 
