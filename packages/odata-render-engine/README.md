@@ -31,7 +31,7 @@ import "@kyma-project/odata-react/lib/styles.css";
 import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
 ```
 
-To use the default font `72` provided by SAP Fundamentals, import (after installation of [this](https://sap.github.io/fundamental/getting-started.html) package) the font as follows:
+To use the default font `72` provided by SAP Fundamentals, import (after installation [SAP Fundamentals](https://sap.github.io/fundamental/) package) the font as follows:
 
 ```js
 import "fiori-fundamentals/dist/fonts.min.css";
