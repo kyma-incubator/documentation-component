@@ -5,6 +5,7 @@
 The Documentation component is a generic, reusable React component that allows you to render any available specification formats.
 
 It supports:
+
 - Passing custom functions that use system plugins to customize content rendering.
 - Passing custom render engines to render specific types of documents.
 - Setting custom architecture.

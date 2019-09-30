@@ -20,14 +20,19 @@ The OData render engine is based on the [OData React](https://github.com/kyma-in
 
 ## Prerequisites
 
-- [`odata-react`](https://github.com/kyma-incubator/documentation-component/tree/master/packages/odata-react): ^0.2.0-alpha.2
-- [`styled-components`](https://github.com/styled-components/styled-components): >= 3.4.0
+- [`odata-react`](https://github.com/kyma-incubator/documentation-component/tree/master/packages/odata-react): ^0.3.0
 
 ### Styles
 
 To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/), install the npm package from [this](https://sap.github.io/fundamental/getting-started.html) Getting Started guide and import the styles as follows:
 
 ```js
-import "@kyma-project/dc-odata-render-engine/lib/styles.css";
+import "@kyma-project/odata-react/lib/styles.css";
 import "fiori-fundamentals/dist/fiori-fundamentals.min.css";
+```
+
+To use the default font `72` provided by SAP Fundamentals, import (after installation of [this](https://sap.github.io/fundamental/getting-started.html) package) the font as follows:
+
+```js
+import "fiori-fundamentals/dist/fonts.min.css";
 ```

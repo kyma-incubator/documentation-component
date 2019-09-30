@@ -18,10 +18,6 @@ The AsyncAPI render engine is based on the [AsyncAPI React](https://github.com/a
   yarn add @kyma-project/dc-async-api-render-engine
   ```
 
-## Prerequisites
-
-- [`styled-components`](https://github.com/styled-components/styled-components): >= 3.4.0
-
 ## Configuration
 
 | Name     | Required | Type                                                                                                                  | Default value                                                                                                           | Description                                                                                              |
@@ -30,3 +26,17 @@ The AsyncAPI render engine is based on the [AsyncAPI React](https://github.com/a
 | `theme`  | No       | `ThemeInterface`   | See the default values [here](https://github.com/asyncapi/asyncapi-react/tree/master/library/src/styles).  | Defines the theme of the [AsyncAPI React](https://github.com/asyncapi/asyncapi-react) component.         |
 
 > **NOTE**: To learn how to pass options of a render engine, read [this](../../docs/props/render-engines.md#pass-global-options) document.
+
+### Styles
+
+To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/), import them as follows:
+
+```js
+import "@kyma-project/asyncapi-react/lib/styles/fiori.css";
+```
+
+To use the default font `72` provided by SAP Fundamentals, install the npm package from [this](https://sap.github.io/fundamental/getting-started.html) Getting Started guide and import the font as follows:
+
+```js
+import "fiori-fundamentals/dist/fonts.min.css";
+```
