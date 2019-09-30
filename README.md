@@ -23,6 +23,14 @@ Run this command to install the component:
   yarn add @kyma-project/documentation-component
   ```
 
+## Quick start
+
+To quickly start playing with Documentation Component, use one of below sandboxes:
+
+[![Edit dc-with-all-render-engines](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/derberg/dc-demo-all-render-engines/tree/master/?fontsize=14) - All the render engines in action with navigation for multiple markdown files.
+
+[![Edit dc-with-nav-and-metadata-support](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/derberg/dc-demo-nav-with-metadata-support/tree/master/?fontsize=14) - Plugins in action shown on markdown render engine and support for rendering content from frontmatter and extending navigation with it.
+
 ## Usage
 
 Learn what the component consists of and see the exemplary code.
