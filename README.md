@@ -25,11 +25,11 @@ Run this command to install the component:
 
 ## Quick start
 
-To quickly start playing with Documentation Component, use one of below sandboxes:
+To quickly start playing with the Documentation component, use one of these sandboxes:
 
-[![Edit dc-with-all-render-engines](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/derberg/dc-demo-all-render-engines/tree/master/?fontsize=14) - All the render engines in action with navigation for multiple markdown files.
+[![Edit dc-with-all-render-engines](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/derberg/dc-demo-all-render-engines/tree/master/?fontsize=14) - All the render engines in action, with navigation for multiple Markdown files.
 
-[![Edit dc-with-nav-and-metadata-support](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/derberg/dc-demo-nav-with-metadata-support/tree/master/?fontsize=14) - Plugins in action shown on markdown render engine and support for rendering content from frontmatter and extending navigation with it.
+[![Edit dc-with-nav-and-metadata-support](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/derberg/dc-demo-nav-with-metadata-support/tree/master/?fontsize=14) - Plugins in action shown on the Markdown render engine. Support for rendering content from front matter and extending the UI navigation with it.
 
 ## Usage
 
