@@ -32,7 +32,7 @@ The OpenAPI render engine is based on the [Swagger UI](https://github.com/swagge
 To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/), import them as follows:
 
 ```js
-import "@kyma-project/dc-markdown-render-engine/lib/styles.css";
+import "@kyma-project/dc-open-api-render-engine/lib/styles.css";
 ```
 
 To use the default font `72` provided by SAP Fundamentals, install the npm package from [this](https://sap.github.io/fundamental/getting-started.html) Getting Started guide and import the font as follows:
