@@ -14,7 +14,6 @@ import {
   SingleRendererComponent,
   GroupRendererComponent,
 } from "./types";
-import uuidv1 from "uuid/v1";
 
 function renderGroupRenderer(
   sources: SourceGroupWithOptions,
@@ -36,7 +35,11 @@ function renderGroupRenderer(
       <>
         {renderedSources.map(s => {
           if (s.source.data) {
-            return s.source.data.renderedContent;
+            return (
+              <React.Fragment key={s.source.rawContent}>
+                {s.source.data.renderedContent}
+              </React.Fragment>
+            );
           }
           return null;
         })}
@@ -63,6 +66,7 @@ function renderSingleRenderer(
 ): React.ReactNode {
   const renderedContent =
     source.source.data && source.source.data.renderedContent;
+
   if (!renderedContent) {
     return null;
   }
@@ -91,7 +95,7 @@ function renderSingleRenderer(
       source={s}
       renderedContent={renderedContent}
       isGroup={Boolean(isGroup)}
-      key={uuidv1()}
+      key={source.source.rawContent}
     />
   );
 }
