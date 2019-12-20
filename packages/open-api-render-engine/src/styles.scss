@@ -220,7 +220,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       &:after {
         display: none;
       }
-      a {
+      & > a {
         font-family: "72", Arial, Helvetica, sans-serif;
         font-size: 14px;
 
@@ -300,8 +300,10 @@ $responsesSelect: "./assets/responsesSelect.png";
         }
       }
     }
-
-    td.col.parameters-col_description > div.markdown {
+    td.parameters-col_description {
+      padding-left: 14px;
+    }
+    td.parameters-col_description > div.markdown {
       font-family: "72", Arial, Helvetica, sans-serif;
       font-size: 14px;
 
@@ -311,7 +313,7 @@ $responsesSelect: "./assets/responsesSelect.png";
       margin-bottom: 15px;
     }
 
-    td.col.parameters-col_description div:not(.markdown) {
+    td.parameters-col_description div:not(.markdown) {
       @extend %modelTableInnerStyling;
     }
   }
@@ -326,7 +328,8 @@ $responsesSelect: "./assets/responsesSelect.png";
       border-top: none;
       background-color: #fafafa;
       width: 100%;
-      & > span {
+      & > span,
+      & {
         font-family: Courier;
         font-size: 14px;
         font-weight: normal;
@@ -367,8 +370,9 @@ $responsesSelect: "./assets/responsesSelect.png";
         }
         tbody {
           tr.response {
-            td.col {
-              padding-left: 16px;
+            td.col,
+            td.response-col_status {
+              padding: 30px;
             }
             td.col:first-child {
               font-family: "72", Arial, Helvetica, sans-serif;
@@ -575,6 +579,10 @@ div#swagger {
   @extend %paramTable;
   @extend %responsesTable;
   @extend %modelSectionStyles;
+
+  div.model-example {
+    @extend %modelTableInnerStyling;
+  }
 
   .models h4 {
     padding: 10px 20px;
