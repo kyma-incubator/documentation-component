@@ -370,9 +370,12 @@ $responsesSelect: "./assets/responsesSelect.png";
         }
         tbody {
           tr.response {
-            td.col,
+            & > td.col,
             td.response-col_status {
               padding: 30px;
+            }
+            & > td.response-col_links {
+              padding-left: 10px;
             }
             td.col:first-child {
               font-family: "72", Arial, Helvetica, sans-serif;
