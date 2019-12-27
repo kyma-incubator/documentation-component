@@ -18,7 +18,11 @@ export const RenderedContent: React.FunctionComponent<RenderedContentProps> = ({
     .filter(source => sourceTypes.includes(source.type))
     .map(source => {
       if (source.data) {
-        return source.data.renderedContent;
+        return (
+          <React.Fragment key={source.data.renderedContent}>
+            {source.data.renderedContent}
+          </React.Fragment>
+        );
       }
       return null;
     });
