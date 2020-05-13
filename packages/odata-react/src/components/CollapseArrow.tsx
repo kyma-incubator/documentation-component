@@ -26,7 +26,7 @@ export const CollapseArrow: React.FunctionComponent<IconProps> = ({
       <Icon
         size="l"
         glyph="feeder-arrow"
-        clickHandler={(e: any) => {
+        onClick={(e: any) => {
           e.stopPropagation();
           clickHandler();
         }}
