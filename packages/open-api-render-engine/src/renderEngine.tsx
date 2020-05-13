@@ -36,9 +36,10 @@ function prepareDataForCreate(schema: any, url: string): any {
   return serializedSchema;
 }
 
-export const OpenApiRenderEngine: React.FunctionComponent<
-  RenderEngineProps<OpenApiProps, any>
-> = ({ source, options = {} }) => {
+export const OpenApiRenderEngine: React.FunctionComponent<RenderEngineProps<
+  OpenApiProps,
+  any
+>> = ({ source, options = {} }) => {
   useEffect(() => {
     const create = async () => {
       await createSwagger(

@@ -20,9 +20,9 @@ function resolveHeadingPrefix(
   return hp;
 }
 
-export const MarkdownRenderEngine: React.FunctionComponent<
-  RenderEngineProps<MarkdownRenderEngineOptions>
-> = ({ source, options = {} }) => {
+export const MarkdownRenderEngine: React.FunctionComponent<RenderEngineProps<
+  MarkdownRenderEngineOptions
+>> = ({ source, options = {} }) => {
   const headingPrefix = resolveHeadingPrefix(source, options.headingPrefix);
 
   return (
