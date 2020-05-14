@@ -23,9 +23,7 @@ function parser({ parsers = [], ...others }: MarkdownRenderEngineOptions) {
   });
 }
 
-export const MarkdownComponent: React.FunctionComponent<
-  MarkdownRenderEngineOptions
-> = ({
+export const MarkdownComponent: React.FunctionComponent<MarkdownRenderEngineOptions> = ({
   source,
   escapeHtml = false,
   skipHtml = false,

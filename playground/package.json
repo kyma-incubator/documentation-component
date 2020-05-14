@@ -11,6 +11,9 @@
     "name": "Kyma Core & Supporting Team",
     "url": "http://kyma-project.io"
   },
+  "dependencies": {
+    "fundamental-react": "0.8.0-rc.12"
+  },
   "devDependencies": {
     "@types/react-dom": "16.9.0",
     "@types/react-tabs": "^2.3.1",

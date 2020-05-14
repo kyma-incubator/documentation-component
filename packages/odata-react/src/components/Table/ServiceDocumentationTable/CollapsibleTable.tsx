@@ -18,9 +18,9 @@ export interface CollapsibleTableProps {
   data: Node;
 }
 
-export const CollapsibleTable: React.FunctionComponent<
-  CollapsibleTableProps
-> = ({ data }) => {
+export const CollapsibleTable: React.FunctionComponent<CollapsibleTableProps> = ({
+  data,
+}) => {
   const [show, setShow] = useState<boolean[]>(
     Array(data.children.length).fill(false),
   );

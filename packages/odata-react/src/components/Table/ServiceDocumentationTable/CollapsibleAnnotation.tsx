@@ -18,9 +18,9 @@ export interface CollapsibleAnnotationProps {
   data: Node;
 }
 
-export const CollapsibleAnnotation: React.FunctionComponent<
-  CollapsibleAnnotationProps
-> = ({ data }) => {
+export const CollapsibleAnnotation: React.FunctionComponent<CollapsibleAnnotationProps> = ({
+  data,
+}) => {
   const [show, useShow] = useState<boolean>(false);
   const headers = data.children
     .map((child: Node) => child.name)

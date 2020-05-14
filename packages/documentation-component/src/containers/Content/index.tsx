@@ -1,6 +1,7 @@
 import React from "react";
 import { useDCContext } from "../../common";
 import { GroupProvider } from "./groupProvider";
+import { v4 as uuidV4 } from "uuid";
 
 import {
   Sources,
@@ -53,7 +54,7 @@ function renderGroupRenderer(
   const srcs = renderedSources.map(s => s.source);
 
   return (
-    <GroupProvider sources={srcs}>
+    <GroupProvider sources={srcs} key={uuidV4()}>
       <Component sources={srcs} />
     </GroupProvider>
   );

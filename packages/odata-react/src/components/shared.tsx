@@ -1,12 +1,11 @@
 import React from "react";
-import {
-  Panel as PanelComponent,
-  PanelHeader as PanelHeaderComponent,
-  PanelHead as PanelHeadComponent,
-  PanelActions as PanelActionsComponent,
-} from "fundamental-react";
+import { Panel as PanelComponent } from "fundamental-react";
 
 import { bemClasses } from "../helpers";
+
+const PanelHeaderComponent = PanelComponent.Header;
+const PanelHeadComponent = PanelComponent.Head;
+const PanelActionsComponent = PanelComponent.Actions;
 
 export const TableWrapper: React.FunctionComponent<any> = ({
   children,

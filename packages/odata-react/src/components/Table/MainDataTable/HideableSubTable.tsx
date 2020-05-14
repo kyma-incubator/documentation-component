@@ -15,9 +15,9 @@ export interface HideableSubTableProps {
   data: Node;
 }
 
-export const HideableSubTable: React.FunctionComponent<
-  HideableSubTableProps
-> = ({ data }) => {
+export const HideableSubTable: React.FunctionComponent<HideableSubTableProps> = ({
+  data,
+}) => {
   const filteredHeaders = data.children
     .flatMap((elem: any) => [
       ...Object.keys(elem.attributes),

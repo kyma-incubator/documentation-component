@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { PanelActions, PanelHead, Panel, PanelHeader } from "fundamental-react";
+import { Panel } from "fundamental-react";
 
 import { CollapsibleTable } from "./CollapsibleTable";
 import { CollapseArrow } from "../../CollapseArrow";
@@ -26,9 +26,9 @@ export interface ServiceDocumentationTableProps {
   data: Node[];
 }
 
-export const ServiceDocumentationTable: React.FunctionComponent<
-  ServiceDocumentationTableProps
-> = ({ data }) => {
+export const ServiceDocumentationTable: React.FunctionComponent<ServiceDocumentationTableProps> = ({
+  data,
+}) => {
   const [show, setShow] = useState<boolean>(false);
   const handleState = () => setShow(state => !state);
   const { expanded, setNumberOfExpanded } = useExpandedContext();
@@ -52,7 +52,7 @@ export const ServiceDocumentationTable: React.FunctionComponent<
   return (
     <TableWrapper>
       <Panel>
-        <PanelHeader
+        <Panel.Header
           onClick={() => {
             if (show) {
               setShowPart(Array(data.length).fill(false));
@@ -60,8 +60,8 @@ export const ServiceDocumentationTable: React.FunctionComponent<
             handleState();
           }}
         >
-          <PanelHead title={"Service Documentation / Annotations"} />
-          <PanelActions>
+          <Panel.Head title={"Service Documentation / Annotations"} />
+          <Panel.Actions>
             <CollapseArrow
               open={show}
               clickHandler={() => {
@@ -71,8 +71,8 @@ export const ServiceDocumentationTable: React.FunctionComponent<
                 handleState();
               }}
             />
-          </PanelActions>
-        </PanelHeader>
+          </Panel.Actions>
+        </Panel.Header>
         {show && (
           <Table>
             <TableHead>
