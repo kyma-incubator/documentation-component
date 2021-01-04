@@ -1,4 +1,4 @@
-import { ConfigInterface } from "@kyma-project/asyncapi-react";
+import { ConfigInterface } from "@asyncapi/react-component";
 
 interface AsyncApiProps {
   config?: ConfigInterface;
