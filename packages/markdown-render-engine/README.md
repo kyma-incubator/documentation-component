@@ -20,7 +20,7 @@ The Markdown render engine is based on the [React Markdown](https://github.com/r
 
 ## Configuration
 
-> **NOTE**: The Markdown render engine supports all options available in the [React Markdown](https://github.com/rexxars/react-markdown#options) component.
+> **NOTE**: The Markdown render engine supports all options available in the [React Markdown](https://github.com/remarkjs/react-markdown/blob/main/readme.md#props) component.
 
 | Name              | Required | Type                                                                                                                    | Default value | Description                                                                                                                                                                                                                                                                          |
 | ----------------- | -------- | ----------------------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

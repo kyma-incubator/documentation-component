@@ -1,6 +1,6 @@
 import React from "react";
 import { RenderEngineProps } from "@kyma-project/documentation-component";
-import AsyncApi from "@kyma-project/asyncapi-react";
+import AsyncApi from "@asyncapi/react-component";
 
 import { AsyncApiProps } from "./types";
 

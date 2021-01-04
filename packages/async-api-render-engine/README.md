@@ -32,7 +32,7 @@ The AsyncAPI render engine is based on the [AsyncAPI React](https://github.com/a
 To use default styles based on [SAP Fundamentals](https://sap.github.io/fundamental/), import them as follows:
 
 ```js
-import "@kyma-project/asyncapi-react/lib/styles/fiori.css";
+import "@asyncapi/react-component/lib/styles/fiori.css";
 ```
 
 To use the default font `72` provided by SAP Fundamentals, install the npm package from [this](https://sap.github.io/fundamental/getting-started.html) Getting Started guide and import the font as follows:
