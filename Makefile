@@ -3,6 +3,7 @@ ci-pr: resolve validate test
 .PHONY: resolve
 resolve:
 	npm run bootstrap
+	
 
 .PHONY: validate
 validate:
