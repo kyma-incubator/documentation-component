@@ -2,7 +2,7 @@
 
 ## Overview
 
-The OData render engine is based on the [OData React](https://github.com/kyma-incubator/documentation-component/tree/master/packages/odata-react) component.
+The OData render engine is based on the [OData React](https://github.com/kyma-incubator/documentation-component/tree/main/packages/odata-react) component.
 
 ## Installation
 
@@ -20,7 +20,7 @@ The OData render engine is based on the [OData React](https://github.com/kyma-in
 
 ## Prerequisites
 
-- [`odata-react`](https://github.com/kyma-incubator/documentation-component/tree/master/packages/odata-react): ^0.3.0
+- [`odata-react`](https://github.com/kyma-incubator/documentation-component/tree/main/packages/odata-react): ^0.3.0
 
 ### Styles
 

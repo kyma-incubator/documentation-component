@@ -6,13 +6,13 @@ The `plugins` property is optional and contains plugins for the component.
 
 A plugin is a pure JavaScript function. There are two types of plugins available:
 - `mutation`
-- `extractor` 
+- `extractor`
 
 Read the following subsections to learn about the plugins characteristics.
 
 ## Mutation plugin
 
-The purpose of the `mutation` plugin is to mutate the content of a specific type of document. 
+The purpose of the `mutation` plugin is to mutate the content of a specific type of document.
 
 ## Extractor plugin
 
@@ -20,15 +20,15 @@ The purpose of the `extractor` plugin is to extract additional data from the con
 
 ## Usage
 
-Read how to use the `plugins` property in the Documentation component. 
+Read how to use the `plugins` property in the Documentation component.
 
 ### Types
 
-For types of plugins, see [this](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/Plugin.ts) file.
+For types of plugins, see [this](https://github.com/kyma-incubator/documentation-component/blob/main/packages/documentation-component/src/interfaces/Plugin.ts) file.
 
 ### Pass global options
 
-The `plugins` property allows also you to define options for a single plugin. Instead of passing a single one, pass an object with the **plugin** field with the appropriate plugin as a value, and add the **options** field. 
+The `plugins` property allows also you to define options for a single plugin. Instead of passing a single one, pass an object with the **plugin** field with the appropriate plugin as a value, and add the **options** field.
 
 See this example:
 
@@ -47,7 +47,7 @@ const PLUGINS: Plugins = [
 
 ### Pass plugins to the component
 
-The `plugins` property is an array of plugins. To pass plugins to the component, define an array of plugins and pass it to the global provider of the Documentation component. 
+The `plugins` property is an array of plugins. To pass plugins to the component, define an array of plugins and pass it to the global provider of the Documentation component.
 
 See this example:
 
