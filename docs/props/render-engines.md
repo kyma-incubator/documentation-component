@@ -12,7 +12,7 @@ Read how to use the `renderEngines` property in the Documentation component.
 
 ### Types
 
-For types of render engines, see [this](https://github.com/kyma-incubator/documentation-component/blob/master/packages/documentation-component/src/interfaces/RenderEngine.ts) file.
+For types of render engines, see [this](https://github.com/kyma-incubator/documentation-component/blob/main/packages/documentation-component/src/interfaces/RenderEngine.ts) file.
 
 ### Pass global options
 

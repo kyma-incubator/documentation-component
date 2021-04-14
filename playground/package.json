@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/kyma-incubator/documentation-component/blob/master/playground"
+    "url": "https://github.com/kyma-incubator/documentation-component/blob/main/playground"
   },
   "author": {
     "name": "Kyma Core & Supporting Team",
