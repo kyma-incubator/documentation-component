@@ -26,7 +26,7 @@
     "render-engine"
   ],
   "dependencies": {
-    "@asyncapi/react-component": "^0.17.10"
+    "@asyncapi/react-component": "^0.24.15"
   },
   "peerDependencies": {
     "@kyma-project/documentation-component": "^0.3.0"
