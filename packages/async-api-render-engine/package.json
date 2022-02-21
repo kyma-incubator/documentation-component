@@ -1,7 +1,7 @@
 {
   "name": "@kyma-project/dc-async-api-render-engine",
   "description": "AsyncAPI render engine for @kyma-project/documentation-component",
-  "version": "0.3.6.1",
+  "version": "0.3.6-next",
   "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
