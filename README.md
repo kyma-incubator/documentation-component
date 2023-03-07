@@ -1,5 +1,9 @@
 # Documentation Component
 
+## :warning: **Archived**
+
+This project is discontinued and the repository has been deprecated and archived on Mar 7th, 2023.
+
 ## Overview
 
 The Documentation component is a generic, reusable React component that allows you to render any available specification formats.
